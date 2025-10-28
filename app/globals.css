@@ -3,18 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #f8fafc;
   --foreground: #1e293b;
+  --surface: #ffffff;
+  --accent: #eff6ff;
 }
 
 .dark {
   --background: #0f172a;
   --foreground: #f1f5f9;
+  --surface: #1e293b;
+  --accent: #1e3a8a;
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: linear-gradient(to bottom, var(--background) 0%, #e0f2fe 100%);
+  min-height: 100vh;
 }
 
 @layer utilities {
