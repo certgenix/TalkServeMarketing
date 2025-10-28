@@ -1,0 +1,425 @@
+🏠 HOME PAGE
+Hero
+
+Headline: Answer every call. Book more customers.
+Subheadline: TalkServe’s AI receptionist answers in under two seconds, books appointments or orders, and follows up—24/7.
+Primary CTA: Call the Live Demo
+Secondary CTA: Start Free Trial
+Trust line: Trusted by dental clinics, restaurants, and service businesses across North America.
+Quick proofs: 24/7 coverage • Works with your systems • Setup in 15 minutes
+
+The Cost of Missed Calls
+
+Every missed call is a customer you won’t get back.
+
+Lost revenue: Callers hang up and move on to your competitor.
+
+Overwhelmed staff: Front-desk and floor teams can’t do two things at once.
+
+After-hours gap: 70% of business calls happen when you’re busy or closed.
+
+TalkServe ends that loss—automatically.
+
+Meet TalkServe
+
+Your AI receptionist that never sleeps.
+
+✅ Answers instantly — no hold music or voicemail.
+✅ Books & takes orders — syncs with your calendar, booking app, or POS.
+✅ Handles FAQs — services, hours, prices, menus, directions.
+✅ Confirms & reminds — automated texts and emails cut no-shows.
+✅ Routes priority calls — urgent cases go directly to your team.
+✅ Works 24/7/365 — peak hours, weekends, holidays.
+
+CTA: Watch the 60-second demo
+
+Built for Businesses That Can’t Miss Calls
+Dental Clinics
+
+“Your receptionist that never takes a break.”
+• Schedule patients 24/7
+• Send reminders and confirmations
+• Route emergencies instantly
+• HIPAA-ready and PIPEDA-aligned
+[See Dental Playbook →]
+
+Restaurants & Food Service
+
+“AI that takes your orders—literally.”
+• Phone orders and reservations
+• POS integration for Square, Toast, and more
+• Handles rush-hour overflow
+• Upsells naturally
+[See Restaurant Playbook →]
+
+Service Businesses
+
+“Turn every call into a booked appointment.”
+• Capture and qualify leads 24/7
+• Book consultations and estimates
+• Send follow-ups and review requests
+• Integrates with Jobber, ServiceTitan, HubSpot
+[See Service Playbook →]
+
+How It Works
+
+Connect your line. Forward your business number to TalkServe.
+
+Train your agent. We customize its voice, menu, and knowledge base.
+
+Go live. Start taking real calls within one business day.
+
+CTA: Get Started Free
+
+Real Results
+
+Maple Dental (6 chairs)
+Before: 22 missed calls a week.
+After: 0 missed calls, +41% bookings.
+Stack: Open Dental + Google Calendar.
+
+Tony’s Pizzeria
+Before: Chaos during rush hour.
+After: +30% takeout orders, 95% accuracy.
+Stack: Toast POS.
+
+Green Clean Services
+Before: Lost leads after hours.
+After: +45% conversion, −60% no-shows.
+Stack: HubSpot + Google Calendar.
+
+Features at a Glance
+
+Natural-sounding voice tuned to your brand
+
+Smart routing and escalation
+
+Unlimited simultaneous calls
+
+Real-time analytics dashboard
+
+Multilingual support (English • French • Spanish • more)
+
+HIPAA-ready and Canadian data-residency options
+
+CTA: Hear a sample call
+
+Pricing
+Starter — $199 / month
+
+• Up to 200 calls (~400–600 min)
+• One number
+• Core integrations
+• Email support
+Best for: single-location salons, clinics, and cafés.
+
+Professional — $449 / month
+
+• Up to 1,000 calls (~2,000–3,000 min)
+• Three numbers
+• All integrations (CRM / POS / Booking)
+• Multi-staff scheduling
+• Custom voice training
+• Priority support & advanced analytics
+Most popular for growing practices and restaurants.
+
+Enterprise — Custom
+
+• Unlimited calls and numbers
+• Dedicated success manager
+• SLA (99.9% uptime)
+• API access & custom integrations
+• White-label branding
+• HIPAA BAA + Canadian data residency
+
+Overage: $0.25 per minute after plan limit.
+Guarantee: 30-day money-back • cancel anytime.
+
+Why Businesses Choose TalkServe
+
+Live human transfer anytime
+
+Handles noise and accents gracefully
+
+English & French ready for Canada
+
+Recording consent built in
+
+Works with your existing tools
+
+Final CTA
+
+Ready to stop missing calls?
+Call the demo • Start free trial • Book a 15-minute setup
+
+🦷 DENTAL CLINICS PAGE
+Hero
+
+Headline: A dental receptionist that never takes a break.
+Subheadline: TalkServe answers every patient call, books appointments, verifies insurance, and reduces no-shows—24 hours a day.
+CTA: Start Free Trial | Watch Demo
+
+The Challenge
+
+Missed appointment requests during lunch or after hours.
+
+Front desk juggling check-ins, insurance, and phones.
+
+10–30 % no-show rates draining revenue.
+
+Emergencies when the office is closed.
+
+The TalkServe Solution
+
+✅ 24/7 appointment scheduling and rescheduling
+✅ Automated SMS & email reminders (−60 % no-shows)
+✅ Insurance information collection & verification
+✅ New-patient intake with forms and preferences
+✅ Emergency call routing to on-call staff
+✅ HIPAA-ready with BAA (Enterprise)
+✅ Integrates with Dentrix, Eaglesoft, Open Dental, Curve Dental
+
+Common Call Flows
+
+New patient: “Do you take Blue Cross?” → checks insurance → books appointment.
+Reschedule: “Move my Thursday cleaning.” → offers times → updates calendar.
+Emergency: “My crown fell off.” → detects urgency → transfers to on-call dentist.
+FAQ: “Do you offer teeth whitening?” → answers instantly.
+
+ROI Example
+
+Enter your numbers:
+• New patient value $____
+• Missed calls per week ____
+• No-show rate ____ %
+Output: “You’re losing $_____ monthly. TalkServe can recover ~80 % of that.”
+
+Testimonial
+
+Dr. Michael Torres — Bright Smile Dental
+“Before TalkServe we missed 25 calls a week. Now zero. New patient bookings are up 45 %, and my staff finally has time for patients in the chair.”
+
+CTA
+
+Give your patients the service they deserve.
+Start Free Trial | Schedule a Demo
+
+🍕 RESTAURANTS & FOOD SERVICE PAGE
+Hero
+
+Headline: Never miss a takeout order or reservation again.
+Subheadline: TalkServe takes orders, books tables, and answers menu questions—even when your kitchen is packed.
+CTA: Try It Free | Hear a Demo
+
+Pain Points
+
+Phones ringing during rush hour = missed orders.
+
+Noisy kitchen = order errors and angry customers.
+
+Closed hours = lost reservations and pre-orders.
+
+The TalkServe Advantage
+
+✅ Takes complete phone orders with custom requests
+✅ Manages reservations and waitlists with confirmations
+✅ Integrates with Square, Toast, Clover, Lightspeed
+✅ Answers menu and allergen questions accurately
+✅ Suggests upsells like drinks and desserts
+✅ Handles rush hours with unlimited simultaneous calls
+✅ Multi-location dashboard for chains and franchises
+
+Example Calls
+
+Order: “I’d like a large pepperoni with extra cheese.” → confirms → suggests combo → gives pickup time.
+Reservation: “Table for 4 tomorrow at 7?” → checks availability → books → texts confirmation.
+Menu info: “Does your pasta have nuts?” → reads allergen note from menu database.
+Catering: “Need food for 30 people.” → collects details → alerts manager.
+
+Measurable Impact
+
++28 % average takeout increase
+
+8–12 hours/week saved for staff
+
+95 % order accuracy
+
++$2 000–$5 000 monthly revenue gain
+
+Testimonial
+
+Frank Benedetto — Tony’s Pizzeria
+“Friday nights used to be chaos. Now TalkServe handles every call and order perfectly. Sales up 30 % without extra staff.”
+
+CTA
+
+Focus on food. Let AI handle the phone.
+Start Free Trial | See It in Action
+
+💼 SERVICE BUSINESSES PAGE
+Hero
+
+Headline: Turn every call into a booked appointment.
+Subheadline: TalkServe captures every lead and schedules every job—so you never lose business to a missed call again.
+CTA: Get Started Free | Watch How It Works
+
+Perfect For
+
+Salons • Spas • HVAC • Plumbing • Auto Repair • Cleaning • Law Firms • Medical Clinics • Fitness Studios • Pet Grooming • Home Services
+
+The Challenge
+
+Leads lost when no one answers.
+
+After-hours inquiries unattended.
+
+Double bookings and no-shows.
+
+Repetitive questions draining time.
+
+The TalkServe Solution
+
+✅ Books appointments from live calendars
+✅ Captures and qualifies leads (24/7)
+✅ Answers service and pricing questions
+✅ Collects estimate and project details
+✅ Routes calls by service or staff availability
+✅ Automates follow-ups and review requests
+✅ Integrates with HubSpot, Salesforce, Jobber, ServiceTitan
+
+Real-World Calls
+
+HVAC emergency: “AC stopped working.” → books urgent visit → texts arrival time.
+Salon: “Need a cut and colour.” → shows stylist slots → books appointment.
+Legal: “Contract dispute.” → qualifies lead → schedules consultation.
+Plumbing: “Leak under sink.” → asks diagnostic questions → sets estimate.
+
+Results Snapshot
+
+Before: 30–40 % calls missed, 10 hours/week lost, 20 % no-shows.
+After: 100 % answer rate, +45 % lead conversion, no-shows cut to 5 – 8 %.
+
+Testimonial
+
+Maria Rodriguez — Green Clean Services
+“TalkServe books jobs while I’m cleaning. It handles pricing questions and rescheduling. My business has grown 50 % in six months.”
+
+CTA
+
+Stop losing business to missed calls.
+Start Free Trial | Schedule a Demo
+
+⚙️ FEATURES PAGE
+
+Headline: Powerful AI. Simple to use. Built for business.**
+
+Voice & Conversation
+
+Human-like speech with custom voices
+
+Context-aware conversations and interruptions
+
+Multilingual support (EN/FR/ES + 20 others)
+
+Call Management
+
+<2 s answer time & instant routing
+
+Unlimited simultaneous calls
+
+Call recording & transcription with regional consent
+
+Separate business / after-hours rules
+
+Scheduling & Booking
+
+Real-time calendar sync
+
+Appointment and waitlist management
+
+Multi-staff and multi-location support
+
+Customer Communication
+
+SMS / email confirmations & reminders
+
+Two-way messaging for changes
+
+Post-appointment follow-ups and review requests
+
+Integrations
+
+Dentrix • Eaglesoft • Open Dental • Toast • Square • Clover • Lightspeed • HubSpot • Salesforce • Zoho • Jobber • ServiceTitan • Slack • Microsoft Teams • REST API for custom flows
+
+Analytics & Reporting
+
+Real-time dashboard for calls, bookings, revenue
+
+Customer insights and common questions
+
+Exportable reports and custom KPIs
+
+Security & Compliance
+
+256-bit encryption and audit logging
+
+Role-based access and SSO (Enterprise)
+
+HIPAA-ready with BAA (US)
+
+PIPEDA/PHIPA-aligned (Canada)
+
+Configurable data retention & regional storage
+
+Built-in call-recording disclosure
+
+💰 PRICING PAGE (condensed)
+
+Transparent pricing. Serious ROI.
+
+Starter – $199/mo
+200 calls (~400–600 min) • 1 number • Core integrations • Email support
+
+Professional – $449/mo
+1 000 calls (~2 000–3 000 min) • 3 numbers • All integrations • Priority support • Custom voice • Analytics
+
+Enterprise – Custom
+Unlimited calls • Dedicated manager • White-label • API • SLA • HIPAA BAA • Canadian data residency
+
+Overage: $0.25 per minute after limit
+Guarantee: 30-day money-back • Cancel anytime
+
+Typical ROI: $3 000 – $5 000 recovered monthly from missed calls.
+
+🛡️ SECURITY & COMPLIANCE PAGE
+
+(Use the version already provided earlier — include in navigation under “Company → Security.”)
+
+📞 CONTACT PAGE
+
+Sales
+sales@talkserve.ai
+ | 1-800-TALK-NOW
+[Schedule a Demo →]
+
+Support
+support@talkserve.ai
+ | help.talkserve.ai
+
+Partnerships
+partners@talkserve.ai
+
+General Enquiries
+hello@talkserve.ai
+
+FOOTER
+
+TalkServe AI — Your AI receptionist that never sleeps.
+
+Product: Features • Pricing • Integrations • How It Works
+Industries: Dental • Restaurants • Service Businesses
+Company: About • Careers • Blog • Press • Contact
+Resources: Help Center • API Docs • Status • Security • Privacy Policy • Terms
+
+LinkedIn | Twitter | Facebook | Instagram
+© 2025 TalkServe AI — All rights reserved.
