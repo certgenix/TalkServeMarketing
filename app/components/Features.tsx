@@ -43,8 +43,8 @@ export default function Features() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <AnimatedSection key={feature.title} delay={index * 0.1}>
-                <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+              <AnimatedSection key={feature.title} delay={index * 0.1} className="h-full">
+                <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 h-full flex flex-col">
                   <Icon className="h-10 w-10 text-primary mb-4" />
                   <p className="text-lg text-slate-700 dark:text-slate-300">
                     {feature.title}
