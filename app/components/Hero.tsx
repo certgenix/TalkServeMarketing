@@ -10,8 +10,8 @@ export default function Hero() {
       title="Answer every call."
       highlightedText="Book more customers."
       description="TalkServe's AI receptionist answers in under two seconds, books appointments or orders, and follows up—24/7. Trusted by dental clinics, restaurants, and service businesses across North America."
-      imagePath="/images/heroes/AI_receptionist_office_setting_7904d977.png"
-      imageAlt="Professional AI receptionist office setting"
+      imagePath="/images/heroes/Modern_AI_reception_workspace_d599f705.png"
+      imageAlt="Modern AI-powered reception workspace"
     >
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <Button href="/contact" size="lg" className="gap-2">
