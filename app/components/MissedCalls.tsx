@@ -47,7 +47,7 @@ export default function MissedCalls() {
 
         <AnimatedSection delay={0.3}>
           <div className="text-center">
-            <p className="text-2xl font-semibold text-primary">
+            <p className="text-2xl font-semibold text-slate-900 dark:text-white">
               TalkServe ends that loss—automatically.
             </p>
           </div>
