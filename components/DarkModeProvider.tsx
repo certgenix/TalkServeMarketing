@@ -20,15 +20,36 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
     const stored = localStorage.getItem('theme') as Theme;
     const initialTheme = stored || 'light';
     setTheme(initialTheme);
-    document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+    
+    const root = document.documentElement;
+    root.style.setProperty('color-scheme', initialTheme);
+    
+    if (initialTheme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
+    const root = document.documentElement;
+    
+    root.style.setProperty('color-scheme', newTheme);
+    
+    if (newTheme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
