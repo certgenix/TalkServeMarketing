@@ -13,14 +13,10 @@ export default function Hero() {
       imagePath="/images/heroes/Modern_AI_reception_workspace_d599f705.png"
       imageAlt="Modern AI-powered reception workspace"
     >
-      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+      <div className="mb-8">
         <Button href="/contact" size="lg" className="gap-2">
           <HiPhone className="h-5 w-5" />
-          Call the Live Demo
-        </Button>
-        <Button href="/contact" variant="outline" size="lg" className="gap-2">
-          <HiPlay className="h-5 w-5" />
-          Start Free Trial
+          Talk to us
         </Button>
       </div>
 
