@@ -56,8 +56,9 @@ export default function Features() {
         </div>
 
         <AnimatedSection delay={0.6} className="text-center">
-          <Button href="/features" variant="outline" size="lg">
-            Hear a sample call
+          <Button href="/contact" variant="primary" size="lg" className="gap-2">
+            <HiPhone className="h-5 w-5" />
+            Talk to Us
           </Button>
         </AnimatedSection>
       </div>

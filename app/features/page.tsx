@@ -117,8 +117,8 @@ export default function FeaturesPage() {
             {featureCategories.map((category, categoryIndex) => {
               const Icon = category.icon;
               return (
-                <AnimatedSection key={category.title} delay={categoryIndex * 0.1}>
-                  <div className="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+                <AnimatedSection key={category.title} delay={categoryIndex * 0.1} className="h-full">
+                  <div className="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 h-full">
                     <div className="flex items-center gap-4 mb-6">
                       <div className="p-3 rounded-xl bg-primary/10 dark:bg-primary/20">
                         <Icon className="h-8 w-8 text-primary" />
@@ -155,18 +155,13 @@ export default function FeaturesPage() {
             <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
               See how our AI receptionist can transform your business communications.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30"
               >
-                Start Free Trial
-              </a>
-              <a
-                href="/pricing"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
-              >
-                View Pricing
+                <HiPhone className="h-5 w-5" />
+                Talk to Us
               </a>
             </div>
           </AnimatedSection>
