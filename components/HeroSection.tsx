@@ -72,22 +72,14 @@ export default function HeroSection({
             
             <motion.h1
               variants={itemVariants}
-              className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight text-slate-900 dark:text-white mb-4 leading-[1.1]"
             >
-              {title}
-              {highlightedText && (
-                <>
-                  {' '}
-                  <span className="text-primary bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-                    {highlightedText}
-                  </span>
-                </>
-              )}
+              {title}{highlightedText && <> <span className="text-primary">{highlightedText}</span></>}
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed"
+              className="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-8 leading-normal"
             >
               {description}
             </motion.p>
