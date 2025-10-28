@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { FaLinkedin, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 
 const footerSections = [
   {
@@ -22,32 +21,12 @@ const footerSections = [
   {
     title: 'Company',
     links: [
-      { name: 'About', href: '/about' },
-      { name: 'Careers', href: '/careers' },
-      { name: 'Blog', href: '/blog' },
-      { name: 'Press', href: '/press' },
       { name: 'Contact', href: '/contact' },
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      { name: 'Help Center', href: '/help' },
-      { name: 'API Docs', href: '/api-docs' },
-      { name: 'Status', href: '/status' },
       { name: 'Security', href: '/security' },
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms', href: '/terms' },
     ],
   },
 ];
 
-const socialLinks = [
-  { name: 'LinkedIn', icon: FaLinkedin, href: 'https://linkedin.com' },
-  { name: 'Twitter', icon: FaTwitter, href: 'https://twitter.com' },
-  { name: 'Facebook', icon: FaFacebook, href: 'https://facebook.com' },
-  { name: 'Instagram', icon: FaInstagram, href: 'https://instagram.com' },
-];
 
 export default function Footer() {
   return (
@@ -76,7 +55,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-slate-200 dark:border-slate-800">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <p className="text-xl font-display font-bold text-primary">
                 TalkServe AI
@@ -86,29 +65,11 @@ export default function Footer() {
               </p>
             </div>
 
-            <div className="flex gap-4">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"
-                    aria-label={social.name}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </a>
-                );
-              })}
+            <div className="text-center md:text-left">
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                © 2025 TalkServe AI — All rights reserved.
+              </p>
             </div>
-          </div>
-
-          <div className="mt-8 text-center md:text-left">
-            <p className="text-sm text-slate-600 dark:text-slate-400">
-              © 2025 TalkServe AI — All rights reserved.
-            </p>
           </div>
         </div>
       </div>

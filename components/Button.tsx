@@ -1,11 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 interface ButtonProps {
   href?: string;
   onClick?: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
