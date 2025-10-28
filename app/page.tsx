@@ -6,7 +6,6 @@ import IndustryCards from './components/IndustryCards';
 import HowItWorks from './components/HowItWorks';
 import Results from './components/Results';
 import Features from './components/Features';
-import PricingPreview from './components/PricingPreview';
 import WhyChoose from './components/WhyChoose';
 import FinalCTA from './components/FinalCTA';
 
@@ -25,7 +24,6 @@ export default function Home() {
       <HowItWorks />
       <Results />
       <Features />
-      <PricingPreview />
       <WhyChoose />
       <FinalCTA />
     </>
