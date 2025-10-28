@@ -143,7 +143,7 @@ export default function Header() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2">
+          <div className="md:hidden py-4 space-y-2 bg-white dark:bg-slate-900 shadow-lg rounded-lg mt-2 border border-slate-200 dark:border-slate-700">
             {navigation.map((item) => (
               item.items ? (
                 <div key={item.name}>
