@@ -29,10 +29,6 @@ export default function Hero() {
           <div className="h-2 w-2 rounded-full bg-green-500" />
           Works with your systems
         </div>
-        <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-green-500" />
-          Setup in 15 minutes
-        </div>
       </div>
     </HeroSection>
   );
