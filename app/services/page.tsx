@@ -52,8 +52,8 @@ export default function ServicesPage() {
         title="Turn every call into a"
         highlightedText="booked appointment."
         description="TalkServe captures every lead and schedules every job—so you never lose business to a missed call again."
-        imagePath="/images/heroes/Service_business_office_workspace_0d982b2a.png"
-        imageAlt="Service business office workspace"
+        imagePath="/images/heroes/Professional_appointment_booking_workspace_5c74e7f3.png"
+        imageAlt="Professional appointment booking workspace"
       >
         <div className="flex flex-col sm:flex-row gap-4">
           <Button href="/contact" size="lg">
