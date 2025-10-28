@@ -24,7 +24,7 @@ export default function FinalCTA() {
             Join hundreds of businesses that never miss a customer.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Button
               href="/contact"
               variant="secondary"
@@ -32,22 +32,9 @@ export default function FinalCTA() {
               className="gap-2 bg-white text-primary hover:bg-blue-50"
             >
               <HiPhone className="h-5 w-5" />
-              Call the demo
-            </Button>
-            <Button
-              href="/contact"
-              variant="outline"
-              size="lg"
-              className="gap-2 border-white text-white hover:bg-white hover:text-primary"
-            >
-              <HiPlay className="h-5 w-5" />
-              Start free trial
+              Talk to Us
             </Button>
           </div>
-          
-          <p className="text-blue-200 text-sm mt-8">
-            Book a 15-minute setup • No credit card required
-          </p>
         </motion.div>
       </div>
     </section>
