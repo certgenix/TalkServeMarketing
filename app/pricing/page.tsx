@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
+import HeroSection from '@/components/HeroSection';
 import TestimonialCarousel, { Testimonial } from '@/components/TestimonialCarousel';
 import { HiCheckCircle } from 'react-icons/hi';
 
@@ -83,22 +84,13 @@ const testimonials: Testimonial[] = [
 export default function PricingPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20 pb-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6">
-              Transparent pricing.{' '}
-              <span className="text-primary">Serious ROI.</span>
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-4">
-              Choose the plan that fits your business. Scale as you grow.
-            </p>
-            <p className="text-lg text-slate-500 dark:text-slate-400">
-              Typical ROI: $3,000–$5,000 recovered monthly from missed calls.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <HeroSection
+        title="Transparent pricing."
+        highlightedText="Serious ROI."
+        description="Choose the plan that fits your business. Scale as you grow. Typical ROI: $3,000–$5,000 recovered monthly from missed calls."
+        imagePath="/images/heroes/Business_growth_and_ROI_14e4879e.png"
+        imageAlt="Business growth and ROI"
+      />
 
       <section className="py-20 bg-white dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

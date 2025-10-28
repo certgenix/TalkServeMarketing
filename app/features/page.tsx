@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
+import HeroSection from '@/components/HeroSection';
 import {
   HiMicrophone,
   HiLightningBolt,
@@ -102,20 +103,13 @@ const featureCategories = [
 export default function FeaturesPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20 pb-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6">
-              Powerful AI.{' '}
-              <span className="text-primary">Simple to use.</span>{' '}
-              Built for business.
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
-              Everything you need to handle calls professionally, automatically, and 24/7.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <HeroSection
+        title="Powerful AI. Built for business."
+        highlightedText="Simple to use."
+        description="Everything you need to handle calls professionally, automatically, and 24/7."
+        imagePath="/images/heroes/AI_technology_features_visualization_10b037d0.png"
+        imageAlt="AI technology features"
+      />
 
       <section id="integrations" className="py-20 bg-white dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
+import HeroSection from '@/components/HeroSection';
 import { HiCheckCircle, HiX } from 'react-icons/hi';
 
 export const metadata: Metadata = {
@@ -47,28 +48,22 @@ const realWorldCalls = [
 export default function ServicesPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-green-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20 pb-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6">
-              Turn every call into a{' '}
-              <span className="text-primary">booked appointment.</span>
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
-              TalkServe captures every lead and schedules every job—so you never lose business
-              to a missed call again.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact" size="lg">
-                Get Started Free
-              </Button>
-              <Button href="/features" variant="outline" size="lg">
-                Watch How It Works
-              </Button>
-            </div>
-          </AnimatedSection>
+      <HeroSection
+        title="Turn every call into a"
+        highlightedText="booked appointment."
+        description="TalkServe captures every lead and schedules every job—so you never lose business to a missed call again."
+        imagePath="/images/heroes/Service_business_office_workspace_0d982b2a.png"
+        imageAlt="Service business office workspace"
+      >
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button href="/contact" size="lg">
+            Get Started Free
+          </Button>
+          <Button href="/features" variant="outline" size="lg">
+            Watch How It Works
+          </Button>
         </div>
-      </section>
+      </HeroSection>
 
       <section className="py-20 bg-white dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

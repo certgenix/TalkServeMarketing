@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
+import HeroSection from '@/components/HeroSection';
 import { HiShieldCheck, HiLockClosed, HiServer, HiDocumentText, HiKey, HiGlobe } from 'react-icons/hi';
 
 export const metadata: Metadata = {
@@ -73,22 +74,18 @@ const securityFeatures = [
 export default function SecurityPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20 pb-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 dark:bg-primary/20 mb-6">
-              <HiShieldCheck className="h-12 w-12 text-primary" />
-            </div>
-            <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6">
-              Enterprise-grade{' '}
-              <span className="text-primary">security & compliance</span>
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300">
-              Your data is protected with industry-leading security standards and comprehensive compliance certifications.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <HeroSection
+        title="Enterprise-grade"
+        highlightedText="security & compliance"
+        description="Your data is protected with industry-leading security standards and comprehensive compliance certifications."
+        imagePath="/images/heroes/Enterprise_security_and_compliance_3a6037bc.png"
+        imageAlt="Enterprise security and compliance"
+        badge={
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20">
+            <HiShieldCheck className="h-10 w-10 text-primary" />
+          </div>
+        }
+      />
 
       <section className="py-20 bg-white dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

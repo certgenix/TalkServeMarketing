@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
+import HeroSection from '@/components/HeroSection';
 import ContactForm from './ContactForm';
 import { HiMail, HiPhone, HiUserGroup, HiGlobe } from 'react-icons/hi';
 
@@ -48,19 +49,13 @@ const contactMethods = [
 export default function ContactPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20 pb-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6">
-              Let&apos;s{' '}
-              <span className="text-primary">get in touch</span>
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300">
-              Have questions? Want to see a demo? We&apos;re here to help.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <HeroSection
+        title="Let's"
+        highlightedText="get in touch"
+        description="Have questions? Want to see a demo? We're here to help."
+        imagePath="/images/heroes/Customer_service_communication_3a46d4c0.png"
+        imageAlt="Customer service communication"
+      />
 
       <section className="py-20 bg-white dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

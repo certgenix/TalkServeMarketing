@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
+import HeroSection from '@/components/HeroSection';
 import { HiCheckCircle, HiX } from 'react-icons/hi';
 
 export const metadata: Metadata = {
@@ -47,28 +48,22 @@ const callFlows = [
 export default function DentalPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20 pb-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6">
-              A dental receptionist that{' '}
-              <span className="text-primary">never takes a break.</span>
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
-              TalkServe answers every patient call, books appointments, verifies insurance,
-              and reduces no-shows—24 hours a day.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact" size="lg">
-                Start Free Trial
-              </Button>
-              <Button href="/features" variant="outline" size="lg">
-                Watch Demo
-              </Button>
-            </div>
-          </AnimatedSection>
+      <HeroSection
+        title="A dental receptionist that"
+        highlightedText="never takes a break."
+        description="TalkServe answers every patient call, books appointments, verifies insurance, and reduces no-shows—24 hours a day."
+        imagePath="/images/heroes/Dental_clinic_reception_area_e682dcd1.png"
+        imageAlt="Modern dental clinic reception area"
+      >
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button href="/contact" size="lg">
+            Start Free Trial
+          </Button>
+          <Button href="/features" variant="outline" size="lg">
+            Watch Demo
+          </Button>
         </div>
-      </section>
+      </HeroSection>
 
       <section className="py-20 bg-white dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

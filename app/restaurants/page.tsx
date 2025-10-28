@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
+import HeroSection from '@/components/HeroSection';
 import { HiCheckCircle, HiX } from 'react-icons/hi';
 
 export const metadata: Metadata = {
@@ -53,29 +54,22 @@ const impacts = [
 export default function RestaurantsPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-orange-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20 pb-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6">
-              Never miss a{' '}
-              <span className="text-primary">takeout order or reservation</span>{' '}
-              again.
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
-              TalkServe takes orders, books tables, and answers menu questions—even when your
-              kitchen is packed.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact" size="lg">
-                Try It Free
-              </Button>
-              <Button href="/features" variant="outline" size="lg">
-                Hear a Demo
-              </Button>
-            </div>
-          </AnimatedSection>
+      <HeroSection
+        title="Never miss a"
+        highlightedText="takeout order or reservation again."
+        description="TalkServe takes orders, books tables, and answers menu questions—even when your kitchen is packed."
+        imagePath="/images/heroes/Upscale_restaurant_interior_scene_7dcdb2a4.png"
+        imageAlt="Upscale restaurant interior"
+      >
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button href="/contact" size="lg">
+            Try It Free
+          </Button>
+          <Button href="/features" variant="outline" size="lg">
+            Hear a Demo
+          </Button>
         </div>
-      </section>
+      </HeroSection>
 
       <section className="py-20 bg-white dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
