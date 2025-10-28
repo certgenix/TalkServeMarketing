@@ -1,6 +1,6 @@
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
-import { HiCheckCircle } from 'react-icons/hi';
+import { HiCheckCircle, HiPhone } from 'react-icons/hi';
 
 const features = [
   'Answers instantly — no hold music or voicemail.',
@@ -36,8 +36,9 @@ export default function MeetTalkServe() {
         </div>
 
         <AnimatedSection delay={0.6} className="text-center">
-          <Button href="/features" variant="primary" size="lg">
-            Watch the 60-second demo
+          <Button href="/contact" variant="primary" size="lg" className="gap-2">
+            <HiPhone className="h-5 w-5" />
+            Talk to Us
           </Button>
         </AnimatedSection>
       </div>
