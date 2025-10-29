@@ -91,89 +91,14 @@ export default function PricingPage() {
         description="Choose the plan that fits your business. Scale as you grow. Typical ROI: $3,000–$5,000 recovered monthly from missed calls."
         imagePath="/images/heroes/Business_growth_and_ROI_14e4879e.png"
         imageAlt="Business growth and ROI"
-      />
-
-      <section className="py-20 bg-white dark:bg-slate-800">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {plans.map((plan, index) => (
-              <AnimatedSection key={plan.name} delay={index * 0.15}>
-                <div
-                  className={`rounded-2xl p-8 border-2 h-full flex flex-col ${
-                    plan.popular
-                      ? 'border-primary bg-blue-50 dark:bg-blue-900/10 shadow-xl scale-105'
-                      : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900'
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="text-center mb-4">
-                      <span className="inline-block px-3 py-1 text-sm font-semibold text-primary bg-blue-100 dark:bg-blue-900/30 rounded-full">
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
-
-                  <h3 className="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2">
-                    {plan.name}
-                  </h3>
-
-                  <div className="mb-4">
-                    <span className="text-5xl font-bold text-slate-900 dark:text-white">
-                      {plan.price}
-                    </span>
-                    {plan.period && (
-                      <span className="text-slate-600 dark:text-slate-400 text-lg">
-                        {plan.period}
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-slate-600 dark:text-slate-300 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
-                    {plan.description}
-                  </p>
-
-                  <ul className="space-y-4 mb-8 flex-grow">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <HiCheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-700 dark:text-slate-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 italic">
-                    {plan.bestFor}
-                  </p>
-
-                  <a
-                    href="/contact"
-                    className={`block text-center px-6 py-3 rounded-lg font-semibold transition-all ${
-                      plan.popular
-                        ? 'bg-primary text-white hover:bg-blue-700 shadow-lg shadow-blue-500/30'
-                        : 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600'
-                    }`}
-                  >
-                    {plan.price === 'Custom' ? 'Contact Sales' : 'Start Free Trial'}
-                  </a>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection delay={0.5}>
-            <div className="text-center space-y-3 max-w-3xl mx-auto">
-              <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-                <p className="text-slate-700 dark:text-slate-300 mb-2">
-                  <strong>Overage:</strong> $0.25 per minute after plan limit
-                </p>
-                <p className="text-slate-700 dark:text-slate-300">
-                  <strong>Guarantee:</strong> 30-day money-back • Cancel anytime
-                </p>
-              </div>
-            </div>
-          </AnimatedSection>
+      >
+        <div className="mb-8">
+          <Button href="/contact" size="lg" className="gap-2">
+            <HiPhone className="h-5 w-5" />
+            Talk to Us
+          </Button>
         </div>
-      </section>
+      </HeroSection>
 
       <section className="py-20 bg-slate-50 dark:bg-slate-900">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
