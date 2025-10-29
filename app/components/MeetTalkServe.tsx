@@ -26,8 +26,8 @@ export default function MeetTalkServe() {
 
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {features.map((feature, index) => (
-            <AnimatedSection key={feature} delay={index * 0.1}>
-              <div className="flex items-start gap-4 bg-white dark:bg-slate-800 rounded-xl p-6">
+            <AnimatedSection key={feature} delay={index * 0.1} className="h-full">
+              <div className="flex items-start gap-4 bg-white dark:bg-slate-800 rounded-xl p-6 h-full">
                 <HiCheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 mt-1" />
                 <p className="text-lg text-slate-700 dark:text-slate-300">{feature}</p>
               </div>
