@@ -1,25 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
 import { HiPhone, HiPlay } from 'react-icons/hi';
 
 export default function Hero() {
-  const [highlightedWord, setHighlightedWord] = useState('Customer');
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHighlightedWord((prev) => (prev === 'Customer' ? 'Call' : 'Customer'));
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <HeroSection
       title="Never Miss Another"
-      highlightedText={`${highlightedWord} Again`}
+      highlightedText="Customer Again"
       description="TalkServe's AI receptionist answers in under two seconds, books appointments or orders, and follows up—24/7. Trusted by dental clinics, restaurants, and service businesses across North America."
       imagePath="/images/heroes/Modern_AI_reception_workspace_d599f705.png"
       imageAlt="Modern AI-powered reception workspace"

@@ -78,7 +78,7 @@ export default function HeroSection({
               {highlightedText && (
                 <>
                   {' '}
-                  <span className="text-primary bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent whitespace-nowrap">
+                  <span className="text-primary bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
                     {highlightedText}
                   </span>
                 </>
