@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
 import HeroSection from '@/components/HeroSection';
 import TestimonialCarousel, { Testimonial } from '@/components/TestimonialCarousel';
-import { HiCheckCircle } from 'react-icons/hi';
+import Button from '@/components/Button';
+import { HiCheckCircle, HiPhone } from 'react-icons/hi';
 
 export const metadata: Metadata = {
   title: 'Pricing - Affordable AI Receptionist Plans | TalkServe',
@@ -197,19 +198,16 @@ export default function PricingPage() {
             <p className="text-xl text-blue-100 mb-8">
               Join hundreds of businesses that never miss a call.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+            <div className="flex justify-center">
+              <Button
                 href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium bg-white text-primary rounded-lg hover:bg-blue-50 transition-colors"
+                variant="secondary"
+                size="lg"
+                className="gap-2 bg-white text-primary hover:bg-blue-50"
               >
-                Start Free Trial
-              </a>
-              <a
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium border-2 border-white text-white rounded-lg hover:bg-white hover:text-primary transition-colors"
-              >
-                Contact Sales
-              </a>
+                <HiPhone className="h-5 w-5" />
+                Talk to Us
+              </Button>
             </div>
           </AnimatedSection>
         </div>
