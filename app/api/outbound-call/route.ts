@@ -26,6 +26,8 @@ export async function POST(request: NextRequest) {
       formattedPhone = '+' + formattedPhone;
     }
 
+    console.log('Initiating call to:', formattedPhone);
+    
     const response = await fetch(
       'https://runtime-api.voiceflow.com/v1alpha1/phone-number/6902ebd8bcc0c2e54603a7f6/outbound',
       {
@@ -45,16 +47,27 @@ export async function POST(request: NextRequest) {
       }
     );
 
+    console.log('VoiceFlow API response status:', response.status);
+    
+    const responseText = await response.text();
+    console.log('VoiceFlow API response:', responseText);
+
     if (!response.ok) {
-      const errorData = await response.text();
-      console.error('VoiceFlow API error:', errorData);
+      console.error('VoiceFlow API error:', responseText);
       return NextResponse.json(
         { success: false, error: 'Failed to initiate call' },
         { status: response.status }
       );
     }
 
-    const data = await response.json();
+    let data = {};
+    if (responseText) {
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.warn('Response is not valid JSON:', responseText);
+      }
+    }
     
     return NextResponse.json({ 
       success: true, 
