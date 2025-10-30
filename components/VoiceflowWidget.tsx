@@ -7,6 +7,9 @@ import VoiceAgentDialog, { ContactFormData } from './VoiceAgentDialog';
 export default function VoiceflowWidget() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isVoiceflowReady, setIsVoiceflowReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -54,25 +57,42 @@ export default function VoiceflowWidget() {
     };
   }, []);
 
-  const handleStartCall = (contactData: ContactFormData) => {
-    console.log('Starting voice call with contact data:', contactData);
+  const handleStartCall = async (contactData: ContactFormData) => {
+    setIsLoading(true);
+    setError(null);
+    setSuccess(false);
     
-    if (window.voiceflow?.chat) {
-      window.voiceflow.chat.interact({
-        type: 'launch',
-        payload: {
+    try {
+      const response = await fetch('/api/outbound-call', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNumber: contactData.phone,
           firstName: contactData.firstName,
           lastName: contactData.lastName,
           email: contactData.email,
-          phone: contactData.phone,
-        }
+        }),
       });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to initiate call');
+      }
+
+      setSuccess(true);
       
-      window.voiceflow.chat.show();
-      window.voiceflow.chat.open();
+      setTimeout(() => {
+        setIsDialogOpen(false);
+        setSuccess(false);
+      }, 3000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to initiate call. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsDialogOpen(false);
   };
 
   return (
@@ -96,8 +116,15 @@ export default function VoiceflowWidget() {
 
       <VoiceAgentDialog
         isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
+        onClose={() => {
+          setIsDialogOpen(false);
+          setError(null);
+          setSuccess(false);
+        }}
         onStartCall={handleStartCall}
+        isLoading={isLoading}
+        error={error}
+        success={success}
       />
     </>
   );
