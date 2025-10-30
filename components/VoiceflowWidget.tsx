@@ -1,8 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { HiPhone } from 'react-icons/hi';
+import VoiceAgentDialog, { ContactFormData } from './VoiceAgentDialog';
 
 export default function VoiceflowWidget() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isVoiceflowReady, setIsVoiceflowReady] = useState(false);
+
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -24,6 +29,11 @@ export default function VoiceflowWidget() {
           }
         }).then(() => {
           console.log('VoiceFlow voice agent loaded successfully');
+          setIsVoiceflowReady(true);
+          
+          if (window.voiceflow?.chat) {
+            window.voiceflow.chat.hide();
+          }
         }).catch((error) => {
           console.error('Error loading VoiceFlow widget:', error);
         });
@@ -44,7 +54,53 @@ export default function VoiceflowWidget() {
     };
   }, []);
 
-  return null;
+  const handleStartCall = (contactData: ContactFormData) => {
+    console.log('Starting voice call with contact data:', contactData);
+    
+    if (window.voiceflow?.chat) {
+      window.voiceflow.chat.interact({
+        type: 'launch',
+        payload: {
+          firstName: contactData.firstName,
+          lastName: contactData.lastName,
+          email: contactData.email,
+          phone: contactData.phone,
+        }
+      });
+      
+      window.voiceflow.chat.show();
+      window.voiceflow.chat.open();
+    }
+    
+    setIsDialogOpen(false);
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => setIsDialogOpen(true)}
+        disabled={!isVoiceflowReady}
+        className={`fixed bottom-6 right-6 z-40 w-16 h-16 bg-gradient-to-br from-primary to-primary-700 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center group ${
+          isVoiceflowReady 
+            ? 'hover:from-primary-600 hover:to-primary-800 hover:shadow-xl hover:scale-110 active:scale-95 cursor-pointer' 
+            : 'opacity-50 cursor-not-allowed'
+        }`}
+        aria-label="Talk to AI Assistant"
+        title={isVoiceflowReady ? 'Talk to AI Assistant' : 'Loading...'}
+      >
+        <HiPhone className={`w-7 h-7 transition-transform duration-300 ${isVoiceflowReady ? 'group-hover:rotate-12' : ''}`} />
+        {isVoiceflowReady && (
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></span>
+        )}
+      </button>
+
+      <VoiceAgentDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        onStartCall={handleStartCall}
+      />
+    </>
+  );
 }
 
 declare global {
