@@ -184,7 +184,7 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                     ? 'border-red-500 focus:ring-red-500' 
                     : 'border-gray-300 dark:border-gray-700 focus:ring-primary'
                 } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent transition-all`}
-                placeholder="+1 (555) 123-4567"
+                placeholder="+17802006604 or 17802006604"
               />
               {errors.phone && (
                 <p className="mt-1 text-xs text-red-500">{errors.phone}</p>

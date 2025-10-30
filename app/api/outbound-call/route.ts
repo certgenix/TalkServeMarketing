@@ -20,6 +20,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Format phone number to E.164 format (add + if not present)
+    let formattedPhone = phoneNumber.replace(/\s/g, '');
+    if (!formattedPhone.startsWith('+')) {
+      formattedPhone = '+' + formattedPhone;
+    }
+
     const response = await fetch(
       'https://runtime-api.voiceflow.com/v1alpha1/phone-number/6902ebd8bcc0c2e54603a7f6/outbound',
       {
@@ -29,7 +35,7 @@ export async function POST(request: NextRequest) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: phoneNumber,
+          to: formattedPhone,
           variables: {
             firstName: firstName || '',
             lastName: lastName || '',
