@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HiX, HiPhone } from 'react-icons/hi';
 
 interface VoiceAgentDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  onStartCall: (data: ContactFormData) => void;
+  onStartCall: (data: ContactFormData) => Promise<void>;
   isLoading?: boolean;
   error?: string | null;
   success?: boolean;
+  formData: ContactFormData;
+  onFormChange: (data: ContactFormData) => void;
 }
 
 export interface ContactFormData {
@@ -20,16 +22,14 @@ export interface ContactFormData {
   consent: boolean;
 }
 
-export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoading = false, error = null, success = false }: VoiceAgentDialogProps) {
-  const [formData, setFormData] = useState<ContactFormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    consent: false,
-  });
-
+export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoading = false, error = null, success = false, formData, onFormChange }: VoiceAgentDialogProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+
+  useEffect(() => {
+    if (success) {
+      setErrors({});
+    }
+  }, [success]);
 
   const validateForm = (): boolean => {
     const newErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -58,22 +58,15 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      onStartCall(formData);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        consent: false,
-      });
+      await onStartCall(formData);
     }
   };
 
   const handleChange = (field: keyof ContactFormData, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    onFormChange({ ...formData, [field]: value });
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
@@ -223,10 +216,17 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
             )}
 
             {success && (
-              <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                <p className="text-sm text-green-600 dark:text-green-400">
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                <p className="text-sm text-green-600 dark:text-green-400 mb-3">
                   Call initiated successfully! You should receive a call shortly.
                 </p>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
+                >
+                  Done
+                </button>
               </div>
             )}
 

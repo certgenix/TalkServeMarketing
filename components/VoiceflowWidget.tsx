@@ -10,6 +10,13 @@ export default function VoiceflowWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState<ContactFormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    consent: false,
+  });
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -61,6 +68,7 @@ export default function VoiceflowWidget() {
     setIsLoading(true);
     setError(null);
     setSuccess(false);
+    setFormData(contactData);
     
     try {
       const response = await fetch('/api/outbound-call', {
@@ -76,18 +84,25 @@ export default function VoiceflowWidget() {
         }),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (parseError) {
+        throw new Error('Server error. Please try again later.');
+      }
 
       if (!response.ok || !data.success) {
         throw new Error(data.error || 'Failed to initiate call');
       }
 
       setSuccess(true);
-      
-      setTimeout(() => {
-        setIsDialogOpen(false);
-        setSuccess(false);
-      }, 3000);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        consent: false,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to initiate call. Please try again.');
     } finally {
@@ -98,7 +113,11 @@ export default function VoiceflowWidget() {
   return (
     <>
       <button
-        onClick={() => setIsDialogOpen(true)}
+        onClick={() => {
+          setIsDialogOpen(true);
+          setError(null);
+          setSuccess(false);
+        }}
         disabled={!isVoiceflowReady}
         className={`fixed bottom-6 right-6 z-40 w-16 h-16 bg-gradient-to-br from-primary to-primary-700 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center group ${
           isVoiceflowReady 
@@ -116,15 +135,13 @@ export default function VoiceflowWidget() {
 
       <VoiceAgentDialog
         isOpen={isDialogOpen}
-        onClose={() => {
-          setIsDialogOpen(false);
-          setError(null);
-          setSuccess(false);
-        }}
+        onClose={() => setIsDialogOpen(false)}
         onStartCall={handleStartCall}
         isLoading={isLoading}
         error={error}
         success={success}
+        formData={formData}
+        onFormChange={setFormData}
       />
     </>
   );
