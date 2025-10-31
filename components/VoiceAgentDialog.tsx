@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { HiX, HiPhone } from 'react-icons/hi';
+import { HiX, HiPhone, HiChevronDown } from 'react-icons/hi';
 
 interface VoiceAgentDialogProps {
   isOpen: boolean;
@@ -19,11 +19,25 @@ export interface ContactFormData {
   lastName: string;
   email: string;
   phone: string;
+  countryCode: string;
   consent: boolean;
 }
 
+const COUNTRIES = [
+  { code: '+1', flag: '🇺🇸', country: 'US' },
+  { code: '+1', flag: '🇨🇦', country: 'CA' },
+  { code: '+44', flag: '🇬🇧', country: 'UK' },
+  { code: '+61', flag: '🇦🇺', country: 'AU' },
+  { code: '+91', flag: '🇮🇳', country: 'IN' },
+  { code: '+86', flag: '🇨🇳', country: 'CN' },
+  { code: '+81', flag: '🇯🇵', country: 'JP' },
+  { code: '+49', flag: '🇩🇪', country: 'DE' },
+  { code: '+33', flag: '🇫🇷', country: 'FR' },
+];
+
 export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoading = false, error = null, success = false, formData, onFormChange }: VoiceAgentDialogProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
 
   useEffect(() => {
     if (success) {
@@ -99,7 +113,7 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                 Talk to Our AI Assistant
               </h2>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Get instant answers via voice call
+                Our AI agent will call you back on the number provided
               </p>
             </div>
           </div>
@@ -174,18 +188,62 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Phone Number
               </label>
-              <input
-                type="tel"
-                id="phone"
-                value={formData.phone}
-                onChange={(e) => handleChange('phone', e.target.value)}
-                className={`w-full px-4 py-2.5 rounded-lg border ${
-                  errors.phone 
-                    ? 'border-red-500 focus:ring-red-500' 
-                    : 'border-gray-300 dark:border-gray-700 focus:ring-primary'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent transition-all`}
-                placeholder="+17802006604 or 17802006604"
-              />
+              <div className="flex gap-2">
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                    className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border ${
+                      errors.phone 
+                        ? 'border-red-500' 
+                        : 'border-gray-300 dark:border-gray-700'
+                    } bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors min-w-[100px]`}
+                  >
+                    <span className="text-xl">{COUNTRIES.find(c => c.code === formData.countryCode)?.flag || '🇨🇦'}</span>
+                    <span className="text-sm font-medium">{formData.countryCode || '+1'}</span>
+                    <HiChevronDown className={`w-4 h-4 transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {showCountryDropdown && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-10" 
+                        onClick={() => setShowCountryDropdown(false)}
+                      />
+                      <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-20 max-h-60 overflow-y-auto">
+                        {COUNTRIES.map((country, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => {
+                              handleChange('countryCode', country.code);
+                              setShowCountryDropdown(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                          >
+                            <span className="text-xl">{country.flag}</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">{country.code}</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-400">{country.country}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+                
+                <input
+                  type="tel"
+                  id="phone"
+                  value={formData.phone}
+                  onChange={(e) => handleChange('phone', e.target.value)}
+                  className={`flex-1 px-4 py-2.5 rounded-lg border ${
+                    errors.phone 
+                      ? 'border-red-500 focus:ring-red-500' 
+                      : 'border-gray-300 dark:border-gray-700 focus:ring-primary'
+                  } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent transition-all`}
+                  placeholder="780 200 6604"
+                />
+              </div>
               {errors.phone && (
                 <p className="mt-1 text-xs text-red-500">{errors.phone}</p>
               )}

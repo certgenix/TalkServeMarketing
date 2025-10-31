@@ -15,6 +15,7 @@ export default function VoiceflowWidget() {
     lastName: '',
     email: '',
     phone: '',
+    countryCode: '+1',
     consent: false,
   });
 
@@ -82,7 +83,7 @@ export default function VoiceflowWidget() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          phoneNumber: contactData.phone,
+          phoneNumber: `${contactData.countryCode}${contactData.phone.replace(/[\s\-\(\)]/g, '')}`,
           firstName: contactData.firstName,
           lastName: contactData.lastName,
           email: contactData.email,
@@ -106,6 +107,7 @@ export default function VoiceflowWidget() {
         lastName: '',
         email: '',
         phone: '',
+        countryCode: '+1',
         consent: false,
       });
     } catch (err) {
