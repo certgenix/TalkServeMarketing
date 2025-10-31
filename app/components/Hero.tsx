@@ -18,7 +18,7 @@ export default function Hero() {
           className="gap-2"
         >
           <HiPhone className="h-5 w-5" />
-          Talk to us
+          Talk to Us
         </Button>
       </div>
 
