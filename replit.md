@@ -111,6 +111,11 @@ npm start
 ```
 
 ## Recent Changes
+- **2025-10-31:** Modernized phone call widget UI with rounded corners, better focus states, and improved spacing
+- **2025-10-31:** Limited country selector to US (+1), Canada (+1), and UK (+44) only
+- **2025-10-31:** Redesigned success state to show minimal dialog with only success message and Done button
+- **2025-10-31:** Enhanced form inputs with gradient backgrounds, ring effects, and modern styling
+- **2025-10-31:** Improved country dropdown with better layout and hover states
 - **2025-10-30:** Implemented VoiceFlow outbound calling feature with fully controlled form and state persistence
 - **2025-10-30:** Added API route for VoiceFlow phone number integration (agent ID: 6902ebd8bcc0c2e54603a7f6)
 - **2025-10-30:** Created VoiceAgentDialog with comprehensive error handling and user feedback

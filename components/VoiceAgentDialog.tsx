@@ -27,12 +27,6 @@ const COUNTRIES = [
   { code: '+1', flag: '🇺🇸', country: 'US' },
   { code: '+1', flag: '🇨🇦', country: 'CA' },
   { code: '+44', flag: '🇬🇧', country: 'UK' },
-  { code: '+61', flag: '🇦🇺', country: 'AU' },
-  { code: '+91', flag: '🇮🇳', country: 'IN' },
-  { code: '+86', flag: '🇨🇳', country: 'CN' },
-  { code: '+81', flag: '🇯🇵', country: 'JP' },
-  { code: '+49', flag: '🇩🇪', country: 'DE' },
-  { code: '+33', flag: '🇫🇷', country: 'FR' },
 ];
 
 export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoading = false, error = null, success = false, formData, onFormChange }: VoiceAgentDialogProps) {
@@ -88,6 +82,40 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
 
   if (!isOpen) return null;
 
+  // Success state - show minimal dialog
+  if (success) {
+    return (
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="text-center">
+            <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
+              <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              Call Initiated Successfully!
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              You should receive a call shortly.
+            </p>
+            <button
+              onClick={onClose}
+              className="w-full px-6 py-3.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Form state
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
@@ -95,24 +123,24 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
       aria-modal="true"
       aria-labelledby="voice-agent-title"
     >
-      <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl">
+      <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-3xl shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="absolute top-5 right-5 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <HiX className="w-5 h-5" />
         </button>
 
         <div className="p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-primary/10 rounded-full">
-              <HiPhone className="w-6 h-6 text-primary" />
+          <div className="flex items-start gap-4 mb-8">
+            <div className="p-4 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl">
+              <HiPhone className="w-7 h-7 text-primary" />
             </div>
             <div>
-              <h2 id="voice-agent-title" className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 id="voice-agent-title" className="text-2xl font-bold text-gray-900 dark:text-white mb-1.5">
                 Talk to Our AI Assistant
               </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
                 Our AI agent will call you back on the number provided
               </p>
             </div>
@@ -121,7 +149,7 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   First Name
                 </label>
                 <input
@@ -129,20 +157,20 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                   id="firstName"
                   value={formData.firstName}
                   onChange={(e) => handleChange('firstName', e.target.value)}
-                  className={`w-full px-4 py-2.5 rounded-lg border ${
+                  className={`w-full px-4 py-3 rounded-xl border-2 ${
                     errors.firstName 
-                      ? 'border-red-500 focus:ring-red-500' 
-                      : 'border-gray-300 dark:border-gray-700 focus:ring-primary'
-                  } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent transition-all`}
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
+                      : 'border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary/20'
+                  } bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-4 focus:bg-white dark:focus:bg-gray-800 transition-all outline-none`}
                   placeholder="John"
                 />
                 {errors.firstName && (
-                  <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>
+                  <p className="mt-1.5 text-xs text-red-500 font-medium">{errors.firstName}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   Last Name
                 </label>
                 <input
@@ -150,21 +178,21 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                   id="lastName"
                   value={formData.lastName}
                   onChange={(e) => handleChange('lastName', e.target.value)}
-                  className={`w-full px-4 py-2.5 rounded-lg border ${
+                  className={`w-full px-4 py-3 rounded-xl border-2 ${
                     errors.lastName 
-                      ? 'border-red-500 focus:ring-red-500' 
-                      : 'border-gray-300 dark:border-gray-700 focus:ring-primary'
-                  } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent transition-all`}
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
+                      : 'border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary/20'
+                  } bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-4 focus:bg-white dark:focus:bg-gray-800 transition-all outline-none`}
                   placeholder="Doe"
                 />
                 {errors.lastName && (
-                  <p className="mt-1 text-xs text-red-500">{errors.lastName}</p>
+                  <p className="mt-1.5 text-xs text-red-500 font-medium">{errors.lastName}</p>
                 )}
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Email Address
               </label>
               <input
@@ -172,36 +200,36 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                 id="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                className={`w-full px-4 py-2.5 rounded-lg border ${
+                className={`w-full px-4 py-3 rounded-xl border-2 ${
                   errors.email 
-                    ? 'border-red-500 focus:ring-red-500' 
-                    : 'border-gray-300 dark:border-gray-700 focus:ring-primary'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent transition-all`}
+                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
+                    : 'border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary/20'
+                } bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-4 focus:bg-white dark:focus:bg-gray-800 transition-all outline-none`}
                 placeholder="john.doe@example.com"
               />
               {errors.email && (
-                <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                <p className="mt-1.5 text-xs text-red-500 font-medium">{errors.email}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Phone Number
               </label>
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <div className="relative">
                   <button
                     type="button"
                     onClick={() => setShowCountryDropdown(!showCountryDropdown)}
-                    className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border ${
+                    className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border-2 ${
                       errors.phone 
                         ? 'border-red-500' 
-                        : 'border-gray-300 dark:border-gray-700'
-                    } bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors min-w-[100px]`}
+                        : 'border-gray-200 dark:border-gray-700'
+                    } bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-white dark:hover:bg-gray-800 hover:border-primary transition-all min-w-[120px] outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary`}
                   >
-                    <span className="text-xl">{COUNTRIES.find(c => c.code === formData.countryCode)?.flag || '🇨🇦'}</span>
-                    <span className="text-sm font-medium">{formData.countryCode || '+1'}</span>
-                    <HiChevronDown className={`w-4 h-4 transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`} />
+                    <span className="text-2xl">{COUNTRIES.find(c => c.code === formData.countryCode)?.flag || '🇨🇦'}</span>
+                    <span className="text-sm font-semibold">{formData.countryCode || '+1'}</span>
+                    <HiChevronDown className={`w-4 h-4 ml-auto transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`} />
                   </button>
                   
                   {showCountryDropdown && (
@@ -210,7 +238,7 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                         className="fixed inset-0 z-10" 
                         onClick={() => setShowCountryDropdown(false)}
                       />
-                      <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-20 max-h-60 overflow-y-auto">
+                      <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl z-20 overflow-hidden">
                         {COUNTRIES.map((country, index) => (
                           <button
                             key={index}
@@ -219,11 +247,13 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                               handleChange('countryCode', country.code);
                               setShowCountryDropdown(false);
                             }}
-                            className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                            className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-primary/5 transition-colors text-left border-b border-gray-100 dark:border-gray-700 last:border-0"
                           >
-                            <span className="text-xl">{country.flag}</span>
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">{country.code}</span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">{country.country}</span>
+                            <span className="text-2xl">{country.flag}</span>
+                            <div className="flex flex-col">
+                              <span className="text-sm font-semibold text-gray-900 dark:text-white">{country.country}</span>
+                              <span className="text-xs text-gray-500 dark:text-gray-400">{country.code}</span>
+                            </div>
                           </button>
                         ))}
                       </div>
@@ -236,26 +266,26 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                   id="phone"
                   value={formData.phone}
                   onChange={(e) => handleChange('phone', e.target.value)}
-                  className={`flex-1 px-4 py-2.5 rounded-lg border ${
+                  className={`flex-1 px-4 py-3 rounded-xl border-2 ${
                     errors.phone 
-                      ? 'border-red-500 focus:ring-red-500' 
-                      : 'border-gray-300 dark:border-gray-700 focus:ring-primary'
-                  } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent transition-all`}
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
+                      : 'border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary/20'
+                  } bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-4 focus:bg-white dark:focus:bg-gray-800 transition-all outline-none`}
                   placeholder="780 200 6604"
                 />
               </div>
               {errors.phone && (
-                <p className="mt-1 text-xs text-red-500">{errors.phone}</p>
+                <p className="mt-1.5 text-xs text-red-500 font-medium">{errors.phone}</p>
               )}
             </div>
 
-            <div className="pt-2">
+            <div className="pt-1">
               <label className="flex items-start gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   checked={formData.consent}
                   onChange={(e) => handleChange('consent', e.target.checked)}
-                  className="mt-1 w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary focus:ring-2"
+                  className="mt-0.5 w-5 h-5 rounded-md border-2 border-gray-300 dark:border-gray-600 text-primary focus:ring-4 focus:ring-primary/20 transition-all cursor-pointer"
                 />
                 <span className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   I consent to receive AI automated calls from TalkServe for the purpose of assistance and support. 
@@ -263,35 +293,20 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
                 </span>
               </label>
               {errors.consent && (
-                <p className="mt-1 text-xs text-red-500">{errors.consent}</p>
+                <p className="mt-2 text-xs text-red-500 font-medium">{errors.consent}</p>
               )}
             </div>
 
             {error && (
-              <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-              </div>
-            )}
-
-            {success && (
-              <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                <p className="text-sm text-green-600 dark:text-green-400 mb-3">
-                  Call initiated successfully! You should receive a call shortly.
-                </p>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
-                >
-                  Done
-                </button>
+              <div className="p-4 bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-xl">
+                <p className="text-sm text-red-600 dark:text-red-400 font-medium">{error}</p>
               </div>
             )}
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-6 px-6 py-3.5 bg-primary hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="w-full mt-6 px-6 py-4 bg-gradient-to-r from-primary to-primary-700 hover:from-primary-600 hover:to-primary-800 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-primary/25 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none"
             >
               {isLoading ? (
                 <>
