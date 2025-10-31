@@ -16,7 +16,7 @@ export default function MeetTalkServe() {
     <section className="py-20 bg-slate-50 dark:bg-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
-          <h2 className="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">
+          <h2 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-4">
             Meet TalkServe
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-300">

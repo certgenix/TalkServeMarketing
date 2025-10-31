@@ -29,7 +29,7 @@ export default function Results() {
     <section className="py-20 bg-white dark:bg-slate-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
-          <h2 className="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">
+          <h2 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-4">
             Real Results
           </h2>
         </AnimatedSection>

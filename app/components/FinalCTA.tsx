@@ -16,7 +16,7 @@ export default function FinalCTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-6">
             Ready to stop missing calls?
           </h2>
           

@@ -72,7 +72,7 @@ export default function HeroSection({
             
             <motion.h1
               variants={itemVariants}
-              className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight text-slate-900 dark:text-white mb-4 leading-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight text-slate-900 dark:text-white mb-4 leading-tight"
             >
               {title}
               {highlightedText && (
