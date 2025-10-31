@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { HiPhone } from 'react-icons/hi';
-import Image from 'next/image';
 import VoiceAgentDialog, { ContactFormData } from './VoiceAgentDialog';
 
 export default function VoiceflowWidget() {
@@ -169,36 +168,22 @@ export default function VoiceflowWidget() {
           aria-label="Talk to AI Assistant"
           title={isVoiceflowReady ? 'Talk to AI Assistant' : 'Loading...'}
         >
-          <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-white/20">
-            <Image
-              src="/ai-avatar.png"
-              alt="AI Assistant"
-              width={80}
-              height={80}
-              className={`w-full h-full object-cover transition-all duration-500 ${
-                isVoiceflowReady ? 'group-hover:scale-110' : 'grayscale'
-              }`}
-              priority
-            />
-          </div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-60"></div>
           
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
-          
-          <div className="absolute bottom-0 right-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center border-2 border-white z-10"
-            style={{
-              boxShadow: '0 2px 8px rgba(37, 99, 235, 0.5)'
-            }}
-          >
+          <div className="relative z-10 text-white">
             <HiPhone 
-              className={`w-4 h-4 text-white transition-all duration-500 ${
-                isVoiceflowReady ? 'group-hover:rotate-12' : ''
+              className={`w-9 h-9 transition-all duration-500 ${
+                isVoiceflowReady ? 'group-hover:rotate-12 group-hover:scale-110' : ''
               }`}
+              style={{
+                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+              }}
             />
           </div>
           
           {isVoiceflowReady && (
             <>
-              <span className="absolute top-0 left-0 w-5 h-5 bg-gradient-to-br from-green-400 to-green-600 rounded-full border-3 border-white animate-pulse z-20"
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-green-400 to-green-600 rounded-full border-3 border-white animate-pulse z-20"
                 style={{
                   boxShadow: '0 2px 8px rgba(34, 197, 94, 0.6), 0 0 12px rgba(34, 197, 94, 0.4)'
                 }}
