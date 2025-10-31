@@ -119,26 +119,81 @@ export default function VoiceflowWidget() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setIsDialogOpen(true);
-          setError(null);
-          setSuccess(false);
-        }}
-        disabled={!isVoiceflowReady}
-        className={`fixed bottom-6 right-6 z-40 w-16 h-16 bg-gradient-to-br from-primary to-primary-700 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center group ${
-          isVoiceflowReady 
-            ? 'hover:from-primary-600 hover:to-primary-800 hover:shadow-xl hover:scale-110 active:scale-95 cursor-pointer' 
-            : 'opacity-50 cursor-not-allowed'
-        }`}
-        aria-label="Talk to AI Assistant"
-        title={isVoiceflowReady ? 'Talk to AI Assistant' : 'Loading...'}
-      >
-        <HiPhone className={`w-7 h-7 transition-transform duration-300 ${isVoiceflowReady ? 'group-hover:rotate-12' : ''}`} />
-        {isVoiceflowReady && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></span>
-        )}
-      </button>
+      <div className="fixed bottom-8 right-8 z-40">
+        <button
+          onClick={() => {
+            setIsDialogOpen(true);
+            setError(null);
+            setSuccess(false);
+          }}
+          disabled={!isVoiceflowReady}
+          className={`relative w-20 h-20 rounded-full flex items-center justify-center group transition-all duration-500 ${
+            isVoiceflowReady 
+              ? 'cursor-pointer' 
+              : 'opacity-50 cursor-not-allowed'
+          }`}
+          style={{
+            background: isVoiceflowReady 
+              ? 'linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)'
+              : 'linear-gradient(135deg, #93c5fd 0%, #60a5fa 50%, #3b82f6 100%)',
+            boxShadow: isVoiceflowReady
+              ? '0 8px 16px -4px rgba(37, 99, 235, 0.4), 0 20px 40px -8px rgba(37, 99, 235, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -4px 8px rgba(0, 0, 0, 0.2)'
+              : '0 4px 8px rgba(0, 0, 0, 0.1)',
+            transform: 'translateY(0) scale(1)',
+          }}
+          onMouseEnter={(e) => {
+            if (isVoiceflowReady) {
+              e.currentTarget.style.transform = 'translateY(-4px) scale(1.08)';
+              e.currentTarget.style.boxShadow = '0 12px 24px -6px rgba(37, 99, 235, 0.5), 0 28px 56px -12px rgba(37, 99, 235, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(0, 0, 0, 0.2)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (isVoiceflowReady) {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(37, 99, 235, 0.4), 0 20px 40px -8px rgba(37, 99, 235, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -4px 8px rgba(0, 0, 0, 0.2)';
+            }
+          }}
+          onMouseDown={(e) => {
+            if (isVoiceflowReady) {
+              e.currentTarget.style.transform = 'translateY(2px) scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 4px 8px -2px rgba(37, 99, 235, 0.3), 0 10px 20px -4px rgba(37, 99, 235, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.3)';
+            }
+          }}
+          onMouseUp={(e) => {
+            if (isVoiceflowReady) {
+              e.currentTarget.style.transform = 'translateY(-4px) scale(1.08)';
+              e.currentTarget.style.boxShadow = '0 12px 24px -6px rgba(37, 99, 235, 0.5), 0 28px 56px -12px rgba(37, 99, 235, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(0, 0, 0, 0.2)';
+            }
+          }}
+          aria-label="Talk to AI Assistant"
+          title={isVoiceflowReady ? 'Talk to AI Assistant' : 'Loading...'}
+        >
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-50"></div>
+          
+          <div className="relative z-10 text-white">
+            <HiPhone 
+              className={`w-9 h-9 transition-all duration-500 ${
+                isVoiceflowReady ? 'group-hover:rotate-12 group-hover:scale-110' : ''
+              }`}
+              style={{
+                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+              }}
+            />
+          </div>
+          
+          {isVoiceflowReady && (
+            <>
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-green-400 to-green-600 rounded-full border-3 border-white animate-pulse z-20"
+                style={{
+                  boxShadow: '0 2px 8px rgba(34, 197, 94, 0.6), 0 0 12px rgba(34, 197, 94, 0.4)'
+                }}
+              ></span>
+              <span className="absolute -bottom-2 -left-2 w-6 h-6 bg-primary-400/30 rounded-full blur-md animate-pulse"></span>
+              <span className="absolute -top-2 -right-2 w-6 h-6 bg-primary-400/30 rounded-full blur-md animate-pulse" style={{ animationDelay: '0.5s' }}></span>
+            </>
+          )}
+        </button>
+      </div>
 
       <VoiceAgentDialog
         isOpen={isDialogOpen}
