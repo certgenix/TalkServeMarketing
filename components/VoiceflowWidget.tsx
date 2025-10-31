@@ -19,8 +19,24 @@ export default function VoiceflowWidget() {
   });
 
   useEffect(() => {
+    // Check if VoiceFlow is already loaded
+    if (window.voiceflow) {
+      setIsVoiceflowReady(true);
+      if (window.voiceflow.chat) {
+        window.voiceflow.chat.hide();
+      }
+      return;
+    }
+
+    // Check if script is already being loaded
+    const existingScript = document.querySelector('script[src="https://cdn.voiceflow.com/widget/bundle.mjs"]');
+    if (existingScript) {
+      return;
+    }
+
     const script = document.createElement('script');
     script.type = 'text/javascript';
+    script.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
     
     script.onload = function() {
       if (window.voiceflow) {
@@ -50,18 +66,7 @@ export default function VoiceflowWidget() {
       }
     };
     
-    script.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
-    
-    const firstScript = document.getElementsByTagName('script')[0];
-    if (firstScript && firstScript.parentNode) {
-      firstScript.parentNode.insertBefore(script, firstScript);
-    }
-
-    return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
+    document.head.appendChild(script);
   }, []);
 
   const handleStartCall = async (contactData: ContactFormData) => {
