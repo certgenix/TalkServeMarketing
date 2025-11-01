@@ -122,10 +122,17 @@ export default function Header() {
             </button>
 
             <Link
-              href="/contact"
+              href="/login"
+              className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
+            >
+              Login
+            </Link>
+
+            <Link
+              href="/register"
               className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Get Started
+              Register
             </Link>
 
             <button
@@ -182,13 +189,22 @@ export default function Header() {
                 </Link>
               )
             ))}
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block mx-3 mt-4 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg text-center"
-            >
-              Get Started
-            </Link>
+            <div className="px-3 mt-4 space-y-2">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary text-center"
+              >
+                Login
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg text-center"
+              >
+                Register
+              </Link>
+            </div>
           </div>
         )}
       </nav>
