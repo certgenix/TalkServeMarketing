@@ -15,41 +15,45 @@ export default function LogoIcon({ className = "w-12 h-12" }: LogoIconProps) {
       <title>TalkServe</title>
       
       <path
-        d="M50 10 L70 30 L70 70 L50 90 L30 70 L30 30 Z"
+        d="M35 25 C35 20 38 17 42 17 L58 17 C62 17 65 20 65 25 L65 75 C65 80 62 83 58 83 L42 83 C38 83 35 80 35 75 Z"
         fill="url(#gradient)"
         stroke="url(#gradient)"
-        strokeWidth="2"
+        strokeWidth="1"
       />
       
-      <circle cx="50" cy="35" r="8" fill="white"/>
+      <rect x="38" y="22" width="24" height="40" rx="2" fill="white" opacity="0.95"/>
+      
+      <circle cx="50" cy="72" r="4" fill="white"/>
       
       <path
-        d="M50 45 L50 58"
-        stroke="white"
-        strokeWidth="4"
+        d="M15 35 Q10 35 10 40 L10 45 Q10 50 15 50 L20 50"
+        stroke="url(#gradient)"
+        strokeWidth="3"
         strokeLinecap="round"
-      />
-      
-      <path
-        d="M35 65 L50 72 L65 65"
-        stroke="white"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
         fill="none"
       />
       
       <path
-        d="M42 50 Q50 55 58 50"
-        stroke="white"
+        d="M25 30 Q20 30 18 32"
+        stroke="url(#gradient)"
         strokeWidth="2.5"
         strokeLinecap="round"
         fill="none"
-        opacity="0.7"
+        opacity="0.6"
       />
       
-      <circle cx="43" cy="35" r="2" fill="url(#gradient)"/>
-      <circle cx="57" cy="35" r="2" fill="url(#gradient)"/>
+      <path
+        d="M25 55 Q20 55 18 53"
+        stroke="url(#gradient)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.6"
+      />
+      
+      <ellipse cx="70" cy="30" rx="8" ry="6" fill="url(#gradient)" opacity="0.9"/>
+      <ellipse cx="78" cy="40" rx="10" ry="7" fill="url(#gradient)" opacity="0.7"/>
+      <ellipse cx="85" cy="33" rx="7" ry="5" fill="url(#gradient)" opacity="0.5"/>
       
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
