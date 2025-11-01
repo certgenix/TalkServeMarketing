@@ -216,20 +216,20 @@ export default function VoiceAgentDialog({ isOpen, onClose, onStartCall, isLoadi
               <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Phone Number
               </label>
-              <div className="flex gap-3">
-                <div className="relative">
+              <div className="flex gap-2">
+                <div className="relative shrink-0">
                   <button
                     type="button"
                     onClick={() => setShowCountryDropdown(!showCountryDropdown)}
-                    className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border-2 ${
+                    className={`flex items-center gap-1.5 sm:gap-2.5 px-2 sm:px-4 py-3 rounded-xl border-2 ${
                       errors.phone 
                         ? 'border-red-500' 
                         : 'border-gray-200 dark:border-gray-700'
-                    } bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-white dark:hover:bg-gray-800 hover:border-primary transition-all min-w-[120px] outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary`}
+                    } bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-white dark:hover:bg-gray-800 hover:border-primary transition-all w-auto outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary`}
                   >
-                    <span className="text-2xl">{COUNTRIES.find(c => c.code === formData.countryCode)?.flag || '🇨🇦'}</span>
-                    <span className="text-sm font-semibold">{formData.countryCode || '+1'}</span>
-                    <HiChevronDown className={`w-4 h-4 ml-auto transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`} />
+                    <span className="text-xl sm:text-2xl">{COUNTRIES.find(c => c.code === formData.countryCode)?.flag || '🇨🇦'}</span>
+                    <span className="text-xs sm:text-sm font-semibold whitespace-nowrap">{formData.countryCode || '+1'}</span>
+                    <HiChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`} />
                   </button>
                   
                   {showCountryDropdown && (
