@@ -14,41 +14,40 @@ export default function LogoIcon({ className = "w-12 h-12" }: LogoIconProps) {
     >
       <title>TalkServe</title>
       
-      <circle cx="50" cy="50" r="45" fill="url(#gradient)" opacity="0.1"/>
+      <circle cx="50" cy="50" r="48" fill="white"/>
       
-      <path
-        d="M35 40c0-8.284 6.716-15 15-15s15 6.716 15 15v10c0 8.284-6.716 15-15 15s-15-6.716-15-15V40z"
-        stroke="currentColor"
-        strokeWidth="3"
-        fill="none"
-        strokeLinecap="round"
-      />
+      <circle cx="50" cy="50" r="45" fill="url(#gradient)"/>
       
-      <path
-        d="M50 65v10M40 75h20"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-      
-      <path
-        d="M28 48c0 12.15 9.85 22 22 22s22-9.85 22-22"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        fill="none"
-      />
-      
-      <circle cx="45" cy="45" r="2" fill="currentColor"/>
-      <circle cx="55" cy="45" r="2" fill="currentColor"/>
-      
-      <path
-        d="M42 52c2 2 4 3 8 3s6-1 8-3"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        fill="none"
-      />
+      <g transform="translate(50, 50)">
+        <path
+          d="M-8 -15 L-12 -10 L-8 -5 M8 -15 L12 -10 L8 -5"
+          stroke="white"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        
+        <circle cx="0" cy="0" r="12" fill="white"/>
+        
+        <path
+          d="M-6 -2 Q0 2 6 -2"
+          stroke="url(#gradient)"
+          strokeWidth="2"
+          fill="none"
+          strokeLinecap="round"
+        />
+        
+        <circle cx="-4" cy="-4" r="1.5" fill="url(#gradient)"/>
+        <circle cx="4" cy="-4" r="1.5" fill="url(#gradient)"/>
+        
+        <path
+          d="M-10 5 Q-5 15 0 15 Q5 15 10 5"
+          stroke="white"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+      </g>
       
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
