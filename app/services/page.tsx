@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
-import { HiCheckCircle, HiX } from 'react-icons/hi';
+import { HiCheckCircle, HiX, HiPhone } from 'react-icons/hi';
 
 export const metadata: Metadata = {
   title: 'Service Businesses - AI Appointment Booking for Service Providers | TalkServe',
@@ -55,12 +55,14 @@ export default function ServicesPage() {
         imagePath="/images/heroes/Clean_professional_workspace_no_text_75f2c21f.png"
         imageAlt="Clean professional workspace with appointment scheduling"
       >
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button href="/contact" size="lg">
-            Get Started Free
-          </Button>
-          <Button href="/features" variant="outline" size="lg">
-            Watch How It Works
+        <div className="mb-8">
+          <Button 
+            href="/contact"
+            size="lg" 
+            className="gap-2"
+          >
+            <HiPhone className="h-5 w-5" />
+            Talk to Us
           </Button>
         </div>
       </HeroSection>

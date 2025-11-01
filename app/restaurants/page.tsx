@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
-import { HiCheckCircle, HiX } from 'react-icons/hi';
+import { HiCheckCircle, HiX, HiPhone } from 'react-icons/hi';
 
 export const metadata: Metadata = {
   title: 'Restaurants & Food Service - AI Phone Ordering System | TalkServe',
@@ -61,12 +61,14 @@ export default function RestaurantsPage() {
         imagePath="/images/heroes/Upscale_restaurant_interior_scene_7dcdb2a4.png"
         imageAlt="Upscale restaurant interior"
       >
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button href="/contact" size="lg">
-            Try It Free
-          </Button>
-          <Button href="/features" variant="outline" size="lg">
-            Hear a Demo
+        <div className="mb-8">
+          <Button 
+            href="/contact"
+            size="lg" 
+            className="gap-2"
+          >
+            <HiPhone className="h-5 w-5" />
+            Talk to Us
           </Button>
         </div>
       </HeroSection>
