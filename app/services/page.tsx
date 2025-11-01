@@ -226,8 +226,9 @@ export default function ServicesPage() {
             </h2>
             <Button 
               href="/contact"
+              variant="secondary"
               size="lg" 
-              className="gap-2 bg-white text-primary hover:bg-blue-50"
+              className="gap-2 bg-white text-primary dark:text-primary hover:bg-blue-50"
             >
               <HiPhone className="h-5 w-5" />
               Talk to Us
