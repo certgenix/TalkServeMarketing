@@ -15,45 +15,20 @@ export default function LogoIcon({ className = "w-12 h-12" }: LogoIconProps) {
       <title>TalkServe</title>
       
       <path
-        d="M35 25 C35 20 38 17 42 17 L58 17 C62 17 65 20 65 25 L65 75 C65 80 62 83 58 83 L42 83 C38 83 35 80 35 75 Z"
+        d="M20 30 C20 25 23 20 30 20 L55 20 C62 20 65 25 65 30 L65 50 C65 55 62 60 55 60 L35 60 L25 70 L25 60 C22 60 20 57 20 50 Z"
         fill="url(#gradient)"
-        stroke="url(#gradient)"
-        strokeWidth="1"
       />
       
-      <rect x="38" y="22" width="24" height="40" rx="2" fill="white" opacity="0.95"/>
-      
-      <circle cx="50" cy="72" r="4" fill="white"/>
+      <circle cx="35" cy="38" r="3.5" fill="white"/>
+      <circle cx="50" cy="38" r="3.5" fill="white"/>
       
       <path
-        d="M15 35 Q10 35 10 40 L10 45 Q10 50 15 50 L20 50"
-        stroke="url(#gradient)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        fill="none"
+        d="M75 50 C75 45 78 40 85 40 L95 40 C98 40 100 43 100 48 L100 65 C100 70 98 73 95 73 L90 73 L85 80 L85 73 C82 73 75 70 75 65 Z"
+        fill="url(#gradient)"
+        opacity="0.85"
       />
       
-      <path
-        d="M25 30 Q20 30 18 32"
-        stroke="url(#gradient)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.6"
-      />
-      
-      <path
-        d="M25 55 Q20 55 18 53"
-        stroke="url(#gradient)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.6"
-      />
-      
-      <ellipse cx="70" cy="30" rx="8" ry="6" fill="url(#gradient)" opacity="0.9"/>
-      <ellipse cx="78" cy="40" rx="10" ry="7" fill="url(#gradient)" opacity="0.7"/>
-      <ellipse cx="85" cy="33" rx="7" ry="5" fill="url(#gradient)" opacity="0.5"/>
+      <circle cx="87" cy="57" r="2.5" fill="white"/>
       
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
