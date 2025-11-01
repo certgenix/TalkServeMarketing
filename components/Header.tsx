@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { HiMenu, HiX, HiMoon, HiSun } from 'react-icons/hi';
 import { useTheme } from './DarkModeProvider';
 import clsx from 'clsx';
@@ -60,8 +61,17 @@ export default function Header() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-display font-bold text-primary">
-              TalkServe
+            <Link href="/" className="flex items-center gap-3">
+              <Image 
+                src="/images/talkserve-logo.png" 
+                alt="TalkServe Logo" 
+                width={48} 
+                height={48}
+                className="w-10 h-10 sm:w-12 sm:h-12"
+              />
+              <span className="text-2xl sm:text-3xl font-display font-bold text-primary">
+                TalkServe
+              </span>
             </Link>
           </div>
 
