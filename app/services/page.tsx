@@ -224,24 +224,14 @@ export default function ServicesPage() {
             <h2 className="text-4xl font-display font-bold text-white mb-6">
               Stop losing business to missed calls.
             </h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                href="/contact"
-                variant="secondary"
-                size="lg"
-                className="bg-white text-primary hover:bg-blue-50"
-              >
-                Start Free Trial
-              </Button>
-              <Button
-                href="/contact"
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-primary"
-              >
-                Schedule a Demo
-              </Button>
-            </div>
+            <Button 
+              href="/contact"
+              size="lg" 
+              className="gap-2 bg-white text-primary hover:bg-blue-50"
+            >
+              <HiPhone className="h-5 w-5" />
+              Talk to Us
+            </Button>
           </AnimatedSection>
         </div>
       </section>
