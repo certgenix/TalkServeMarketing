@@ -4,7 +4,7 @@ import { HiArrowTrendingDown, HiUserGroup, HiClock } from 'react-icons/hi2';
 const problems = [
   {
     title: 'Lost revenue',
-    description: 'Callers hang up and move on to your competitor.',
+    description: 'Customers hang up after three rings and call your competitor next.',
     icon: HiArrowTrendingDown,
   },
   {
