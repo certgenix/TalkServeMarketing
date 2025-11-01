@@ -25,10 +25,10 @@ export default function MissedCalls() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-4">
-            The Cost of Missed Calls
+            The Hidden Leak in Your Business
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Every missed call is a customer you won&apos;t get back.
+            Every Missed Call Is a Missed Opportunity.
           </p>
         </AnimatedSection>
 
