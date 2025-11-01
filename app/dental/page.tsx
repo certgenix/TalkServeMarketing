@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
-import { HiCheckCircle, HiX } from 'react-icons/hi';
+import { HiCheckCircle, HiX, HiPhone } from 'react-icons/hi';
 
 export const metadata: Metadata = {
   title: 'Dental Clinics - AI Receptionist for Dental Practices | TalkServe',
@@ -55,12 +55,14 @@ export default function DentalPage() {
         imagePath="/images/heroes/Dental_clinic_reception_area_e682dcd1.png"
         imageAlt="Modern dental clinic reception area"
       >
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button href="/contact" size="lg">
-            Start Free Trial
-          </Button>
-          <Button href="/features" variant="outline" size="lg">
-            Watch Demo
+        <div className="mb-8">
+          <Button 
+            href="/contact"
+            size="lg" 
+            className="gap-2"
+          >
+            <HiPhone className="h-5 w-5" />
+            Talk to Us
           </Button>
         </div>
       </HeroSection>
