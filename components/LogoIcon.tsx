@@ -14,43 +14,42 @@ export default function LogoIcon({ className = "w-12 h-12" }: LogoIconProps) {
     >
       <title>TalkServe</title>
       
-      <rect width="100" height="100" rx="20" fill="white"/>
+      <path
+        d="M50 10 L70 30 L70 70 L50 90 L30 70 L30 30 Z"
+        fill="url(#gradient)"
+        stroke="url(#gradient)"
+        strokeWidth="2"
+      />
+      
+      <circle cx="50" cy="35" r="8" fill="white"/>
       
       <path
-        d="M25 50 Q25 25 50 25 Q75 25 75 50 Q75 75 50 75 Q25 75 25 50 Z"
-        fill="url(#gradient)"
+        d="M50 45 L50 58"
+        stroke="white"
+        strokeWidth="4"
+        strokeLinecap="round"
       />
       
       <path
-        d="M40 45 L50 35 L60 45"
+        d="M35 65 L50 72 L65 65"
         stroke="white"
-        strokeWidth="4"
+        strokeWidth="3.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
       
-      <circle cx="50" cy="58" r="3" fill="white"/>
-      
       <path
-        d="M35 60 Q35 70 50 70 Q65 70 65 60"
+        d="M42 50 Q50 55 58 50"
         stroke="white"
-        strokeWidth="3.5"
+        strokeWidth="2.5"
         strokeLinecap="round"
         fill="none"
+        opacity="0.7"
       />
       
-      <g opacity="0.3">
-        <path d="M20 35 Q15 35 15 40" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-        <path d="M20 50 Q12 50 12 50" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-        <path d="M20 65 Q15 65 15 60" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-      </g>
-      
-      <g opacity="0.3">
-        <path d="M80 35 Q85 35 85 40" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-        <path d="M80 50 Q88 50 88 50" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-        <path d="M80 65 Q85 65 85 60" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-      </g>
+      <circle cx="43" cy="35" r="2" fill="url(#gradient)"/>
+      <circle cx="57" cy="35" r="2" fill="url(#gradient)"/>
       
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
