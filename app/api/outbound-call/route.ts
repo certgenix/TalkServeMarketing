@@ -20,6 +20,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const projectId = process.env.VOICEFLOW_PROJECT_ID;
+    if (!projectId) {
+      console.error('VOICEFLOW_PROJECT_ID is not configured');
+      return NextResponse.json(
+        { success: false, error: 'Server configuration error' },
+        { status: 500 }
+      );
+    }
+
     // Format phone number to E.164 format (add + if not present)
     let formattedPhone = phoneNumber.replace(/\s/g, '');
     if (!formattedPhone.startsWith('+')) {
@@ -29,7 +38,7 @@ export async function POST(request: NextRequest) {
     console.log('Initiating call to:', formattedPhone);
     
     const response = await fetch(
-      'https://runtime-api.voiceflow.com/v1alpha1/phone-number/6902ebd8bcc0c2e54603a7f6/outbound',
+      `https://runtime-api.voiceflow.com/v1alpha1/phone-number/${projectId}/outbound`,
       {
         method: 'POST',
         headers: {
