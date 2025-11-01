@@ -14,39 +14,42 @@ export default function LogoIcon({ className = "w-12 h-12" }: LogoIconProps) {
     >
       <title>TalkServe</title>
       
-      <circle cx="50" cy="50" r="48" fill="white"/>
+      <rect width="100" height="100" rx="20" fill="white"/>
       
-      <circle cx="50" cy="50" r="45" fill="url(#gradient)"/>
+      <path
+        d="M25 50 Q25 25 50 25 Q75 25 75 50 Q75 75 50 75 Q25 75 25 50 Z"
+        fill="url(#gradient)"
+      />
       
-      <g transform="translate(50, 50)">
-        <path
-          d="M-8 -15 L-12 -10 L-8 -5 M8 -15 L12 -10 L8 -5"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        
-        <circle cx="0" cy="0" r="12" fill="white"/>
-        
-        <path
-          d="M-6 -2 Q0 2 6 -2"
-          stroke="url(#gradient)"
-          strokeWidth="2"
-          fill="none"
-          strokeLinecap="round"
-        />
-        
-        <circle cx="-4" cy="-4" r="1.5" fill="url(#gradient)"/>
-        <circle cx="4" cy="-4" r="1.5" fill="url(#gradient)"/>
-        
-        <path
-          d="M-10 5 Q-5 15 0 15 Q5 15 10 5"
-          stroke="white"
-          strokeWidth="2.5"
-          fill="none"
-          strokeLinecap="round"
-        />
+      <path
+        d="M40 45 L50 35 L60 45"
+        stroke="white"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      
+      <circle cx="50" cy="58" r="3" fill="white"/>
+      
+      <path
+        d="M35 60 Q35 70 50 70 Q65 70 65 60"
+        stroke="white"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        fill="none"
+      />
+      
+      <g opacity="0.3">
+        <path d="M20 35 Q15 35 15 40" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+        <path d="M20 50 Q12 50 12 50" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+        <path d="M20 65 Q15 65 15 60" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+      </g>
+      
+      <g opacity="0.3">
+        <path d="M80 35 Q85 35 85 40" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+        <path d="M80 50 Q88 50 88 50" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+        <path d="M80 65 Q85 65 85 60" stroke="url(#gradient)" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
       </g>
       
       <defs>
