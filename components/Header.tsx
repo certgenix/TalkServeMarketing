@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
 import { HiMenu, HiX, HiMoon, HiSun } from 'react-icons/hi';
 import { useTheme } from './DarkModeProvider';
+import LogoIcon from './LogoIcon';
 import clsx from 'clsx';
 
 const navigation = [
@@ -62,13 +62,7 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-3">
-              <Image 
-                src="/images/talkserve-logo.png" 
-                alt="TalkServe Logo" 
-                width={48} 
-                height={48}
-                className="w-10 h-10 sm:w-12 sm:h-12"
-              />
+              <LogoIcon className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />
               <span className="text-2xl sm:text-3xl font-display font-bold text-primary">
                 TalkServe
               </span>
