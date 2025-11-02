@@ -1,8 +1,13 @@
+'use client';
+
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
 import { HiPhone } from 'react-icons/hi';
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 export default function Hero() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <HeroSection
       title="Never Miss Another"
@@ -13,7 +18,7 @@ export default function Hero() {
     >
       <div className="mb-8">
         <Button 
-          href="/contact"
+          onClick={openDialog}
           size="lg" 
           className="gap-2"
         >

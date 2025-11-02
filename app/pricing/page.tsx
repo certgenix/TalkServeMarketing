@@ -1,14 +1,11 @@
-import { Metadata } from 'next';
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import HeroSection from '@/components/HeroSection';
 import TestimonialCarousel, { Testimonial } from '@/components/TestimonialCarousel';
 import Button from '@/components/Button';
 import { HiCheckCircle, HiPhone } from 'react-icons/hi';
-
-export const metadata: Metadata = {
-  title: 'Pricing - Affordable AI Receptionist Plans | TalkServe',
-  description: 'TalkServe pricing: Starter at $199/mo, Professional at $449/mo, and custom Enterprise plans. 30-day money-back guarantee. Cancel anytime.',
-};
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const plans = [
   {
@@ -83,6 +80,8 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function PricingPage() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <>
       <HeroSection
@@ -93,7 +92,7 @@ export default function PricingPage() {
         imageAlt="Business growth and ROI"
       >
         <div className="mb-8">
-          <Button href="/contact" size="lg" className="gap-2">
+          <Button onClick={openDialog} size="lg" className="gap-2">
             <HiPhone className="h-5 w-5" />
             Talk to Us
           </Button>
@@ -125,7 +124,7 @@ export default function PricingPage() {
             </p>
             <div className="flex justify-center">
               <Button
-                href="/contact"
+                onClick={openDialog}
                 variant="secondary"
                 size="lg"
                 className="gap-2 bg-white text-primary hover:bg-blue-50"

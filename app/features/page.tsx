@@ -1,4 +1,5 @@
-import { Metadata } from 'next';
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import HeroSection from '@/components/HeroSection';
 import {
@@ -11,11 +12,7 @@ import {
   HiChartBar,
   HiShieldCheck,
 } from 'react-icons/hi';
-
-export const metadata: Metadata = {
-  title: 'Features - AI Receptionist Capabilities | TalkServe',
-  description: 'Explore TalkServe features: natural voice AI, smart call routing, appointment booking, integrations with 50+ platforms, analytics, and enterprise security.',
-};
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const featureCategories = [
   {
@@ -101,6 +98,8 @@ const featureCategories = [
 ];
 
 export default function FeaturesPage() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <>
       <HeroSection
@@ -156,13 +155,13 @@ export default function FeaturesPage() {
               See how our AI receptionist can transform your business communications.
             </p>
             <div className="flex justify-center">
-              <a
-                href="/contact"
+              <button
+                onClick={openDialog}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30"
               >
                 <HiPhone className="h-5 w-5" />
                 Talk to Us
-              </a>
+              </button>
             </div>
           </AnimatedSection>
         </div>

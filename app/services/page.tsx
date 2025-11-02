@@ -1,13 +1,10 @@
-import { Metadata } from 'next';
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
 import { HiCheckCircle, HiX, HiPhone } from 'react-icons/hi';
-
-export const metadata: Metadata = {
-  title: 'Service Businesses - AI Appointment Booking for Service Providers | TalkServe',
-  description: 'TalkServe captures every lead and schedules every job—so you never lose business to a missed call. Perfect for salons, HVAC, plumbing, and more.',
-};
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const challenges = [
   'Leads lost when no one answers',
@@ -46,6 +43,8 @@ const realWorldCalls = [
 ];
 
 export default function ServicesPage() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <>
       <HeroSection
@@ -57,7 +56,7 @@ export default function ServicesPage() {
       >
         <div className="mb-8">
           <Button 
-            href="/contact"
+            onClick={openDialog}
             size="lg" 
             className="gap-2"
           >
@@ -225,7 +224,7 @@ export default function ServicesPage() {
               Stop losing business to missed calls.
             </h2>
             <Button 
-              href="/contact"
+              onClick={openDialog}
               variant="secondary"
               size="lg" 
               className="gap-2 bg-white text-primary dark:text-primary hover:bg-blue-50"

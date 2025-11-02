@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { DarkModeProvider } from "@/components/DarkModeProvider";
 import VoiceflowWidget from "@/components/VoiceflowWidget";
+import { VoiceAgentProvider } from "@/components/VoiceAgentContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,12 +40,14 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <DarkModeProvider>
-          <Header />
-          <main className="min-h-screen pt-16">
-            {children}
-          </main>
-          <Footer />
-          <VoiceflowWidget />
+          <VoiceAgentProvider>
+            <Header />
+            <main className="min-h-screen pt-16">
+              {children}
+            </main>
+            <Footer />
+            <VoiceflowWidget />
+          </VoiceAgentProvider>
         </DarkModeProvider>
       </body>
     </html>

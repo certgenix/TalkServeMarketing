@@ -1,5 +1,8 @@
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const steps = [
   {
@@ -20,6 +23,8 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <section id="how-it-works" className="py-20 bg-slate-50 dark:bg-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -48,7 +53,7 @@ export default function HowItWorks() {
         </div>
 
         <AnimatedSection delay={0.5} className="text-center">
-          <Button href="/contact" variant="primary" size="lg">
+          <Button onClick={openDialog} variant="primary" size="lg">
             Get Started Free
           </Button>
         </AnimatedSection>

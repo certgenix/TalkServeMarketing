@@ -3,22 +3,11 @@
 import { useEffect, useState } from 'react';
 import { HiPhone } from 'react-icons/hi';
 import Image from 'next/image';
-import VoiceAgentDialog, { ContactFormData } from './VoiceAgentDialog';
+import { useVoiceAgent } from './VoiceAgentContext';
 
 export default function VoiceflowWidget() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { openDialog } = useVoiceAgent();
   const [isVoiceflowReady, setIsVoiceflowReady] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
-  const [formData, setFormData] = useState<ContactFormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    countryCode: '+1',
-    consent: false,
-  });
 
   useEffect(() => {
     // Check if VoiceFlow is already loaded
@@ -71,68 +60,16 @@ export default function VoiceflowWidget() {
     document.head.appendChild(script);
   }, []);
 
-  const handleStartCall = async (contactData: ContactFormData) => {
-    setIsLoading(true);
-    setError(null);
-    setSuccess(false);
-    setFormData(contactData);
-    
-    try {
-      const response = await fetch('/api/outbound-call', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          phoneNumber: `${contactData.countryCode}${contactData.phone.replace(/[\s\-\(\)]/g, '')}`,
-          firstName: contactData.firstName,
-          lastName: contactData.lastName,
-          email: contactData.email,
-        }),
-      });
-
-      let data;
-      try {
-        data = await response.json();
-      } catch (parseError) {
-        throw new Error('Server error. Please try again later.');
-      }
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || 'Failed to initiate call');
-      }
-
-      setSuccess(true);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        countryCode: '+1',
-        consent: false,
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to initiate call. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <>
-      <div className="fixed bottom-8 right-8 z-40">
-        <button
-          onClick={() => {
-            setIsDialogOpen(true);
-            setError(null);
-            setSuccess(false);
-          }}
-          disabled={!isVoiceflowReady}
-          className={`relative w-20 h-20 rounded-full flex items-center justify-center group transition-all duration-500 ${
-            isVoiceflowReady 
-              ? 'cursor-pointer' 
-              : 'opacity-50 cursor-not-allowed'
-          }`}
+    <div className="fixed bottom-8 right-8 z-40">
+      <button
+        onClick={openDialog}
+        disabled={!isVoiceflowReady}
+        className={`relative w-20 h-20 rounded-full flex items-center justify-center group transition-all duration-500 ${
+          isVoiceflowReady 
+            ? 'cursor-pointer' 
+            : 'opacity-50 cursor-not-allowed'
+        }`}
           style={{
             background: isVoiceflowReady 
               ? 'linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)'
@@ -208,19 +145,7 @@ export default function VoiceflowWidget() {
             </>
           )}
         </button>
-      </div>
-
-      <VoiceAgentDialog
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        onStartCall={handleStartCall}
-        isLoading={isLoading}
-        error={error}
-        success={success}
-        formData={formData}
-        onFormChange={setFormData}
-      />
-    </>
+    </div>
   );
 }
 

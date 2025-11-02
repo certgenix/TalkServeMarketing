@@ -1,6 +1,9 @@
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import { HiCheckCircle, HiPhone } from 'react-icons/hi';
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const features = [
   'Answers instantly — no hold music or voicemail.',
@@ -12,6 +15,8 @@ const features = [
 ];
 
 export default function MeetTalkServe() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <section className="py-20 bg-slate-50 dark:bg-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -36,7 +41,7 @@ export default function MeetTalkServe() {
         </div>
 
         <AnimatedSection delay={0.6} className="text-center">
-          <Button href="/contact" variant="primary" size="lg" className="gap-2">
+          <Button onClick={openDialog} variant="primary" size="lg" className="gap-2">
             <HiPhone className="h-5 w-5" />
             Talk to Us
           </Button>

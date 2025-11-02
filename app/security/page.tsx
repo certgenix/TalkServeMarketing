@@ -1,12 +1,9 @@
-import { Metadata } from 'next';
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import HeroSection from '@/components/HeroSection';
 import { HiShieldCheck, HiLockClosed, HiServer, HiDocumentText, HiKey, HiGlobe } from 'react-icons/hi';
-
-export const metadata: Metadata = {
-  title: 'Security & Compliance - Enterprise-Grade Protection | TalkServe',
-  description: 'TalkServe offers 256-bit encryption, HIPAA compliance, PIPEDA/PHIPA alignment, and enterprise security features for your business data.',
-};
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const securityFeatures = [
   {
@@ -72,6 +69,8 @@ const securityFeatures = [
 ];
 
 export default function SecurityPage() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <>
       <HeroSection
@@ -150,12 +149,12 @@ export default function SecurityPage() {
                 >
                   Contact Security Team
                 </a>
-                <a
-                  href="/contact"
+                <button
+                  onClick={openDialog}
                   className="inline-flex items-center justify-center px-6 py-3 text-base font-medium border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
                 >
                   Request Security Documentation
-                </a>
+                </button>
               </div>
             </div>
           </AnimatedSection>

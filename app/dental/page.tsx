@@ -1,13 +1,10 @@
-import { Metadata } from 'next';
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
 import { HiCheckCircle, HiX, HiPhone } from 'react-icons/hi';
-
-export const metadata: Metadata = {
-  title: 'Dental Clinics - AI Receptionist for Dental Practices | TalkServe',
-  description: 'TalkServe answers every patient call, books appointments, verifies insurance, and reduces no-shows—24 hours a day. HIPAA-ready for dental practices.',
-};
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const challenges = [
   'Missed appointment requests during lunch or after hours',
@@ -46,6 +43,8 @@ const callFlows = [
 ];
 
 export default function DentalPage() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <>
       <HeroSection
@@ -57,7 +56,7 @@ export default function DentalPage() {
       >
         <div className="mb-8">
           <Button 
-            href="/contact"
+            onClick={openDialog}
             size="lg" 
             className="gap-2"
           >
@@ -156,7 +155,7 @@ export default function DentalPage() {
               Give your patients the service they deserve.
             </h2>
             <Button 
-              href="/contact"
+              onClick={openDialog}
               variant="secondary"
               size="lg" 
               className="gap-2 bg-white text-primary dark:text-primary hover:bg-blue-50"

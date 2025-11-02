@@ -3,8 +3,11 @@
 import { motion } from 'framer-motion';
 import Button from '@/components/Button';
 import { HiPhone, HiPlay } from 'react-icons/hi';
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 export default function FinalCTA() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <section className="py-32 bg-gradient-to-br from-primary to-blue-700 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/10" />
@@ -26,7 +29,7 @@ export default function FinalCTA() {
           
           <div className="flex justify-center">
             <Button
-              href="/contact"
+              onClick={openDialog}
               variant="secondary"
               size="lg"
               className="gap-2 bg-white text-primary hover:bg-blue-50"

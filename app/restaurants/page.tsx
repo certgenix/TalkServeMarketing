@@ -1,13 +1,10 @@
-import { Metadata } from 'next';
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import HeroSection from '@/components/HeroSection';
 import { HiCheckCircle, HiX, HiPhone } from 'react-icons/hi';
-
-export const metadata: Metadata = {
-  title: 'Restaurants & Food Service - AI Phone Ordering System | TalkServe',
-  description: 'TalkServe takes orders, books tables, and answers menu questions—even when your kitchen is packed. Integration with Square, Toast, and more.',
-};
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const painPoints = [
   'Phones ringing during rush hour = missed orders',
@@ -52,6 +49,8 @@ const impacts = [
 ];
 
 export default function RestaurantsPage() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <>
       <HeroSection
@@ -63,7 +62,7 @@ export default function RestaurantsPage() {
       >
         <div className="mb-8">
           <Button 
-            href="/contact"
+            onClick={openDialog}
             size="lg" 
             className="gap-2"
           >
@@ -187,7 +186,7 @@ export default function RestaurantsPage() {
               Focus on food. Let AI handle the phone.
             </h2>
             <Button 
-              href="/contact"
+              onClick={openDialog}
               variant="secondary"
               size="lg" 
               className="gap-2 bg-white text-primary dark:text-primary hover:bg-blue-50"

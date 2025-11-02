@@ -1,6 +1,9 @@
+'use client';
+
 import AnimatedSection from '@/components/AnimatedSection';
 import Button from '@/components/Button';
 import { HiGlobe, HiLightningBolt, HiPhone, HiChartBar, HiShieldCheck, HiClock } from 'react-icons/hi';
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const features = [
   {
@@ -30,6 +33,8 @@ const features = [
 ];
 
 export default function Features() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <section className="py-20 bg-slate-50 dark:bg-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -56,7 +61,7 @@ export default function Features() {
         </div>
 
         <AnimatedSection delay={0.6} className="text-center">
-          <Button href="/contact" variant="primary" size="lg" className="gap-2">
+          <Button onClick={openDialog} variant="primary" size="lg" className="gap-2">
             <HiPhone className="h-5 w-5" />
             Talk to Us
           </Button>
