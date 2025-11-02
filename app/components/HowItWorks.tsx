@@ -54,7 +54,7 @@ export default function HowItWorks() {
 
         <AnimatedSection delay={0.5} className="text-center">
           <Button onClick={openDialog} variant="primary" size="lg">
-            Get Started Free
+            Talk to Us
           </Button>
         </AnimatedSection>
       </div>
