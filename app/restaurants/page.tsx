@@ -145,8 +145,8 @@ export default function RestaurantsPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {impacts.map((impact, index) => (
-              <AnimatedSection key={impact} delay={index * 0.1}>
-                <div className="bg-white dark:bg-slate-800 rounded-xl p-8 text-center border border-slate-200 dark:border-slate-700">
+              <AnimatedSection key={impact} delay={index * 0.1} className="h-full">
+                <div className="bg-white dark:bg-slate-800 rounded-xl p-8 text-center border border-slate-200 dark:border-slate-700 h-full flex flex-col justify-center">
                   <p className="text-2xl font-bold text-primary mb-2">
                     {impact.split(' ')[0]}
                   </p>
