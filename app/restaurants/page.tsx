@@ -103,8 +103,8 @@ export default function RestaurantsPage() {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {advantages.map((advantage, index) => (
-              <AnimatedSection key={advantage} delay={index * 0.1}>
-                <div className="flex items-start gap-3 bg-white dark:bg-slate-800 rounded-xl p-6">
+              <AnimatedSection key={advantage} delay={index * 0.1} className="h-full">
+                <div className="flex items-start gap-3 bg-white dark:bg-slate-800 rounded-xl p-6 h-full">
                   <HiCheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 mt-1" />
                   <p className="text-slate-700 dark:text-slate-300">{advantage}</p>
                 </div>
