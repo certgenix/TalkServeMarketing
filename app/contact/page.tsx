@@ -1,13 +1,12 @@
-import { Metadata } from 'next';
+'use client';
+
 import HeroSection from '@/components/HeroSection';
 import { HiPhone } from 'react-icons/hi';
-
-export const metadata: Metadata = {
-  title: 'Contact Us - Get Started with TalkServe AI',
-  description: 'Contact TalkServe for sales, support, or partnerships. Call 1-800-TALK-NOW or email us at hello@talkserve.ai.',
-};
+import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 export default function ContactPage() {
+  const { openDialog } = useVoiceAgent();
+  
   return (
     <>
       <HeroSection
@@ -18,13 +17,13 @@ export default function ContactPage() {
         imageAlt="Customer service communication"
       >
         <div className="mb-8">
-          <a 
-            href="tel:1-800-TALK-NOW"
+          <button 
+            onClick={openDialog}
             className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-all duration-250 hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30"
           >
             <HiPhone className="h-5 w-5" />
-            Contact Us
-          </a>
+            Talk to Us
+          </button>
         </div>
       </HeroSection>
 
