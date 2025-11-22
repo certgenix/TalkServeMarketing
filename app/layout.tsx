@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { DarkModeProvider } from "@/components/DarkModeProvider";
 import VoiceflowWidget from "@/components/VoiceflowWidget";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 import { VoiceAgentProvider } from "@/components/VoiceAgentContext";
 
 const inter = Inter({
@@ -46,6 +47,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <WhatsAppWidget />
             <VoiceflowWidget />
           </VoiceAgentProvider>
         </DarkModeProvider>
