@@ -12,7 +12,7 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 - React Icons
 - next-sitemap (SEO)
 
-**Current Status:** Fully implemented with 8 pages, dark mode, animations, and responsive design.
+**Current Status:** Fully implemented with 9 pages, dark mode, animations, and responsive design.
 
 ## Project Structure
 
@@ -36,11 +36,16 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 │   ├── features/           # Features page
 │   ├── pricing/            # Pricing page
 │   ├── security/           # Security & compliance page
+│   ├── onboarding/         # Business onboarding form
+│   │   ├── page.tsx
+│   │   └── OnboardingForm.tsx
 │   ├── contact/            # Contact page with form
 │   │   └── ContactForm.tsx
 │   ├── api/
 │   │   ├── contact/
 │   │   │   └── route.ts    # Contact form API endpoint
+│   │   ├── onboarding/
+│   │   │   └── route.ts    # Onboarding form API endpoint
 │   │   └── outbound-call/
 │   │       └── route.ts    # VoiceFlow outbound call API
 │   ├── layout.tsx          # Root layout with fonts
@@ -61,7 +66,7 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 
 ## Features Implemented
 
-### Pages (8 total)
+### Pages (9 total)
 1. **Home** - Hero, problems, solutions, industry cards, how it works, results, features preview, pricing preview, testimonials
 2. **Dental** - Industry-specific content for dental practices
 3. **Restaurants** - Industry-specific content for restaurants
@@ -69,8 +74,9 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 5. **Features** - Full feature list with categorized sections
 6. **Pricing** - Three pricing tiers with testimonials carousel
 7. **Security** - Security & compliance information
-8. **Contact** - Contact information and working form
-9. **404** - Custom not found page
+8. **Onboarding** - Business onboarding form with file upload
+9. **Contact** - Contact information and working form
+10. **404** - Custom not found page
 
 ### Design Features
 - **Colors:** Primary blue (#2563EB), slate grays, clean white backgrounds
@@ -111,6 +117,9 @@ npm start
 ```
 
 ## Recent Changes
+- **2025-11-24:** Created business onboarding form page with fields for owner info, business details, services, industry type, and file upload for business context documents
+- **2025-11-24:** Added onboarding page to main navigation between Security and Contact
+- **2025-11-24:** Implemented onboarding API endpoint to handle form submissions with multipart/form-data support
 - **2025-10-31:** Modernized phone call widget UI with rounded corners, better focus states, and improved spacing
 - **2025-10-31:** Limited country selector to US (+1), Canada (+1), and UK (+44) only
 - **2025-10-31:** Redesigned success state to show minimal dialog with only success message and Done button
