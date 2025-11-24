@@ -120,6 +120,7 @@ npm start
 - **2025-11-24:** Created business onboarding form page with fields for owner info, business details, services, industry type, and file upload for business context documents
 - **2025-11-24:** Added onboarding page to main navigation between Security and Contact
 - **2025-11-24:** Implemented onboarding API endpoint to handle form submissions with multipart/form-data support
+- **2025-11-24:** Integrated onboarding form with Firebase Cloud Function (https://us-central1-talkserve.cloudfunctions.net/onboarding) to store form data and files
 - **2025-10-31:** Modernized phone call widget UI with rounded corners, better focus states, and improved spacing
 - **2025-10-31:** Limited country selector to US (+1), Canada (+1), and UK (+44) only
 - **2025-10-31:** Redesigned success state to show minimal dialog with only success message and Done button
