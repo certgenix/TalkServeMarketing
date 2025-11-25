@@ -72,7 +72,7 @@ export default function OnboardingForm() {
           Onboarding submitted successfully!
         </h3>
         <p className="text-slate-600 dark:text-slate-300 mb-6">
-          We&apos;ll review your information and get back to you within 24 hours.
+          Your WhatsApp integration will be fully activated and ready to use within the next 24 hours – we&apos;ll notify you the moment it goes live. Thank you for your patience!
         </p>
         <button
           onClick={() => setStatus('idle')}
