@@ -173,6 +173,8 @@ See `components/auth/README.md` for detailed documentation.
 - **2025-11-25:** Created AuthContext for managing authentication state across the application
 - **2025-11-25:** Added LoginForm, SignupForm, AuthModal, and UserProfile components
 - **2025-11-25:** Configured Firebase SDK with secure environment variables (NEXT_PUBLIC_FIREBASE_*)
+- **2025-11-25:** Integrated authentication modal into Header component (Login/Register buttons)
+- **2025-11-25:** Wrapped application with AuthProvider in layout.tsx for app-wide auth state
 - **2025-11-25:** Added comprehensive authentication documentation in components/auth/README.md
 - **2025-11-25:** Removed WhatsApp widget from the application
 - **2025-11-25:** Updated onboarding form success message to show WhatsApp activation notice (24-hour activation timeline)
