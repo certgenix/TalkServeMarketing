@@ -11,8 +11,9 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 - Framer Motion (animations)
 - React Icons
 - next-sitemap (SEO)
+- Firebase Authentication (email/password + Google OAuth)
 
-**Current Status:** Fully implemented with 9 pages, dark mode, animations, and responsive design.
+**Current Status:** Fully implemented with 9 pages, dark mode, animations, responsive design, and Firebase authentication.
 
 ## Project Structure
 
@@ -53,6 +54,12 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 │   ├── globals.css         # Global styles
 │   └── not-found.tsx       # 404 page
 ├── components/             # Reusable components
+│   ├── auth/               # Firebase authentication components
+│   │   ├── LoginForm.tsx   # Email/password + Google login
+│   │   ├── SignupForm.tsx  # Email/password registration
+│   │   ├── AuthModal.tsx   # Modal wrapper for auth forms
+│   │   ├── UserProfile.tsx # User profile dropdown
+│   │   └── README.md       # Authentication documentation
 │   ├── Header.tsx          # Sticky header with hide-on-scroll
 │   ├── Footer.tsx          # Footer with links
 │   ├── DarkModeProvider.tsx # Dark mode context
@@ -61,6 +68,10 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 │   ├── TestimonialCarousel.tsx # Auto-playing carousel
 │   ├── VoiceflowWidget.tsx # VoiceFlow outbound call widget
 │   └── VoiceAgentDialog.tsx # Contact form for voice calls
+├── contexts/               # React contexts
+│   └── AuthContext.tsx     # Firebase auth state management
+├── lib/                    # Utilities and configuration
+│   └── firebase.ts         # Firebase SDK configuration
 └── public/                 # Static assets
 ```
 
@@ -116,7 +127,53 @@ npm run build
 npm start
 ```
 
+## Firebase Authentication
+
+### Setup
+The website includes Firebase authentication with:
+- Email/password login and signup
+- Google OAuth sign-in
+- User profile management
+- Password reset functionality
+
+### Components
+- **AuthContext**: Manages authentication state across the app
+- **LoginForm**: Email/password and Google login
+- **SignupForm**: User registration with email/password
+- **AuthModal**: Modal wrapper for login/signup forms
+- **UserProfile**: Displays logged-in user with logout option
+
+### Environment Variables
+Required Firebase credentials (stored in Replit Secrets):
+- `NEXT_PUBLIC_FIREBASE_API_KEY`
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+- `NEXT_PUBLIC_FIREBASE_APP_ID`
+
+### Usage
+Wrap your app with `AuthProvider` in `app/layout.tsx`:
+```tsx
+import { AuthProvider } from '@/contexts/AuthContext';
+
+<AuthProvider>
+  {children}
+</AuthProvider>
+```
+
+Use the `useAuth` hook in any component:
+```tsx
+import { useAuth } from '@/contexts/AuthContext';
+
+const { user, signIn, signUp, signInWithGoogle, logout } = useAuth();
+```
+
+See `components/auth/README.md` for detailed documentation.
+
 ## Recent Changes
+- **2025-11-25:** Implemented Firebase Authentication with email/password login/signup and Google OAuth
+- **2025-11-25:** Created AuthContext for managing authentication state across the application
+- **2025-11-25:** Added LoginForm, SignupForm, AuthModal, and UserProfile components
+- **2025-11-25:** Configured Firebase SDK with secure environment variables (NEXT_PUBLIC_FIREBASE_*)
+- **2025-11-25:** Added comprehensive authentication documentation in components/auth/README.md
 - **2025-11-25:** Removed WhatsApp widget from the application
 - **2025-11-25:** Updated onboarding form success message to show WhatsApp activation notice (24-hour activation timeline)
 - **2025-11-24:** Created business onboarding form page with fields for owner info, business details, services, industry type, and file upload for business context documents
