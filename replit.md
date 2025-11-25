@@ -117,6 +117,8 @@ npm start
 ```
 
 ## Recent Changes
+- **2025-11-25:** Removed WhatsApp widget from the application
+- **2025-11-25:** Updated onboarding form success message to show WhatsApp activation notice (24-hour activation timeline)
 - **2025-11-24:** Created business onboarding form page with fields for owner info, business details, services, industry type, and file upload for business context documents
 - **2025-11-24:** Added onboarding page to main navigation between Security and Contact
 - **2025-11-24:** Implemented onboarding API endpoint to handle form submissions with multipart/form-data support
