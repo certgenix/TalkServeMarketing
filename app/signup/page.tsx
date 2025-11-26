@@ -8,14 +8,14 @@ import { FcGoogle } from 'react-icons/fc';
 
 const REGISTER_USER_URL = 'https://us-central1-talkserve.cloudfunctions.net/registerUser';
 
-async function registerUserInBackend(fullName: string, email: string, uid: string) {
+async function registerUserInBackend(name: string, email: string, uid: string) {
   const response = await fetch(REGISTER_USER_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      fullName,
+      name,
       email,
       uid,
     }),
