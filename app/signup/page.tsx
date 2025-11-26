@@ -6,6 +6,26 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
 
+const REGISTER_USER_URL = 'https://us-central1-talkserve.cloudfunctions.net/registerUser';
+
+async function registerUserInBackend(fullName: string, email: string, uid: string) {
+  const response = await fetch(REGISTER_USER_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      fullName,
+      email,
+      uid,
+    }),
+  });
+
+  if (!response.ok) {
+    console.error('Failed to register user in backend:', await response.text());
+  }
+}
+
 export default function SignUpPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -33,7 +53,8 @@ export default function SignUpPage() {
     setLoading(true);
 
     try {
-      await signUp(email, password, name);
+      const user = await signUp(email, password, name);
+      await registerUserInBackend(name, email, user.uid);
       router.push('/');
     } catch (err: any) {
       setError(err.message || 'Failed to create account. Please try again.');
@@ -47,7 +68,8 @@ export default function SignUpPage() {
     setLoading(true);
 
     try {
-      await signInWithGoogle();
+      const user = await signInWithGoogle();
+      await registerUserInBackend(user.displayName || '', user.email || '', user.uid);
       router.push('/');
     } catch (err: any) {
       setError(err.message || 'Failed to sign up with Google.');

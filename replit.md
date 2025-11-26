@@ -173,6 +173,7 @@ const { user, signIn, signUp, signInWithGoogle, logout } = useAuth();
 See `components/auth/README.md` for detailed documentation.
 
 ## Recent Changes
+- **2025-11-26:** Added backend user registration - calls Firebase Cloud Function after signup to register user with fullName, email, and uid
 - **2025-11-26:** Converted authentication from modal popups to dedicated pages
 - **2025-11-26:** Created /signin page with email/password and Google OAuth login
 - **2025-11-26:** Created /signup page with user registration form

@@ -18,8 +18,8 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, displayName?: string) => Promise<void>;
-  signInWithGoogle: () => Promise<void>;
+  signUp: (email: string, password: string, displayName?: string) => Promise<User>;
+  signInWithGoogle: () => Promise<User>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
 }
@@ -55,21 +55,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const signUp = async (email: string, password: string, displayName?: string) => {
+  const signUp = async (email: string, password: string, displayName?: string): Promise<User> => {
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       if (displayName && result.user) {
         await updateProfile(result.user, { displayName });
       }
+      return result.user;
     } catch (error: any) {
       throw new Error(error.message);
     }
   };
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (): Promise<User> => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      return result.user;
     } catch (error: any) {
       throw new Error(error.message);
     }
