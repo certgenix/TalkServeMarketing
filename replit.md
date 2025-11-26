@@ -13,7 +13,7 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 - next-sitemap (SEO)
 - Firebase Authentication (email/password + Google OAuth)
 
-**Current Status:** Fully implemented with 9 pages, dark mode, animations, responsive design, and Firebase authentication.
+**Current Status:** Fully implemented with 11 pages, dark mode, animations, responsive design, and Firebase authentication.
 
 ## Project Structure
 
@@ -31,6 +31,10 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 │   │   ├── PricingPreview.tsx
 │   │   ├── WhyChoose.tsx
 │   │   └── FinalCTA.tsx
+│   ├── signin/             # Sign in page
+│   │   └── page.tsx
+│   ├── signup/             # Sign up page
+│   │   └── page.tsx
 │   ├── dental/             # Dental industry page
 │   ├── restaurants/        # Restaurants industry page
 │   ├── services/           # Service businesses page
@@ -55,9 +59,8 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 │   └── not-found.tsx       # 404 page
 ├── components/             # Reusable components
 │   ├── auth/               # Firebase authentication components
-│   │   ├── LoginForm.tsx   # Email/password + Google login
-│   │   ├── SignupForm.tsx  # Email/password registration
-│   │   ├── AuthModal.tsx   # Modal wrapper for auth forms
+│   │   ├── LoginForm.tsx   # Email/password + Google login (legacy)
+│   │   ├── SignupForm.tsx  # Email/password registration (legacy)
 │   │   ├── UserProfile.tsx # User profile dropdown
 │   │   └── README.md       # Authentication documentation
 │   ├── Header.tsx          # Sticky header with hide-on-scroll
@@ -77,17 +80,19 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 
 ## Features Implemented
 
-### Pages (9 total)
+### Pages (11 total)
 1. **Home** - Hero, problems, solutions, industry cards, how it works, results, features preview, pricing preview, testimonials
-2. **Dental** - Industry-specific content for dental practices
-3. **Restaurants** - Industry-specific content for restaurants
-4. **Services** - Industry-specific content for service businesses
-5. **Features** - Full feature list with categorized sections
-6. **Pricing** - Three pricing tiers with testimonials carousel
-7. **Security** - Security & compliance information
-8. **Onboarding** - Business onboarding form with file upload
-9. **Contact** - Contact information and working form
-10. **404** - Custom not found page
+2. **Sign In** - Dedicated login page with email/password and Google OAuth
+3. **Sign Up** - Dedicated registration page with email/password and Google OAuth
+4. **Dental** - Industry-specific content for dental practices
+5. **Restaurants** - Industry-specific content for restaurants
+6. **Services** - Industry-specific content for service businesses
+7. **Features** - Full feature list with categorized sections
+8. **Pricing** - Three pricing tiers with testimonials carousel
+9. **Security** - Security & compliance information
+10. **Onboarding** - Business onboarding form with file upload
+11. **Contact** - Contact information and working form
+12. **404** - Custom not found page
 
 ### Design Features
 - **Colors:** Primary blue (#2563EB), slate grays, clean white backgrounds
@@ -138,9 +143,8 @@ The website includes Firebase authentication with:
 
 ### Components
 - **AuthContext**: Manages authentication state across the app
-- **LoginForm**: Email/password and Google login
-- **SignupForm**: User registration with email/password
-- **AuthModal**: Modal wrapper for login/signup forms
+- **Sign In Page**: Dedicated page at /signin with email/password and Google login
+- **Sign Up Page**: Dedicated page at /signup with user registration
 - **UserProfile**: Displays logged-in user with logout option
 
 ### Environment Variables
@@ -169,11 +173,14 @@ const { user, signIn, signUp, signInWithGoogle, logout } = useAuth();
 See `components/auth/README.md` for detailed documentation.
 
 ## Recent Changes
+- **2025-11-26:** Converted authentication from modal popups to dedicated pages
+- **2025-11-26:** Created /signin page with email/password and Google OAuth login
+- **2025-11-26:** Created /signup page with user registration form
+- **2025-11-26:** Updated Header to use Link navigation to auth pages instead of modals
+- **2025-11-26:** Removed AuthModal component (replaced by dedicated pages)
 - **2025-11-25:** Implemented Firebase Authentication with email/password login/signup and Google OAuth
 - **2025-11-25:** Created AuthContext for managing authentication state across the application
-- **2025-11-25:** Added LoginForm, SignupForm, AuthModal, and UserProfile components
 - **2025-11-25:** Configured Firebase SDK with secure environment variables (NEXT_PUBLIC_FIREBASE_*)
-- **2025-11-25:** Integrated authentication modal into Header component (Login/Register buttons)
 - **2025-11-25:** Wrapped application with AuthProvider in layout.tsx for app-wide auth state
 - **2025-11-25:** Added comprehensive authentication documentation in components/auth/README.md
 - **2025-11-25:** Removed WhatsApp widget from the application
