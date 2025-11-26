@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { HiMenu, HiX, HiMoon, HiSun } from 'react-icons/hi';
 import { useTheme } from './DarkModeProvider';
 import { useAuth } from '@/contexts/AuthContext';
-import AuthModal from './auth/AuthModal';
 import UserProfile from './auth/UserProfile';
 import LogoIcon from './LogoIcon';
 import clsx from 'clsx';
@@ -32,23 +31,9 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const { user, loading } = useAuth();
-
-  const openLogin = () => {
-    setAuthMode('login');
-    setShowAuthModal(true);
-    setMobileMenuOpen(false);
-  };
-
-  const openSignup = () => {
-    setAuthMode('signup');
-    setShowAuthModal(true);
-    setMobileMenuOpen(false);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -152,19 +137,19 @@ export default function Header() {
               </div>
             ) : (
               <>
-                <button
-                  onClick={openLogin}
+                <Link
+                  href="/signin"
                   className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
                 >
                   Login
-                </button>
+                </Link>
 
-                <button
-                  onClick={openSignup}
+                <Link
+                  href="/signup"
                   className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Register
-                </button>
+                </Link>
               </>
             )}
 
@@ -229,30 +214,26 @@ export default function Header() {
                 <UserProfile />
               ) : (
                 <>
-                  <button
-                    onClick={openLogin}
-                    className="w-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary text-center"
+                  <Link
+                    href="/signin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary text-center"
                   >
                     Login
-                  </button>
-                  <button
-                    onClick={openSignup}
-                    className="w-full px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg text-center"
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg text-center"
                   >
                     Register
-                  </button>
+                  </Link>
                 </>
               )}
             </div>
           </div>
         )}
       </nav>
-
-      <AuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        defaultMode={authMode}
-      />
     </header>
   );
 }
