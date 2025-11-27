@@ -35,6 +35,10 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 │   │   └── page.tsx
 │   ├── signup/             # Sign up page
 │   │   └── page.tsx
+│   ├── dashboard/          # Protected dashboard
+│   │   ├── page.tsx        # Contacts list
+│   │   └── contact/[id]/   # Contact detail with messages
+│   │       └── page.tsx
 │   ├── dental/             # Dental industry page
 │   ├── restaurants/        # Restaurants industry page
 │   ├── services/           # Service businesses page
@@ -80,19 +84,21 @@ Professional marketing website for TalkServe AI - an AI receptionist service tha
 
 ## Features Implemented
 
-### Pages (11 total)
+### Pages (13 total)
 1. **Home** - Hero, problems, solutions, industry cards, how it works, results, features preview, pricing preview, testimonials
 2. **Sign In** - Dedicated login page with email/password and Google OAuth
 3. **Sign Up** - Dedicated registration page with email/password and Google OAuth
-4. **Dental** - Industry-specific content for dental practices
-5. **Restaurants** - Industry-specific content for restaurants
-6. **Services** - Industry-specific content for service businesses
-7. **Features** - Full feature list with categorized sections
-8. **Pricing** - Three pricing tiers with testimonials carousel
-9. **Security** - Security & compliance information
-10. **Onboarding** - Business onboarding form with file upload
-11. **Contact** - Contact information and working form
-12. **404** - Custom not found page
+4. **Dashboard** - Protected page with contacts list (name, number, detail button)
+5. **Contact Detail** - Shows message history for a specific contact
+6. **Dental** - Industry-specific content for dental practices
+7. **Restaurants** - Industry-specific content for restaurants
+8. **Services** - Industry-specific content for service businesses
+9. **Features** - Full feature list with categorized sections
+10. **Pricing** - Three pricing tiers with testimonials carousel
+11. **Security** - Security & compliance information
+12. **Onboarding** - Business onboarding form with file upload
+13. **Contact** - Contact information and working form
+14. **404** - Custom not found page
 
 ### Design Features
 - **Colors:** Primary blue (#2563EB), slate grays, clean white backgrounds
@@ -173,6 +179,10 @@ const { user, signIn, signUp, signInWithGoogle, logout } = useAuth();
 See `components/auth/README.md` for detailed documentation.
 
 ## Recent Changes
+- **2025-11-27:** Added Dashboard page with contacts list (name, number, detail button) - protected route requiring authentication
+- **2025-11-27:** Added Contact Detail page showing message history for each contact (dummy data)
+- **2025-11-27:** Updated login/signup to redirect to /dashboard after successful authentication
+- **2025-11-27:** Fixed registerUser API payload - changed fullName to name to match backend expectation
 - **2025-11-26:** Added backend user registration - calls Firebase Cloud Function after signup to register user with fullName, email, and uid
 - **2025-11-26:** Converted authentication from modal popups to dedicated pages
 - **2025-11-26:** Created /signin page with email/password and Google OAuth login
