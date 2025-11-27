@@ -22,7 +22,6 @@ const navigation = [
   { name: 'Features', href: '/features' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'Security', href: '/security' },
-  { name: 'Onboarding', href: '/onboarding' },
   { name: 'Contact', href: '/contact' },
 ];
 
