@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { HiCheckCircle, HiUpload } from 'react-icons/hi';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function OnboardingForm() {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     ownerName: '',
     ownerEmail: '',
@@ -26,6 +28,9 @@ export default function OnboardingForm() {
       });
       if (file) {
         formDataToSend.append('businessContext', file);
+      }
+      if (user?.uid) {
+        formDataToSend.append('uuid', user.uid);
       }
 
       const response = await fetch('/api/onboarding', {

@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
-import { FcGoogle } from 'react-icons/fc';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+import { FcGoogle } from "react-icons/fc";
 
-const REGISTER_USER_URL = 'https://us-central1-talkserve.cloudfunctions.net/registerUser';
+const REGISTER_USER_URL = "https://registeruser-ieskeqprjq-uc.a.run.app";
 
 async function registerUserInBackend(name: string, email: string, uid: string) {
   const response = await fetch(REGISTER_USER_URL, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       name,
@@ -22,31 +22,31 @@ async function registerUserInBackend(name: string, email: string, uid: string) {
   });
 
   if (!response.ok) {
-    console.error('Failed to register user in backend:', await response.text());
+    console.error("Failed to register user in backend:", await response.text());
   }
 }
 
 export default function SignUpPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { signUp, signInWithGoogle } = useAuth();
   const router = useRouter();
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError("Password must be at least 6 characters");
       return;
     }
 
@@ -55,24 +55,28 @@ export default function SignUpPage() {
     try {
       const user = await signUp(email, password, name);
       await registerUserInBackend(name, email, user.uid);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || 'Failed to create account. Please try again.');
+      setError(err.message || "Failed to create account. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleGoogleSignup = async () => {
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       const user = await signInWithGoogle();
-      await registerUserInBackend(user.displayName || '', user.email || '', user.uid);
-      router.push('/dashboard');
+      await registerUserInBackend(
+        user.displayName || "",
+        user.email || "",
+        user.uid,
+      );
+      router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || 'Failed to sign up with Google.');
+      setError(err.message || "Failed to sign up with Google.");
     } finally {
       setLoading(false);
     }
@@ -83,8 +87,12 @@ export default function SignUpPage() {
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Create Account</h1>
-            <p className="text-gray-600 dark:text-gray-400">Get started with TalkServe today</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              Create Account
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Get started with TalkServe today
+            </p>
           </div>
 
           {error && (
@@ -95,7 +103,10 @@ export default function SignUpPage() {
 
           <form onSubmit={handleEmailSignup} className="space-y-5">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
                 Full Name
               </label>
               <input
@@ -110,7 +121,10 @@ export default function SignUpPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
                 Email Address
               </label>
               <input
@@ -125,7 +139,10 @@ export default function SignUpPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
                 Password
               </label>
               <input
@@ -140,7 +157,10 @@ export default function SignUpPage() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
                 Confirm Password
               </label>
               <input
@@ -159,13 +179,15 @@ export default function SignUpPage() {
               disabled={loading}
               className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
             >
-              {loading ? 'Creating account...' : 'Create Account'}
+              {loading ? "Creating account..." : "Create Account"}
             </button>
           </form>
 
           <div className="my-6 flex items-center">
             <div className="flex-1 border-t border-gray-300 dark:border-slate-600"></div>
-            <span className="px-4 text-sm text-gray-500 dark:text-gray-400">OR</span>
+            <span className="px-4 text-sm text-gray-500 dark:text-gray-400">
+              OR
+            </span>
             <div className="flex-1 border-t border-gray-300 dark:border-slate-600"></div>
           </div>
 
@@ -179,7 +201,7 @@ export default function SignUpPage() {
           </button>
 
           <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link
               href="/signin"
               className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"

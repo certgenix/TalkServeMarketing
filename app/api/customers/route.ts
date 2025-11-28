@@ -1,30 +1,30 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-const LIST_CUSTOMERS_URL = 'https://us-central1-talkserve.cloudfunctions.net/listCustomers';
+const LIST_CUSTOMERS_URL = "https://listcustomers-ieskeqprjq-uc.a.run.app";
 
 export async function GET() {
   try {
     const response = await fetch(LIST_CUSTOMERS_URL, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
     if (!response.ok) {
       return NextResponse.json(
-        { success: false, error: 'Failed to fetch customers' },
-        { status: response.status }
+        { success: false, error: "Failed to fetch customers" },
+        { status: response.status },
       );
     }
 
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error fetching customers:', error);
+    console.error("Error fetching customers:", error);
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+      { success: false, error: "Internal server error" },
+      { status: 500 },
     );
   }
 }
