@@ -1,62 +1,80 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 
-const dummyContacts: Record<string, { name: string; number: string }> = {
-  '1': { name: 'John Smith', number: '+1 234 567 8901' },
-  '2': { name: 'Sarah Johnson', number: '+1 345 678 9012' },
-  '3': { name: 'Mike Williams', number: '+1 456 789 0123' },
-  '4': { name: 'Emily Brown', number: '+1 567 890 1234' },
-  '5': { name: 'David Miller', number: '+1 678 901 2345' },
-};
+interface Message {
+  id: string;
+  from: string;
+  to: string;
+  message: string;
+  created_at: string;
+  direction: 'incoming' | 'outgoing';
+}
 
-const dummyMessages: Record<string, Array<{ id: string; text: string; time: string; sender: 'user' | 'contact' }>> = {
-  '1': [
-    { id: '1', text: 'Hi, how are you?', time: '10:30 AM', sender: 'contact' },
-    { id: '2', text: 'I am doing great, thanks!', time: '10:32 AM', sender: 'user' },
-    { id: '3', text: 'Would you like to schedule a meeting?', time: '10:35 AM', sender: 'contact' },
-    { id: '4', text: 'Sure, how about tomorrow at 2 PM?', time: '10:38 AM', sender: 'user' },
-    { id: '5', text: 'Perfect, see you then!', time: '10:40 AM', sender: 'contact' },
-  ],
-  '2': [
-    { id: '1', text: 'Hey Sarah!', time: '9:00 AM', sender: 'user' },
-    { id: '2', text: 'Hello! How can I help you today?', time: '9:05 AM', sender: 'contact' },
-    { id: '3', text: 'I need the project report by Friday.', time: '9:10 AM', sender: 'user' },
-    { id: '4', text: 'No problem, I will send it over.', time: '9:12 AM', sender: 'contact' },
-  ],
-  '3': [
-    { id: '1', text: 'Mike, are you available for a call?', time: '2:00 PM', sender: 'user' },
-    { id: '2', text: 'Yes, give me 5 minutes.', time: '2:02 PM', sender: 'contact' },
-    { id: '3', text: 'Sounds good!', time: '2:03 PM', sender: 'user' },
-  ],
-  '4': [
-    { id: '1', text: 'Emily, did you receive my email?', time: '11:00 AM', sender: 'user' },
-    { id: '2', text: 'Yes, I am reviewing it now.', time: '11:15 AM', sender: 'contact' },
-    { id: '3', text: 'Let me know if you have questions.', time: '11:20 AM', sender: 'user' },
-    { id: '4', text: 'Will do, thanks!', time: '11:22 AM', sender: 'contact' },
-    { id: '5', text: 'Everything looks good to me.', time: '11:45 AM', sender: 'contact' },
-    { id: '6', text: 'Great, let us proceed then.', time: '11:50 AM', sender: 'user' },
-  ],
-  '5': [
-    { id: '1', text: 'David, quick question about the budget.', time: '3:30 PM', sender: 'user' },
-    { id: '2', text: 'Sure, what do you need to know?', time: '3:35 PM', sender: 'contact' },
-  ],
-};
+interface ConversationResponse {
+  success: boolean;
+  phone: string;
+  totalReturned: number;
+  hasMore: boolean;
+  nextStartAfter: string;
+  messages: Message[];
+}
 
 export default function ContactDetailPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const params = useParams();
   const contactId = params.id as string;
+  
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [fetchingMessages, setFetchingMessages] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!loading && !user) {
       router.push('/signin');
     }
   }, [user, loading, router]);
+
+  useEffect(() => {
+    async function fetchConversations() {
+      try {
+        const response = await fetch(`/api/conversations?phone=${contactId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch conversations');
+        }
+        const data: ConversationResponse = await response.json();
+        if (data.success) {
+          setMessages(data.messages);
+        } else {
+          throw new Error('API returned unsuccessful response');
+        }
+      } catch (err) {
+        console.error('Error fetching conversations:', err);
+        setError('Failed to load messages. Please try again later.');
+      } finally {
+        setFetchingMessages(false);
+      }
+    }
+
+    if (user && contactId) {
+      fetchConversations();
+    }
+  }, [user, contactId]);
+
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
 
   if (loading) {
     return (
@@ -68,22 +86,6 @@ export default function ContactDetailPage() {
 
   if (!user) {
     return null;
-  }
-
-  const contact = dummyContacts[contactId];
-  const messages = dummyMessages[contactId] || [];
-
-  if (!contact) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Contact not found</h1>
-          <Link href="/dashboard" className="text-blue-600 hover:text-blue-700">
-            Back to Dashboard
-          </Link>
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -99,8 +101,8 @@ export default function ContactDetailPage() {
             </svg>
           </Link>
           <div>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">{contact.name}</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{contact.number}</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Conversation</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">+{contactId}</p>
           </div>
         </div>
       </header>
@@ -112,28 +114,36 @@ export default function ContactDetailPage() {
           </div>
           
           <div className="p-6 space-y-4 max-h-[600px] overflow-y-auto">
-            {messages.length === 0 ? (
+            {fetchingMessages ? (
+              <div className="text-center py-8">
+                <div className="text-gray-500 dark:text-gray-400">Loading messages...</div>
+              </div>
+            ) : error ? (
+              <div className="text-center py-8">
+                <div className="text-red-500 dark:text-red-400">{error}</div>
+              </div>
+            ) : messages.length === 0 ? (
               <p className="text-center text-gray-500 dark:text-gray-400 py-8">No messages yet</p>
             ) : (
-              messages.map((message) => (
+              [...messages].reverse().map((message) => (
                 <div
                   key={message.id}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${message.direction === 'outgoing' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
                     className={`max-w-[70%] px-4 py-3 rounded-2xl ${
-                      message.sender === 'user'
+                      message.direction === 'outgoing'
                         ? 'bg-blue-600 text-white rounded-br-md'
                         : 'bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-white rounded-bl-md'
                     }`}
                   >
-                    <p className="text-sm">{message.text}</p>
+                    <p className="text-sm whitespace-pre-wrap">{message.message}</p>
                     <p
                       className={`text-xs mt-1 ${
-                        message.sender === 'user' ? 'text-blue-200' : 'text-gray-500 dark:text-gray-400'
+                        message.direction === 'outgoing' ? 'text-blue-200' : 'text-gray-500 dark:text-gray-400'
                       }`}
                     >
-                      {message.time}
+                      {formatTime(message.created_at)}
                     </p>
                   </div>
                 </div>
