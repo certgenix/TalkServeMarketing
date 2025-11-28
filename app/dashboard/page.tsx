@@ -22,7 +22,7 @@ interface ApiResponse {
   };
 }
 
-const LIST_CUSTOMERS_URL = 'https://us-central1-talkserve.cloudfunctions.net/listCustomers';
+const LIST_CUSTOMERS_URL = '/api/customers';
 
 export default function DashboardPage() {
   const { user, loading, logout } = useAuth();
