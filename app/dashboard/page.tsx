@@ -40,7 +40,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchCustomers() {
       try {
-        const response = await fetch(LIST_CUSTOMERS_URL);
+        const response = await fetch(`${LIST_CUSTOMERS_URL}?uid=${user?.uid}`);
         if (!response.ok) {
           throw new Error('Failed to fetch customers');
         }
@@ -58,7 +58,7 @@ export default function DashboardPage() {
       }
     }
 
-    if (user) {
+    if (user?.uid) {
       fetchCustomers();
     }
   }, [user]);

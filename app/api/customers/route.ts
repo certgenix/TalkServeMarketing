@@ -1,10 +1,24 @@
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 const LIST_CUSTOMERS_URL = "https://listcustomers-ieskeqprjq-uc.a.run.app";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const response = await fetch(LIST_CUSTOMERS_URL, {
+    const searchParams = request.nextUrl.searchParams;
+    const uid = searchParams.get("uid");
+
+    if (!uid) {
+      return NextResponse.json(
+        { success: false, error: "User ID is required" },
+        { status: 400 },
+      );
+    }
+
+    const url = new URL(LIST_CUSTOMERS_URL);
+    url.searchParams.set("uid", uid);
+
+    const response = await fetch(url.toString(), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
