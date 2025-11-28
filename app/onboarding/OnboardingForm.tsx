@@ -33,8 +33,13 @@ export default function OnboardingForm() {
         formDataToSend.append('uuid', user.uid);
       }
 
+      const idToken = await user?.getIdToken();
+
       const response = await fetch('/api/onboarding', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${idToken}`,
+        },
         body: formDataToSend,
       });
 

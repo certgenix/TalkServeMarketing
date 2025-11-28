@@ -17,8 +17,16 @@ export async function POST(request: NextRequest) {
         : "No file uploaded",
     });
 
+    const authHeader = request.headers.get("Authorization");
+    
+    const headers: HeadersInit = {};
+    if (authHeader) {
+      headers["Authorization"] = authHeader;
+    }
+
     const response = await fetch(FIREBASE_FUNCTION_URL, {
       method: "POST",
+      headers,
       body: formData,
     });
 
