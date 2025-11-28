@@ -40,12 +40,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchCustomers() {
       try {
-        const idToken = await user?.getIdToken();
-        const response = await fetch(LIST_CUSTOMERS_URL, {
-          headers: {
-            'Authorization': `Bearer ${idToken}`,
-          },
-        });
+        const response = await fetch(LIST_CUSTOMERS_URL);
         if (!response.ok) {
           throw new Error('Failed to fetch customers');
         }
