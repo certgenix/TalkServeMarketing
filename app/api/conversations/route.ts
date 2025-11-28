@@ -15,11 +15,18 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const authHeader = request.headers.get("Authorization");
+    
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+    };
+    if (authHeader) {
+      headers["Authorization"] = authHeader;
+    }
+
     const response = await fetch(`${GET_CONVERSATIONS_URL}?phone=${phone}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
     });
 
     if (!response.ok) {

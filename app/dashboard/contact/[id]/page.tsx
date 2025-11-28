@@ -42,7 +42,12 @@ export default function ContactDetailPage() {
   useEffect(() => {
     async function fetchConversations() {
       try {
-        const response = await fetch(`/api/conversations?phone=${contactId}`);
+        const idToken = await user?.getIdToken();
+        const response = await fetch(`/api/conversations?phone=${contactId}`, {
+          headers: {
+            'Authorization': `Bearer ${idToken}`,
+          },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch conversations');
         }
