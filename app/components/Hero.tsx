@@ -12,7 +12,7 @@ export default function Hero() {
     <HeroSection
       title="Never Miss Another Customer —"
       highlightedText="On Voice, SMS, or WhatsApp"
-      description="TalkServe's AI receptionist answers in under two seconds, books appointments or orders, and follows up—24/7. Trusted by dental clinics, restaurants, and service businesses across North America."
+      description="TalkServe's AI receptionist responds instantly across calls, texts, and WhatsApp. It books appointments or orders, answers questions, and follows up — 24/7. Trusted by healthcare clinics, restaurants, and service businesses across North America."
       imagePath="/images/heroes/Modern_AI_reception_workspace_d599f705.png"
       imageAlt="Modern AI-powered reception workspace"
     >
