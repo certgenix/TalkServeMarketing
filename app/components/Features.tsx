@@ -9,26 +9,22 @@ const features = [
   {
     icon: HiLightningBolt,
     title: 'Natural-sounding voice tuned to your brand',
+    description: 'For phone calls — or optional if you only want SMS/WhatsApp.',
   },
   {
     icon: HiPhone,
     title: 'Smart routing and escalation',
+    description: 'Direct calls, texts, or WhatsApp messages to the right team member instantly.',
   },
   {
     icon: HiClock,
-    title: 'Unlimited simultaneous calls',
+    title: 'Unlimited simultaneous conversations',
+    description: 'Handle unlimited calls, SMS threads, and WhatsApp chats at once.',
   },
   {
     icon: HiChartBar,
     title: 'Real-time analytics dashboard',
-  },
-  {
-    icon: HiGlobe,
-    title: 'Multilingual support (English • French • Spanish • more)',
-  },
-  {
-    icon: HiShieldCheck,
-    title: 'HIPAA-ready and Canadian data-residency options',
+    description: 'Track call volumes, message activity, bookings, and customer insights.',
   },
 ];
 
@@ -44,15 +40,18 @@ export default function Features() {
           </h2>
         </AnimatedSection>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-12">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <AnimatedSection key={feature.title} delay={index * 0.1} className="h-full">
                 <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 h-full flex flex-col">
                   <Icon className="h-10 w-10 text-primary mb-4" />
-                  <p className="text-lg text-slate-700 dark:text-slate-300">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
                     {feature.title}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300">
+                    {feature.description}
                   </p>
                 </div>
               </AnimatedSection>
