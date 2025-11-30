@@ -1,26 +1,31 @@
 import AnimatedSection from '@/components/AnimatedSection';
-import { HiUserGroup, HiGlobe, HiCheckCircle, HiCog, HiShieldCheck } from 'react-icons/hi';
+import { HiUserGroup, HiSpeakerphone, HiCheckCircle, HiLockClosed, HiCog } from 'react-icons/hi';
 
 const reasons = [
   {
     icon: HiUserGroup,
     title: 'Live human transfer anytime',
+    description: 'From phone, SMS, or WhatsApp conversations.',
   },
   {
-    icon: HiGlobe,
+    icon: HiSpeakerphone,
     title: 'Handles noise and accents gracefully',
+    description: 'Clear understanding across voice and text channels.',
   },
   {
     icon: HiCheckCircle,
     title: 'English & French ready for Canada',
+    description: 'Plus optional multilingual expansion.',
   },
   {
-    icon: HiShieldCheck,
+    icon: HiLockClosed,
     title: 'Recording consent built in',
+    description: 'Secure, compliant call + message handling.',
   },
   {
     icon: HiCog,
     title: 'Works with your existing tools',
+    description: 'Calendar, POS, CRM, and messaging integrations.',
   },
 ];
 
@@ -43,8 +48,11 @@ export default function WhyChoose() {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 mb-4">
                     <Icon className="h-8 w-8 text-primary" />
                   </div>
-                  <p className="text-slate-700 dark:text-slate-300 font-medium">
+                  <h3 className="text-slate-900 dark:text-white font-semibold mb-1">
                     {reason.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {reason.description}
                   </p>
                 </div>
               </AnimatedSection>
