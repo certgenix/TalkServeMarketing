@@ -7,31 +7,31 @@ const industries = [
     title: 'Dental Clinics',
     tagline: 'Your receptionist that never takes a break.',
     features: [
-      'Schedule patients 24/7',
-      'Send reminders and confirmations',
-      'Route emergencies instantly',
+      'Schedule patients via call, SMS, or WhatsApp',
+      'Send SMS/WhatsApp reminders and confirmations',
+      'Route emergencies instantly to your team',
       'HIPAA-ready and PIPEDA-aligned',
     ],
     href: '/dental',
   },
   {
     title: 'Restaurants & Food Service',
-    tagline: 'AI that takes your orders—literally.',
+    tagline: 'AI that takes your orders — literally.',
     features: [
-      'Phone orders and reservations',
+      'Take phone, SMS, or WhatsApp orders and reservations',
       'POS integration for Square, Toast, and more',
-      'Handles rush-hour overflow',
-      'Upsells naturally',
+      'Handle rush-hour overflow automatically',
+      'Upsell naturally with every conversation',
     ],
     href: '/restaurants',
   },
   {
     title: 'Service Businesses',
-    tagline: 'Turn every call into a booked appointment.',
+    tagline: 'Turn every call or message into a booked appointment.',
     features: [
-      'Capture and qualify leads 24/7',
+      'Capture and qualify leads across voice, SMS, and WhatsApp',
       'Book consultations and estimates',
-      'Send follow-ups and review requests',
+      'Send automated follow-ups, reminders, and review requests',
       'Integrates with Jobber, ServiceTitan, HubSpot',
     ],
     href: '/services',
@@ -44,7 +44,7 @@ export default function IndustryCards() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">
-            Built for Businesses That Can&apos;t Miss Calls
+            Built for Businesses That Can&apos;t Miss Calls, Texts, or WhatsApp Messages
           </h2>
         </AnimatedSection>
 
