@@ -7,18 +7,18 @@ import { useVoiceAgent } from '@/components/VoiceAgentContext';
 const steps = [
   {
     number: '01',
-    title: 'Connect your line',
-    description: 'Forward your business number to TalkServe.',
+    title: 'Connect your channels',
+    description: 'Forward your phone number and link your SMS & WhatsApp Business accounts to TalkServe.',
   },
   {
     number: '02',
     title: 'Train your agent',
-    description: 'We customize its voice, menu, and knowledge base.',
+    description: 'We customize its voice, responses, menu, and knowledge base for calls, texts, and WhatsApp chats.',
   },
   {
     number: '03',
     title: 'Go live',
-    description: 'Start taking real calls within one business day.',
+    description: 'Start handling real calls, SMS, and WhatsApp messages within one business day.',
   },
 ];
 
