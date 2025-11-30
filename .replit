@@ -92,3 +92,8 @@ externalPort = 8099
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+NEXT_PUBLIC_FIREBASE_API_KEY = "AIzaSyBXJMTDmWj4iYCJVAY4lTMUE44PKW4uJ7"
