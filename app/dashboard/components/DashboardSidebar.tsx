@@ -13,7 +13,7 @@ interface SidebarProps {
 
 const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: FiHome },
-  { name: 'Onboarding', href: '/onboarding', icon: FiUserPlus },
+  { name: 'Onboarding', href: '/dashboard/onboarding', icon: FiUserPlus },
   { name: 'Customers', href: '/dashboard/customers', icon: FiUsers },
 ];
 
