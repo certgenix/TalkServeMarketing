@@ -168,21 +168,11 @@ export default function SecurityPage() {
               Trust & Transparency
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              We believe in complete transparency about our security practices. Review our full
-              documentation or speak with our team.
+              Your data security and privacy matter to us. Read our Privacy Policy for a clear explanation of how we handle and protect your information.
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
-              <a href="/privacy" className="hover:text-primary transition-colors">
+            <div className="flex flex-wrap justify-center gap-6">
+              <a href="/privacy" className="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
                 Privacy Policy
-              </a>
-              <a href="/terms" className="hover:text-primary transition-colors">
-                Terms of Service
-              </a>
-              <a href="/status" className="hover:text-primary transition-colors">
-                System Status
-              </a>
-              <a href="/api-docs" className="hover:text-primary transition-colors">
-                API Documentation
               </a>
             </div>
           </AnimatedSection>
