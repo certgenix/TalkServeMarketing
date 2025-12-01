@@ -17,21 +17,24 @@ import { useVoiceAgent } from '@/components/VoiceAgentContext';
 const featureCategories = [
   {
     title: 'Voice & Conversation',
+    subtitle: '(Voice channel — optional)',
     icon: HiMicrophone,
     features: [
-      'Human-like speech with custom voices',
-      'Context-aware conversations and interruptions',
+      'Human-like speech with fully customized voices',
+      'Context-aware conversations and natural interruptions',
       'Multilingual support (EN/FR/ES + 20 others)',
+      'Optional if you only want text-based agents (SMS/WhatsApp)',
     ],
   },
   {
     title: 'Call Management',
+    subtitle: '(Voice channel — optional)',
     icon: HiPhone,
     features: [
-      '<2s answer time & instant routing',
+      '<2s answer time and instant intelligent routing',
       'Unlimited simultaneous calls',
       'Call recording & transcription with regional consent',
-      'Separate business / after-hours rules',
+      'Separate business hours and after-hours rules',
     ],
   },
   {
@@ -41,15 +44,18 @@ const featureCategories = [
       'Real-time calendar sync',
       'Appointment and waitlist management',
       'Multi-staff and multi-location support',
+      'Bookings from calls, SMS, or WhatsApp chats',
     ],
   },
   {
     title: 'Customer Communication',
+    subtitle: '(SMS & WhatsApp)',
     icon: HiMail,
     features: [
-      'SMS / email confirmations & reminders',
-      'Two-way messaging for changes',
-      'Post-appointment follow-ups and review requests',
+      'SMS & WhatsApp confirmations and reminders',
+      'Two-way messaging for changes or questions',
+      'Automated post-appointment follow-ups',
+      'Review and feedback requests sent automatically',
     ],
   },
   {
@@ -61,28 +67,30 @@ const featureCategories = [
       'HubSpot • Salesforce • Zoho',
       'Jobber • ServiceTitan',
       'Slack • Microsoft Teams',
-      'REST API for custom flows',
+      'REST API for custom workflows',
+      'WhatsApp Business API supported',
     ],
   },
   {
     title: 'Analytics & Reporting',
     icon: HiChartBar,
     features: [
-      'Real-time dashboard for calls, bookings, revenue',
-      'Customer insights and common questions',
+      'Real-time dashboard for calls, messages, bookings, and revenue',
+      'Customer insights and top questions',
       'Exportable reports and custom KPIs',
+      'Channel-level insights: Voice, SMS, and WhatsApp',
     ],
   },
   {
     title: 'Security & Compliance',
     icon: HiShieldCheck,
     features: [
-      '256-bit encryption and audit logging',
+      '256-bit encryption and full audit logging',
       'Role-based access and SSO (Enterprise)',
       'HIPAA-ready with BAA (US)',
       'PIPEDA/PHIPA-aligned (Canada)',
-      'Configurable data retention & regional storage',
-      'Built-in call-recording disclosure',
+      'Configurable data retention and regional storage',
+      'Built-in call-recording & message-disclosure templates',
     ],
   },
   {
@@ -90,9 +98,10 @@ const featureCategories = [
     icon: HiLightningBolt,
     features: [
       'Natural language understanding',
-      'Intelligent call escalation',
+      'Intelligent escalation to human staff',
       'Automated upselling and recommendations',
       'Custom workflows and scripts',
+      'Works intelligently across voice, SMS, and WhatsApp',
     ],
   },
 ];
@@ -105,7 +114,7 @@ export default function FeaturesPage() {
       <HeroSection
         title="Powerful AI. Built for business."
         highlightedText="Simple to use."
-        description="Everything you need to handle calls professionally, automatically, and 24/7."
+        description="Everything you need to handle calls, texts, and WhatsApp conversations professionally, automatically, and 24/7. TalkServe works across Voice, SMS, and WhatsApp — choose one channel or all three."
         imagePath="/images/heroes/AI_technology_features_visualization_10b037d0.png"
         imageAlt="AI technology features"
       />
@@ -122,9 +131,16 @@ export default function FeaturesPage() {
                       <div className="p-3 rounded-xl bg-primary/10 dark:bg-primary/20">
                         <Icon className="h-8 w-8 text-primary" />
                       </div>
-                      <h2 className="text-2xl font-display font-bold text-slate-900 dark:text-white">
-                        {category.title}
-                      </h2>
+                      <div>
+                        <h2 className="text-2xl font-display font-bold text-slate-900 dark:text-white">
+                          {category.title}
+                        </h2>
+                        {category.subtitle && (
+                          <p className="text-sm text-slate-500 dark:text-slate-400">
+                            {category.subtitle}
+                          </p>
+                        )}
+                      </div>
                     </div>
                     <ul className="space-y-3">
                       {category.features.map((feature) => (
@@ -152,7 +168,7 @@ export default function FeaturesPage() {
               Ready to experience TalkServe?
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              See how our AI receptionist can transform your business communications.
+              See how our AI receptionist handles calls, texts, and WhatsApp messages — so you never miss a customer.
             </p>
             <div className="flex justify-center">
               <button
