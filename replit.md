@@ -179,6 +179,14 @@ const { user, signIn, signUp, signInWithGoogle, logout } = useAuth();
 See `components/auth/README.md` for detailed documentation.
 
 ## Recent Changes
+- **2025-12-01:** Added Customer Chats page (/dashboard/customers/[id]/chats) showing list of chat sessions with date, customer name, experience, summary, and Open Chat button
+- **2025-12-01:** Added date range filter to Customer Chats page for filtering chat sessions by date
+- **2025-12-01:** Updated View Chat button in customers list to navigate to new chats page instead of direct conversation
+- **2025-12-01:** Fixed mobile sidebar to start below main navigation (60px from top) like YouTube
+- **2025-12-01:** Made main navigation sticky on dashboard pages when sidebar is open
+- **2025-12-01:** Updated sidebar user section to display name/email and sign out button in same row using flexbox
+- **2025-12-01:** Moved onboarding page to /dashboard/onboarding so it uses dashboard layout with sidebar
+- **2025-12-01:** Removed onboarding link from profile dropdown (now only accessible via dashboard sidebar)
 - **2025-12-01:** Made dashboard sidebar sticky so it stays visible while scrolling content
 - **2025-12-01:** Fixed analytics graph display issue with proper animation timing
 - **2025-12-01:** Updated sidebar onboarding link to match profile dropdown (/onboarding)
