@@ -25,8 +25,19 @@ let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
 
 if (isConfigured) {
-  app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-  auth = getAuth(app);
+  try {
+    app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+    auth = getAuth(app);
+    if (typeof window !== 'undefined') {
+      console.log('Firebase initialized successfully with project:', firebaseConfig.projectId);
+    }
+  } catch (error) {
+    console.error('Firebase initialization error:', error);
+  }
+} else {
+  if (typeof window !== 'undefined') {
+    console.warn('Firebase not configured - missing API key or project ID');
+  }
 }
 
 export { auth };

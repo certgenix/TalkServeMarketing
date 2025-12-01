@@ -49,6 +49,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
+    }, (error: any) => {
+      console.error('Auth state change error:', error.code || 'unknown', error.message);
+      setLoading(false);
     });
 
     return unsubscribe;
