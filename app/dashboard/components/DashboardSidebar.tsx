@@ -90,21 +90,23 @@ export default function DashboardSidebar({ onSignOut, userEmail, userName }: Sid
           </nav>
 
           <div className="p-4 border-t border-gray-200 dark:border-slate-700">
-            <div className="px-4 py-3 mb-2">
-              <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                {userName || 'User'}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                {userEmail}
-              </p>
+            <div className="flex items-center justify-between px-4 py-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                  {userName || 'User'}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                  {userEmail}
+                </p>
+              </div>
+              <button
+                onClick={onSignOut}
+                className="ml-3 p-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                title="Sign Out"
+              >
+                <FiLogOut className="w-5 h-5" />
+              </button>
             </div>
-            <button
-              onClick={onSignOut}
-              className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-            >
-              <FiLogOut className="w-5 h-5" />
-              <span>Sign Out</span>
-            </button>
           </div>
         </div>
       </aside>
