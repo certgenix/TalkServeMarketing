@@ -23,6 +23,7 @@ const footerSections = [
     links: [
       { name: 'Contact', href: '/contact' },
       { name: 'Security', href: '/security' },
+      { name: 'Privacy Policy', href: '/privacy' },
     ],
   },
 ];
