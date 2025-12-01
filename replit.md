@@ -179,6 +179,11 @@ const { user, signIn, signUp, signInWithGoogle, logout } = useAuth();
 See `components/auth/README.md` for detailed documentation.
 
 ## Recent Changes
+- **2025-12-01:** Made dashboard sidebar sticky so it stays visible while scrolling content
+- **2025-12-01:** Fixed analytics graph display issue with proper animation timing
+- **2025-12-01:** Updated sidebar onboarding link to match profile dropdown (/onboarding)
+- **2025-12-01:** Enhanced customers page with stat card filters, search, experience badges with emojis, and mobile-friendly card layout
+- **2025-12-01:** Improved conversation page with modern chat bubbles, date grouping, auto-scroll, and read-only footer
 - **2025-11-27:** Added Dashboard page with contacts list (name, number, detail button) - protected route requiring authentication
 - **2025-11-27:** Added Contact Detail page showing message history for each contact (dummy data)
 - **2025-11-27:** Updated login/signup to redirect to /dashboard after successful authentication
