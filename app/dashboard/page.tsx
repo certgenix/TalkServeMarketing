@@ -1,191 +1,233 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
+import React, { useState } from 'react';
+import { FiMessageSquare, FiTrendingUp, FiClock, FiCalendar, FiArrowUp, FiArrowDown } from 'react-icons/fi';
 
-interface Customer {
-  id: string;
-  waId: number;
-  name: string;
-  experience: string;
-}
+type TimePeriod = 'day' | 'week' | 'month';
 
-interface ApiResponse {
-  success: boolean;
-  data: Customer[];
-  pagination: {
-    totalReturned: number;
-    hasMore: boolean;
-    nextStartAfter: string;
-  };
-}
+const dummyData = {
+  day: {
+    totalChats: 127,
+    change: 12.5,
+    peakHour: '2:00 PM - 3:00 PM',
+    peakDay: 'Today',
+    hourlyData: [4, 8, 12, 18, 25, 32, 45, 52, 48, 42, 38, 35, 48, 56, 62, 58, 45, 38, 28, 22, 18, 12, 8, 5],
+  },
+  week: {
+    totalChats: 842,
+    change: 8.3,
+    peakHour: '2:00 PM - 4:00 PM',
+    peakDay: 'Wednesday',
+    dailyData: [98, 112, 145, 156, 132, 108, 91],
+  },
+  month: {
+    totalChats: 3456,
+    change: 15.7,
+    peakHour: '1:00 PM - 3:00 PM',
+    peakDay: 'Wednesday',
+    weeklyData: [756, 823, 892, 985],
+  },
+};
 
-const LIST_CUSTOMERS_URL = '/api/customers';
+const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const weekLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+const hourLabels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
 
 export default function DashboardPage() {
-  const { user, loading, logout } = useAuth();
-  const router = useRouter();
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [fetchingCustomers, setFetchingCustomers] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [timePeriod, setTimePeriod] = useState<TimePeriod>('week');
+  const data = dummyData[timePeriod];
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/signin');
-    }
-  }, [user, loading, router]);
-
-  useEffect(() => {
-    async function fetchCustomers() {
-      try {
-        const response = await fetch(`${LIST_CUSTOMERS_URL}?uid=${user?.uid}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch customers');
-        }
-        const data: ApiResponse = await response.json();
-        if (data.success) {
-          setCustomers(data.data);
-        } else {
-          throw new Error('API returned unsuccessful response');
-        }
-      } catch (err) {
-        console.error('Error fetching customers:', err);
-        setError('Failed to load customers. Please try again later.');
-      } finally {
-        setFetchingCustomers(false);
-      }
-    }
-
-    if (user?.uid) {
-      fetchCustomers();
-    }
-  }, [user]);
-
-  const handleSignOut = async () => {
-    try {
-      await logout();
-      router.push('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
+  const getChartData = () => {
+    switch (timePeriod) {
+      case 'day':
+        return { data: dummyData.day.hourlyData, labels: hourLabels };
+      case 'week':
+        return { data: dummyData.week.dailyData, labels: dayLabels };
+      case 'month':
+        return { data: dummyData.month.weeklyData, labels: weekLabels };
     }
   };
 
-  const getExperienceBadgeColor = (experience: string) => {
-    switch (experience.toLowerCase()) {
-      case 'positive':
-        return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
-      case 'negative':
-        return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
-      case 'neutral':
-      default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-        <div className="text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return null;
-  }
+  const chartInfo = getChartData();
+  const maxValue = Math.max(...chartInfo.data);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-      <header className="bg-white dark:bg-slate-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              {user.displayName || user.email}
-            </span>
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            Dashboard Insights
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            Conversation Volume Insights
+          </p>
+        </div>
+        
+        <div className="flex bg-white dark:bg-slate-800 rounded-lg p-1 shadow-sm">
+          {(['day', 'week', 'month'] as TimePeriod[]).map((period) => (
             <button
-              onClick={handleSignOut}
-              className="text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 font-medium"
+              key={period}
+              onClick={() => setTimePeriod(period)}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                timePeriod === period
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
             >
-              Sign Out
+              {period.charAt(0).toUpperCase() + period.slice(1)}
             </button>
-          </div>
+          ))}
         </div>
-      </header>
+      </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Customers</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+              <FiMessageSquare className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            </div>
+            <span className={`flex items-center gap-1 text-sm font-medium ${
+              data.change >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+            }`}>
+              {data.change >= 0 ? <FiArrowUp className="w-4 h-4" /> : <FiArrowDown className="w-4 h-4" />}
+              {Math.abs(data.change)}%
+            </span>
           </div>
-          
-          {fetchingCustomers ? (
-            <div className="px-6 py-12 text-center">
-              <div className="text-gray-500 dark:text-gray-400">Loading customers...</div>
-            </div>
-          ) : error ? (
-            <div className="px-6 py-12 text-center">
-              <div className="text-red-500 dark:text-red-400">{error}</div>
-            </div>
-          ) : customers.length === 0 ? (
-            <div className="px-6 py-12 text-center">
-              <div className="text-gray-500 dark:text-gray-400">No customers found.</div>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-slate-700">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Number
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Experience
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-slate-700">
-                  {customers.map((customer) => (
-                    <tr key={customer.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
-                          {customer.name}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          +{customer.waId}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${getExperienceBadgeColor(customer.experience)}`}>
-                          {customer.experience}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <Link
-                          href={`/dashboard/contact/${customer.id}`}
-                          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
-                        >
-                          Detail
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mt-4">
+            {data.totalChats.toLocaleString()}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Total Chats ({timePeriod === 'day' ? 'Today' : timePeriod === 'week' ? 'This Week' : 'This Month'})
+          </p>
         </div>
-      </main>
+
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+              <FiClock className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            </div>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-4">
+            {data.peakHour}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Peak Hours for Messaging
+          </p>
+        </div>
+
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
+              <FiCalendar className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-4">
+            {data.peakDay}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Peak Day of the Week
+          </p>
+        </div>
+
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
+              <FiTrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-4">
+            +{data.change}%
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Growth Trend ({timePeriod === 'day' ? 'vs Yesterday' : timePeriod === 'week' ? 'Week-over-Week' : 'Month-over-Month'})
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+          Conversation Volume
+        </h2>
+        
+        <div className="h-64 sm:h-80">
+          <div className="flex h-full gap-1 sm:gap-2 items-end">
+            {chartInfo.data.map((value, index) => (
+              <div key={index} className="flex-1 flex flex-col items-center gap-2">
+                <div
+                  className="w-full bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-lg transition-all duration-500 hover:from-blue-700 hover:to-blue-500 cursor-pointer relative group min-w-[8px]"
+                  style={{ height: `${(value / maxValue) * 100}%` }}
+                >
+                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    {value} chats
+                  </div>
+                </div>
+                <span className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-full hidden sm:block">
+                  {chartInfo.labels[index]}
+                </span>
+                <span className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-full sm:hidden">
+                  {timePeriod === 'day' ? (index % 4 === 0 ? chartInfo.labels[index] : '') : chartInfo.labels[index]}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            Hourly Distribution
+          </h2>
+          <div className="space-y-3">
+            {[
+              { time: '9 AM - 12 PM', percentage: 25, label: 'Morning' },
+              { time: '12 PM - 3 PM', percentage: 35, label: 'Afternoon Peak' },
+              { time: '3 PM - 6 PM', percentage: 28, label: 'Late Afternoon' },
+              { time: '6 PM - 9 PM', percentage: 12, label: 'Evening' },
+            ].map((item, index) => (
+              <div key={index}>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-gray-600 dark:text-gray-400">{item.time}</span>
+                  <span className="font-medium text-gray-900 dark:text-white">{item.percentage}%</span>
+                </div>
+                <div className="h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-500"
+                    style={{ width: `${item.percentage}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            Weekly Performance
+          </h2>
+          <div className="space-y-3">
+            {dayLabels.map((day, index) => {
+              const values = [78, 85, 92, 88, 82, 65, 58];
+              return (
+                <div key={day} className="flex items-center gap-3">
+                  <span className="w-12 text-sm text-gray-600 dark:text-gray-400">{day}</span>
+                  <div className="flex-1 h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        index === 2 ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-blue-500 to-blue-600'
+                      }`}
+                      style={{ width: `${values[index]}%` }}
+                    />
+                  </div>
+                  <span className="w-12 text-right text-sm font-medium text-gray-900 dark:text-white">
+                    {values[index]}%
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
