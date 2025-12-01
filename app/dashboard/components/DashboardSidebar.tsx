@@ -32,7 +32,7 @@ export default function DashboardSidebar({ onSignOut, userEmail, userName }: Sid
     <>
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-20 left-4 z-40 p-2 rounded-lg bg-white dark:bg-slate-800 shadow-lg"
+        className="lg:hidden fixed top-[68px] left-4 z-40 p-2 rounded-lg bg-white dark:bg-slate-800 shadow-lg"
       >
         {isMobileMenuOpen ? (
           <FiX className="w-6 h-6 text-gray-600 dark:text-gray-300" />
@@ -43,14 +43,14 @@ export default function DashboardSidebar({ onSignOut, userEmail, userName }: Sid
 
       {isMobileMenuOpen && (
         <div
-          className="lg:hidden fixed top-[72px] left-0 right-0 bottom-0 bg-black/50 z-30"
+          className="lg:hidden fixed top-[60px] left-0 right-0 bottom-0 bg-black/50 z-30"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
       <aside
         className={`
-          fixed top-[72px] left-0 z-40 h-[calc(100vh-72px)] w-64 
+          fixed top-[60px] left-0 z-40 h-[calc(100vh-60px)] w-64 
           bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700
           transform transition-transform duration-300 ease-in-out
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
