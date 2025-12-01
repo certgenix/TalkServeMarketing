@@ -34,12 +34,16 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const { user, loading } = useAuth();
 
+  const isDashboard = pathname?.startsWith('/dashboard');
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 10);
       
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      if (isDashboard) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setVisible(false);
       } else {
         setVisible(true);
@@ -49,7 +53,7 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, isDashboard]);
 
   return (
     <header
