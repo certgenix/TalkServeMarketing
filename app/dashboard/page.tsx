@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FiMessageSquare, FiTrendingUp, FiClock, FiCalendar, FiArrowUp, FiArrowDown } from 'react-icons/fi';
 
 type TimePeriod = 'day' | 'week' | 'month';
@@ -31,11 +31,25 @@ const dummyData = {
 
 const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const weekLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-const hourLabels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
+const hourLabels = Array.from({ length: 24 }, (_, i) => {
+  const hour = i % 12 || 12;
+  const ampm = i < 12 ? 'AM' : 'PM';
+  return `${hour}${ampm}`;
+});
 
 export default function DashboardPage() {
   const [timePeriod, setTimePeriod] = useState<TimePeriod>('week');
+  const [isChartReady, setIsChartReady] = useState(false);
+  const chartRef = useRef<HTMLDivElement>(null);
   const data = dummyData[timePeriod];
+
+  useEffect(() => {
+    setIsChartReady(false);
+    const timer = setTimeout(() => {
+      setIsChartReady(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [timePeriod]);
 
   const getChartData = () => {
     switch (timePeriod) {
@@ -149,26 +163,40 @@ export default function DashboardPage() {
           Conversation Volume
         </h2>
         
-        <div className="h-64 sm:h-80">
-          <div className="flex h-full gap-1 sm:gap-2 items-end">
-            {chartInfo.data.map((value, index) => (
-              <div key={index} className="flex-1 flex flex-col items-center gap-2">
-                <div
-                  className="w-full bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-lg transition-all duration-500 hover:from-blue-700 hover:to-blue-500 cursor-pointer relative group min-w-[8px]"
-                  style={{ height: `${(value / maxValue) * 100}%` }}
-                >
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    {value} chats
+        <div ref={chartRef} className="h-64 sm:h-80 relative">
+          <div className="absolute inset-0 flex gap-1 sm:gap-2 items-end pb-8">
+            {chartInfo.data.map((value, index) => {
+              const heightPercent = maxValue > 0 ? (value / maxValue) * 100 : 0;
+              return (
+                <div key={index} className="flex-1 flex flex-col items-center justify-end h-full">
+                  <div
+                    className={`w-full bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-lg cursor-pointer relative group min-w-[4px] sm:min-w-[8px] transition-all duration-500 hover:from-blue-700 hover:to-blue-500`}
+                    style={{ 
+                      height: isChartReady ? `${heightPercent}%` : '0%',
+                      minHeight: isChartReady && value > 0 ? '4px' : '0px'
+                    }}
+                  >
+                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-900 dark:bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
+                      {value} chats
+                    </div>
                   </div>
                 </div>
-                <span className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-full hidden sm:block">
-                  {chartInfo.labels[index]}
-                </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-full sm:hidden">
-                  {timePeriod === 'day' ? (index % 4 === 0 ? chartInfo.labels[index] : '') : chartInfo.labels[index]}
-                </span>
-              </div>
-            ))}
+              );
+            })}
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 flex gap-1 sm:gap-2">
+            {chartInfo.labels.map((label, index) => {
+              const showLabel = timePeriod === 'day' 
+                ? index % 4 === 0 
+                : true;
+              return (
+                <div key={index} className="flex-1 text-center">
+                  <span className={`text-xs text-gray-500 dark:text-gray-400 ${showLabel ? 'block' : 'hidden sm:block'}`}>
+                    {timePeriod === 'day' && !showLabel ? '' : label}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

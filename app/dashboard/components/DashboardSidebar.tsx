@@ -13,7 +13,7 @@ interface SidebarProps {
 
 const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: FiHome },
-  { name: 'Onboarding', href: '/dashboard/onboarding', icon: FiUserPlus },
+  { name: 'Onboarding', href: '/onboarding', icon: FiUserPlus },
   { name: 'Customers', href: '/dashboard/customers', icon: FiUsers },
 ];
 
@@ -54,16 +54,18 @@ export default function DashboardSidebar({ onSignOut, userEmail, userName }: Sid
           bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700
           transform transition-transform duration-300 ease-in-out
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-          lg:translate-x-0 lg:static lg:z-auto
+          lg:translate-x-0 lg:sticky lg:top-0 lg:z-auto lg:h-screen
         `}
       >
         <div className="flex flex-col h-full">
           <div className="p-6 border-b border-gray-200 dark:border-slate-700">
-            <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">TalkServe</h1>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">AI Voice Agent</p>
+            <Link href="/" className="block">
+              <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">TalkServe</h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">AI Voice Agent</p>
+            </Link>
           </div>
 
-          <nav className="flex-1 p-4 space-y-1">
+          <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
             {navItems.map((item) => {
               const Icon = item.icon;
               const active = isActive(item.href);

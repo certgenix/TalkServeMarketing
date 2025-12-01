@@ -51,7 +51,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           userEmail={user.email}
           userName={user.displayName}
         />
-        <main className="flex-1 min-h-screen lg:ml-0">
+        <main className="flex-1 min-h-screen w-full overflow-x-hidden">
           <div className="p-4 sm:p-6 lg:p-8 pt-16 lg:pt-8">
             {children}
           </div>
