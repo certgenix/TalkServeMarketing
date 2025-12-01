@@ -4,7 +4,20 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { FiArrowLeft, FiCalendar, FiMessageCircle, FiLoader, FiAlertCircle, FiExternalLink } from 'react-icons/fi';
+import { 
+  FiArrowLeft, 
+  FiCalendar, 
+  FiMessageCircle, 
+  FiAlertCircle, 
+  FiExternalLink,
+  FiPhone,
+  FiClock,
+  FiTrendingUp,
+  FiTrendingDown,
+  FiMinus,
+  FiFilter,
+  FiX
+} from 'react-icons/fi';
 
 interface ChatSession {
   id: string;
@@ -34,6 +47,7 @@ export default function CustomerChatsPage() {
   const [error, setError] = useState<string | null>(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     async function fetchCustomerData() {
@@ -97,16 +111,14 @@ export default function CustomerChatsPage() {
 
     return Object.entries(sessionMap).map(([date, msgs], index) => {
       const firstMsg = msgs[msgs.length - 1];
-      const lastMsg = msgs[0];
-      
-      const summaryText = msgs.slice(0, 3).map(m => m.message).join(' ').substring(0, 100);
+      const summaryText = msgs.slice(0, 3).map(m => m.message).join(' ').substring(0, 120);
       
       return {
         id: `session-${index}-${new Date(date).getTime()}`,
         date: firstMsg.created_at,
         customerName: customerData.name,
         experience: customerData.experience,
-        summary: summaryText + (summaryText.length >= 100 ? '...' : ''),
+        summary: summaryText + (summaryText.length >= 120 ? '...' : ''),
         messageCount: msgs.length,
       };
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -130,35 +142,58 @@ export default function CustomerChatsPage() {
     setFilteredSessions(filtered);
   }, [startDate, endDate, chatSessions]);
 
-  const getExperienceBadgeColor = (experience: string) => {
+  const getExperienceConfig = (experience: string) => {
     switch (experience.toLowerCase()) {
       case 'positive':
-        return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800';
+        return {
+          bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
+          textColor: 'text-emerald-700 dark:text-emerald-400',
+          borderColor: 'border-emerald-200 dark:border-emerald-800',
+          icon: FiTrendingUp,
+          label: 'Positive'
+        };
       case 'negative':
-        return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800';
+        return {
+          bgColor: 'bg-red-50 dark:bg-red-900/20',
+          textColor: 'text-red-700 dark:text-red-400',
+          borderColor: 'border-red-200 dark:border-red-800',
+          icon: FiTrendingDown,
+          label: 'Negative'
+        };
       default:
-        return 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600';
-    }
-  };
-
-  const getExperienceIcon = (experience: string) => {
-    switch (experience.toLowerCase()) {
-      case 'positive':
-        return '😊';
-      case 'negative':
-        return '😞';
-      default:
-        return '😐';
+        return {
+          bgColor: 'bg-slate-50 dark:bg-slate-800',
+          textColor: 'text-slate-600 dark:text-slate-400',
+          borderColor: 'border-slate-200 dark:border-slate-700',
+          icon: FiMinus,
+          label: 'Neutral'
+        };
     }
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return 'Today';
+    } else if (date.toDateString() === yesterday.toDateString()) {
+      return 'Yesterday';
+    }
     return date.toLocaleDateString('en-US', {
       weekday: 'short',
-      year: 'numeric',
       month: 'short',
       day: 'numeric',
+    });
+  };
+
+  const formatTime = (dateString: string) => {
+    return new Date(dateString).toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
     });
   };
 
@@ -167,213 +202,251 @@ export default function CustomerChatsPage() {
     setEndDate('');
   };
 
+  const hasActiveFilters = startDate || endDate;
+
+  const experienceConfig = customer ? getExperienceConfig(customer.experience) : null;
+
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-4">
+      <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-blue-600/20">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
           <Link
             href="/dashboard/customers"
-            className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            className="self-start p-2 -ml-2 hover:bg-white/10 rounded-lg transition-colors"
           >
             <FiArrowLeft className="w-5 h-5" />
           </Link>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-              {customer?.name || 'Customer'} - Chats
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
-              View all chat sessions with this customer
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm">
-          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
-            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-              <FiCalendar className="w-5 h-5" />
-              <span className="font-medium">Date Range Filter</span>
+          
+          <div className="flex items-center gap-4 flex-1">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl sm:text-3xl font-bold flex-shrink-0">
+              {customer?.name?.charAt(0).toUpperCase() || '?'}
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 flex-1">
-              <div className="flex flex-col gap-1">
-                <label className="text-xs text-gray-500 dark:text-gray-400">Start Date</label>
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="px-3 py-2 rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl sm:text-2xl font-bold truncate">
+                {customer?.name || 'Loading...'}
+              </h1>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-1 text-blue-100 text-sm">
+                <span className="flex items-center gap-1.5">
+                  <FiPhone className="w-4 h-4" />
+                  <span>+{customer?.waId || '...'}</span>
+                </span>
+                {experienceConfig && (
+                  <span className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium ${experienceConfig.bgColor} ${experienceConfig.textColor}`}>
+                    <experienceConfig.icon className="w-3 h-3" />
+                    {experienceConfig.label}
+                  </span>
+                )}
               </div>
-              <div className="flex flex-col gap-1">
-                <label className="text-xs text-gray-500 dark:text-gray-400">End Date</label>
-                <input
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  className="px-3 py-2 rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+            </div>
+          </div>
+
+          <div className="flex gap-3 sm:gap-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 text-center min-w-[80px]">
+              <div className="text-2xl font-bold">{chatSessions.length}</div>
+              <div className="text-xs text-blue-200">Sessions</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 text-center min-w-[80px]">
+              <div className="text-2xl font-bold">
+                {chatSessions.reduce((acc, s) => acc + s.messageCount, 0)}
               </div>
-              {(startDate || endDate) && (
-                <button
-                  onClick={clearFilters}
-                  className="px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors self-end"
-                >
-                  Clear Filters
-                </button>
-              )}
+              <div className="text-xs text-blue-200">Messages</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading chat sessions...</p>
+      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          Chat Sessions
+          {hasActiveFilters && (
+            <span className="ml-2 text-sm font-normal text-gray-500 dark:text-gray-400">
+              ({filteredSessions.length} of {chatSessions.length})
+            </span>
+          )}
+        </h2>
+        
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+            showFilters || hasActiveFilters
+              ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
+              : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:shadow-md border border-gray-200 dark:border-slate-700'
+          }`}
+        >
+          <FiFilter className="w-4 h-4" />
+          <span>Filter by Date</span>
+          {hasActiveFilters && (
+            <span className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center text-xs">
+              1
+            </span>
+          )}
+        </button>
+      </div>
+
+      {showFilters && (
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-slate-700 animate-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+            <div className="grid grid-cols-2 gap-4 flex-1 w-full">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  From
+                </label>
+                <div className="relative">
+                  <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  To
+                </label>
+                <div className="relative">
+                  <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors whitespace-nowrap"
+              >
+                <FiX className="w-4 h-4" />
+                Clear
+              </button>
+            )}
           </div>
-        ) : error ? (
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
+        </div>
+      )}
+
+      {loading ? (
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-12 sm:p-16">
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400 font-medium">Loading chat sessions...</p>
+          </div>
+        </div>
+      ) : error ? (
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-12 sm:p-16">
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mb-4">
               <FiAlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
             </div>
-            <p className="text-red-600 dark:text-red-400 font-medium">{error}</p>
+            <p className="text-red-600 dark:text-red-400 font-semibold mb-2">{error}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">Please try again or go back to customers</p>
             <button 
               onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="px-6 py-2.5 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors font-medium"
             >
               Try Again
             </button>
           </div>
-        ) : filteredSessions.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="w-16 h-16 bg-gray-100 dark:bg-slate-700 rounded-full flex items-center justify-center mb-4">
+        </div>
+      ) : filteredSessions.length === 0 ? (
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-12 sm:p-16">
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-16 h-16 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center mb-4">
               <FiMessageCircle className="w-8 h-8 text-gray-400" />
             </div>
-            <p className="text-gray-600 dark:text-gray-400 font-medium">
-              {startDate || endDate ? 'No chats found in the selected date range.' : 'No chat sessions yet.'}
+            <p className="text-gray-900 dark:text-white font-semibold mb-2">
+              {hasActiveFilters ? 'No chats in selected range' : 'No chat sessions yet'}
             </p>
-            {(startDate || endDate) && (
+            <p className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-sm">
+              {hasActiveFilters 
+                ? 'Try adjusting your date range filter to see more results.'
+                : 'Chat sessions with this customer will appear here.'}
+            </p>
+            {hasActiveFilters && (
               <button 
                 onClick={clearFilters}
-                className="mt-4 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                className="mt-4 px-6 py-2.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors font-medium"
               >
                 Clear Filters
               </button>
             )}
           </div>
-        ) : (
-          <>
-            <div className="hidden lg:block overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-slate-700/50">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Date
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Customer Name
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Experience
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Summary
-                    </th>
-                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100 dark:divide-slate-700">
-                  {filteredSessions.map((session) => (
-                    <tr key={session.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/30 transition-colors group">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2 text-gray-900 dark:text-white">
-                          <FiCalendar className="w-4 h-4 text-gray-400" />
-                          <span className="font-medium">{formatDate(session.date)}</span>
-                        </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          {session.messageCount} messages
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-sm">
-                            {session.customerName.charAt(0).toUpperCase()}
-                          </div>
-                          <span className="font-medium text-gray-900 dark:text-white">
-                            {session.customerName}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full ${getExperienceBadgeColor(session.experience)}`}>
-                          <span>{getExperienceIcon(session.experience)}</span>
-                          {session.experience}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-xs truncate">
-                          {session.summary}
-                        </p>
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <Link
-                          href={`/dashboard/contact/${customer?.waId}`}
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-all hover:shadow-lg hover:shadow-blue-600/25 group-hover:scale-105"
-                        >
-                          <FiExternalLink className="w-4 h-4" />
-                          Open Chat
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="lg:hidden divide-y divide-gray-100 dark:divide-slate-700">
-              {filteredSessions.map((session) => (
-                <div key={session.id} className="p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold">
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {filteredSessions.map((session, index) => {
+            const config = getExperienceConfig(session.experience);
+            const ExperienceIcon = config.icon;
+            
+            return (
+              <div
+                key={session.id}
+                className="group bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-200 overflow-hidden"
+              >
+                <div className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="flex items-start sm:items-center gap-4 flex-1 min-w-0">
+                      <div className="hidden sm:flex w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 items-center justify-center text-white font-bold text-lg flex-shrink-0 group-hover:scale-105 transition-transform">
                         {session.customerName.charAt(0).toUpperCase()}
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">{session.customerName}</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{formatDate(session.date)}</p>
+                      
+                      <div className="flex-1 min-w-0 space-y-2">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                          <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-slate-700 rounded-lg">
+                            <FiCalendar className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              {formatDate(session.date)}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-sm">
+                            <FiClock className="w-3.5 h-3.5" />
+                            <span>{formatTime(session.date)}</span>
+                          </div>
+                          <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border ${config.bgColor} ${config.textColor} ${config.borderColor}`}>
+                            <ExperienceIcon className="w-3 h-3" />
+                            <span>{config.label}</span>
+                          </div>
+                        </div>
+                        
+                        <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 leading-relaxed">
+                          {session.summary || 'No preview available'}
+                        </p>
+                        
+                        <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-xs">
+                          <FiMessageCircle className="w-3.5 h-3.5" />
+                          <span>{session.messageCount} message{session.messageCount !== 1 ? 's' : ''}</span>
+                        </div>
                       </div>
                     </div>
-                    <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${getExperienceBadgeColor(session.experience)}`}>
-                      {getExperienceIcon(session.experience)}
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                    {session.summary}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {session.messageCount} messages
-                    </span>
+                    
                     <Link
                       href={`/dashboard/contact/${customer?.waId}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                      className="flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl transition-all hover:shadow-lg hover:shadow-blue-600/25 group-hover:scale-[1.02] whitespace-nowrap w-full sm:w-auto"
                     >
+                      <span>Open Chat</span>
                       <FiExternalLink className="w-4 h-4" />
-                      Open Chat
                     </Link>
                   </div>
                 </div>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {!loading && !error && filteredSessions.length > 0 && (
-        <div className="text-center text-sm text-gray-500 dark:text-gray-400">
-          Showing {filteredSessions.length} of {chatSessions.length} chat sessions
+        <div className="flex justify-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-slate-800 rounded-full text-sm text-gray-600 dark:text-gray-400">
+            <FiMessageCircle className="w-4 h-4" />
+            <span>
+              Showing {filteredSessions.length} session{filteredSessions.length !== 1 ? 's' : ''}
+              {hasActiveFilters && ` of ${chatSessions.length} total`}
+            </span>
+          </div>
         </div>
       )}
     </div>
