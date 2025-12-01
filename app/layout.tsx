@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import { DarkModeProvider } from "@/components/DarkModeProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import VoiceflowWidget from "@/components/VoiceflowWidget";
@@ -48,6 +49,7 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
+              <CookieConsent />
               <VoiceflowWidget />
             </VoiceAgentProvider>
           </AuthProvider>
