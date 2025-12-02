@@ -26,6 +26,17 @@ export async function GET(request: NextRequest) {
     });
 
     if (!response.ok) {
+      if (response.status === 404) {
+        return NextResponse.json({
+          success: true,
+          data: [],
+          pagination: {
+            totalReturned: 0,
+            hasMore: false,
+            nextStartAfter: null,
+          },
+        });
+      }
       return NextResponse.json(
         { success: false, error: "Failed to fetch customers" },
         { status: response.status },
