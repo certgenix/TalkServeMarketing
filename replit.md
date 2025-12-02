@@ -179,6 +179,13 @@ const { user, signIn, signUp, signInWithGoogle, logout } = useAuth();
 See `components/auth/README.md` for detailed documentation.
 
 ## Recent Changes
+- **2025-12-02:** Integrated getChatSessions API - customers page View Chat button now fetches chat sessions from `https://us-central1-talkserve.cloudfunctions.net/getChatSessions` with customer phone
+- **2025-12-02:** Created `/api/chat-sessions` route to proxy getChatSessions requests with proper error handling
+- **2025-12-02:** Updated conversations API to accept date parameter for filtering messages by specific date
+- **2025-12-02:** Created new conversation page at `/dashboard/conversation/[phone]/[date]` to display messages for a specific date
+- **2025-12-02:** Chat sessions page now displays per-session mood from API (Positive/Neutral/Negative) instead of customer experience
+- **2025-12-02:** Updated customers page empty state with gradient header and helpful onboarding guidance
+- **2025-12-02:** Improved API error handling - both chat-sessions and conversations APIs now handle `success:false` and 404 responses gracefully
 - **2025-12-01:** Added Customer Chats page (/dashboard/customers/[id]/chats) showing list of chat sessions with date, customer name, experience, summary, and Open Chat button
 - **2025-12-01:** Added date range filter to Customer Chats page for filtering chat sessions by date
 - **2025-12-01:** Updated View Chat button in customers list to navigate to new chats page instead of direct conversation
