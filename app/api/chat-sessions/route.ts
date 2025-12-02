@@ -1,27 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const GET_CONVERSATIONS_URL =
-  "https://getconversations-ieskeqprjq-uc.a.run.app";
+const GET_CHAT_SESSIONS_URL =
+  "https://us-central1-talkserve.cloudfunctions.net/getChatSessions";
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const phone = searchParams.get("phone");
-    const date = searchParams.get("date");
+    const customer = searchParams.get("customer");
 
-    if (!phone) {
+    if (!customer) {
       return NextResponse.json(
-        { success: false, error: "Phone number is required" },
+        { success: false, error: "Customer phone number is required" },
         { status: 400 },
       );
     }
 
-    const url = new URL(GET_CONVERSATIONS_URL);
-    url.searchParams.set("phone", phone);
-    
-    if (date) {
-      url.searchParams.set("date", date);
-    }
+    const url = new URL(GET_CHAT_SESSIONS_URL);
+    url.searchParams.set("customer", customer);
 
     const response = await fetch(url.toString(), {
       method: "GET",
@@ -34,15 +29,17 @@ export async function GET(request: NextRequest) {
       if (response.status === 404) {
         return NextResponse.json({
           success: true,
-          phone: phone,
-          totalReturned: 0,
-          hasMore: false,
-          nextStartAfter: null,
-          messages: [],
+          customer: customer,
+          sessions: [],
+          pagination: {
+            returned: 0,
+            hasMore: false,
+            nextStartAfter: null,
+          },
         });
       }
       return NextResponse.json(
-        { success: false, error: "Failed to fetch conversations" },
+        { success: false, error: "Failed to fetch chat sessions" },
         { status: response.status },
       );
     }
@@ -52,17 +49,19 @@ export async function GET(request: NextRequest) {
     if (data.success === false) {
       return NextResponse.json({
         success: true,
-        phone: phone,
-        totalReturned: 0,
-        hasMore: false,
-        nextStartAfter: null,
-        messages: [],
+        customer: customer,
+        sessions: [],
+        pagination: {
+          returned: 0,
+          hasMore: false,
+          nextStartAfter: null,
+        },
       });
     }
     
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching conversations:", error);
+    console.error("Error fetching chat sessions:", error);
     return NextResponse.json(
       { success: false, error: "Internal server error" },
       { status: 500 },

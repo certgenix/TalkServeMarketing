@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { 
   FiArrowLeft, 
@@ -16,16 +16,15 @@ import {
   FiTrendingDown,
   FiMinus,
   FiFilter,
-  FiX
+  FiX,
+  FiFileText
 } from 'react-icons/fi';
 
 interface ChatSession {
-  id: string;
   date: string;
-  customerName: string;
-  experience: string;
-  summary: string;
   messageCount: number;
+  mood: string;
+  summary: string;
 }
 
 interface Customer {
@@ -35,10 +34,23 @@ interface Customer {
   experience: string;
 }
 
+interface ChatSessionsResponse {
+  success: boolean;
+  customer: string;
+  sessions: ChatSession[];
+  pagination: {
+    returned: number;
+    hasMore: boolean;
+    nextStartAfter: string | null;
+  };
+}
+
 export default function CustomerChatsPage() {
   const { user } = useAuth();
   const params = useParams();
+  const searchParams = useSearchParams();
   const customerId = params.id as string;
+  const customerPhone = searchParams.get('phone');
   
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [chatSessions, setChatSessions] = useState<ChatSession[]>([]);
@@ -62,7 +74,7 @@ export default function CustomerChatsPage() {
           const foundCustomer = data.data.find((c: Customer) => c.id === customerId);
           if (foundCustomer) {
             setCustomer(foundCustomer);
-            await fetchChatSessions(foundCustomer);
+            await fetchChatSessions(foundCustomer.waId);
           } else {
             setError('Customer not found');
             setLoading(false);
@@ -75,16 +87,15 @@ export default function CustomerChatsPage() {
       }
     }
 
-    async function fetchChatSessions(customerData: Customer) {
+    async function fetchChatSessions(phone: number) {
       try {
-        const response = await fetch(`/api/conversations?phone=${customerData.waId}`);
-        if (!response.ok) throw new Error('Failed to fetch conversations');
+        const response = await fetch(`/api/chat-sessions?customer=${phone}`);
+        if (!response.ok) throw new Error('Failed to fetch chat sessions');
         
-        const data = await response.json();
-        if (data.success && data.messages) {
-          const sessions = groupMessagesIntoSessions(data.messages, customerData);
-          setChatSessions(sessions);
-          setFilteredSessions(sessions);
+        const data: ChatSessionsResponse = await response.json();
+        if (data.success) {
+          setChatSessions(data.sessions || []);
+          setFilteredSessions(data.sessions || []);
         }
       } catch (err) {
         console.error('Error fetching chat sessions:', err);
@@ -96,51 +107,48 @@ export default function CustomerChatsPage() {
     fetchCustomerData();
   }, [user, customerId]);
 
-  const groupMessagesIntoSessions = (messages: any[], customerData: Customer): ChatSession[] => {
-    if (!messages || messages.length === 0) return [];
-
-    const sessionMap: { [key: string]: any[] } = {};
-    
-    messages.forEach((msg) => {
-      const date = new Date(msg.created_at).toDateString();
-      if (!sessionMap[date]) {
-        sessionMap[date] = [];
-      }
-      sessionMap[date].push(msg);
-    });
-
-    return Object.entries(sessionMap).map(([date, msgs], index) => {
-      const firstMsg = msgs[msgs.length - 1];
-      const summaryText = msgs.slice(0, 3).map(m => m.message).join(' ').substring(0, 120);
-      
-      return {
-        id: `session-${index}-${new Date(date).getTime()}`,
-        date: firstMsg.created_at,
-        customerName: customerData.name,
-        experience: customerData.experience,
-        summary: summaryText + (summaryText.length >= 120 ? '...' : ''),
-        messageCount: msgs.length,
-      };
-    }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  };
-
   useEffect(() => {
     let filtered = chatSessions;
 
     if (startDate) {
-      const start = new Date(startDate);
-      start.setHours(0, 0, 0, 0);
-      filtered = filtered.filter(session => new Date(session.date) >= start);
+      filtered = filtered.filter(session => session.date >= startDate);
     }
 
     if (endDate) {
-      const end = new Date(endDate);
-      end.setHours(23, 59, 59, 999);
-      filtered = filtered.filter(session => new Date(session.date) <= end);
+      filtered = filtered.filter(session => session.date <= endDate);
     }
 
     setFilteredSessions(filtered);
   }, [startDate, endDate, chatSessions]);
+
+  const getMoodConfig = (mood: string) => {
+    switch (mood.toLowerCase()) {
+      case 'positive':
+        return {
+          bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
+          textColor: 'text-emerald-700 dark:text-emerald-400',
+          borderColor: 'border-emerald-200 dark:border-emerald-800',
+          icon: FiTrendingUp,
+          label: 'Positive'
+        };
+      case 'negative':
+        return {
+          bgColor: 'bg-red-50 dark:bg-red-900/20',
+          textColor: 'text-red-700 dark:text-red-400',
+          borderColor: 'border-red-200 dark:border-red-800',
+          icon: FiTrendingDown,
+          label: 'Negative'
+        };
+      default:
+        return {
+          bgColor: 'bg-slate-50 dark:bg-slate-800',
+          textColor: 'text-slate-600 dark:text-slate-400',
+          borderColor: 'border-slate-200 dark:border-slate-700',
+          icon: FiMinus,
+          label: 'Neutral'
+        };
+    }
+  };
 
   const getExperienceConfig = (experience: string) => {
     switch (experience.toLowerCase()) {
@@ -189,14 +197,6 @@ export default function CustomerChatsPage() {
     });
   };
 
-  const formatTime = (dateString: string) => {
-    return new Date(dateString).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    });
-  };
-
   const clearFilters = () => {
     setStartDate('');
     setEndDate('');
@@ -205,6 +205,8 @@ export default function CustomerChatsPage() {
   const hasActiveFilters = startDate || endDate;
 
   const experienceConfig = customer ? getExperienceConfig(customer.experience) : null;
+
+  const totalMessages = chatSessions.reduce((acc, s) => acc + s.messageCount, 0);
 
   return (
     <div className="space-y-6">
@@ -246,9 +248,7 @@ export default function CustomerChatsPage() {
               <div className="text-xs text-blue-200">Sessions</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 text-center min-w-[80px]">
-              <div className="text-2xl font-bold">
-                {chatSessions.reduce((acc, s) => acc + s.messageCount, 0)}
-              </div>
+              <div className="text-2xl font-bold">{totalMessages}</div>
               <div className="text-xs text-blue-200">Messages</div>
             </div>
           </div>
@@ -379,19 +379,19 @@ export default function CustomerChatsPage() {
       ) : (
         <div className="space-y-3">
           {filteredSessions.map((session, index) => {
-            const config = getExperienceConfig(session.experience);
-            const ExperienceIcon = config.icon;
+            const moodConfig = getMoodConfig(session.mood);
+            const MoodIcon = moodConfig.icon;
             
             return (
               <div
-                key={session.id}
+                key={`${session.date}-${index}`}
                 className="group bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-200 overflow-hidden"
               >
                 <div className="p-4 sm:p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex items-start sm:items-center gap-4 flex-1 min-w-0">
                       <div className="hidden sm:flex w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 items-center justify-center text-white font-bold text-lg flex-shrink-0 group-hover:scale-105 transition-transform">
-                        {session.customerName.charAt(0).toUpperCase()}
+                        {customer?.name?.charAt(0).toUpperCase() || '?'}
                       </div>
                       
                       <div className="flex-1 min-w-0 space-y-2">
@@ -402,29 +402,27 @@ export default function CustomerChatsPage() {
                               {formatDate(session.date)}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-sm">
-                            <FiClock className="w-3.5 h-3.5" />
-                            <span>{formatTime(session.date)}</span>
+                          <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border ${moodConfig.bgColor} ${moodConfig.textColor} ${moodConfig.borderColor}`}>
+                            <MoodIcon className="w-3 h-3" />
+                            <span>{moodConfig.label}</span>
                           </div>
-                          <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border ${config.bgColor} ${config.textColor} ${config.borderColor}`}>
-                            <ExperienceIcon className="w-3 h-3" />
-                            <span>{config.label}</span>
+                          <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-sm">
+                            <FiMessageCircle className="w-3.5 h-3.5" />
+                            <span>{session.messageCount} message{session.messageCount !== 1 ? 's' : ''}</span>
                           </div>
                         </div>
                         
-                        <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 leading-relaxed">
-                          {session.summary || 'No preview available'}
-                        </p>
-                        
-                        <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-xs">
-                          <FiMessageCircle className="w-3.5 h-3.5" />
-                          <span>{session.messageCount} message{session.messageCount !== 1 ? 's' : ''}</span>
+                        <div className="flex items-start gap-2">
+                          <FiFileText className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                          <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 leading-relaxed">
+                            {session.summary || 'No summary available'}
+                          </p>
                         </div>
                       </div>
                     </div>
                     
                     <Link
-                      href={`/dashboard/contact/${customer?.waId}`}
+                      href={`/dashboard/conversation/${customer?.waId}/${session.date}`}
                       className="flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl transition-all hover:shadow-lg hover:shadow-blue-600/25 group-hover:scale-[1.02] whitespace-nowrap w-full sm:w-auto"
                     >
                       <span>Open Chat</span>
