@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!response.ok) {
-      if (response.status === 404) {
+      if (response.status === 404 || response.status === 403) {
         return NextResponse.json({
           success: true,
           data: [],
