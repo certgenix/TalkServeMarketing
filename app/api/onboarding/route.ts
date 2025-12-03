@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
       ownerEmail: formData.get("ownerEmail"),
       businessName: formData.get("businessName"),
       industryType: formData.get("industryType"),
+      type: formData.get("type"),
       file: formData.get("businessContext")
         ? `File: ${(formData.get("businessContext") as File).name}`
         : "No file uploaded",

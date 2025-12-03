@@ -4,6 +4,12 @@ import { useState } from 'react';
 import { HiCheckCircle, HiUpload } from 'react-icons/hi';
 import { useAuth } from '@/contexts/AuthContext';
 
+const CHANNEL_OPTIONS = [
+  { value: 'Whatsapp agent', label: 'Whatsapp agent' },
+  { value: 'SMS agent', label: 'SMS agent' },
+  { value: 'Voice agent', label: 'Voice agent' },
+];
+
 export default function OnboardingForm() {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
@@ -14,11 +20,25 @@ export default function OnboardingForm() {
     services: '',
     industryType: '',
   });
+  const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+  const handleChannelChange = (channel: string, checked: boolean) => {
+    setSelectedChannels(prev => 
+      checked 
+        ? [...prev, channel]
+        : prev.filter(c => c !== channel)
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (selectedChannels.length === 0) {
+      return;
+    }
+    
     setStatus('loading');
 
     try {
@@ -26,6 +46,7 @@ export default function OnboardingForm() {
       Object.entries(formData).forEach(([key, value]) => {
         formDataToSend.append(key, value);
       });
+      formDataToSend.append('type', selectedChannels.join(', '));
       if (file) {
         formDataToSend.append('businessContext', file);
       }
@@ -53,6 +74,7 @@ export default function OnboardingForm() {
           services: '',
           industryType: '',
         });
+        setSelectedChannels([]);
         setFile(null);
       } else {
         setStatus('error');
@@ -198,6 +220,31 @@ export default function OnboardingForm() {
           placeholder="List the services you offer (e.g., consultations, repairs, appointments, etc.)..."
           className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent"
         />
+      </div>
+
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+          Channel *
+        </label>
+        <div className="flex flex-wrap gap-4">
+          {CHANNEL_OPTIONS.map((option) => (
+            <label
+              key={option.value}
+              className="flex items-center gap-2 cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                checked={selectedChannels.includes(option.value)}
+                onChange={(e) => handleChannelChange(option.value, e.target.checked)}
+                className="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-2 bg-white dark:bg-slate-800"
+              />
+              <span className="text-slate-700 dark:text-slate-300">{option.label}</span>
+            </label>
+          ))}
+        </div>
+        {selectedChannels.length === 0 && status !== 'idle' && (
+          <p className="mt-2 text-sm text-red-500">Please select at least one channel</p>
+        )}
       </div>
 
       <div className="mb-6">
