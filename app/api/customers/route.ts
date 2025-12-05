@@ -18,6 +18,9 @@ export async function GET(request: NextRequest) {
     const url = new URL(LIST_CUSTOMERS_URL);
     url.searchParams.set("uid", uid);
     url.searchParams.set("type", "Whatsapp agent");
+    url.searchParams.set("limit", "20");
+
+    console.log("Fetching customers from:", url.toString());
 
     const response = await fetch(url.toString(), {
       method: "GET",
@@ -26,7 +29,12 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    console.log("Response status:", response.status);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.log("Error response:", errorText);
+      
       if (response.status === 404 || response.status === 403) {
         return NextResponse.json({
           success: true,
