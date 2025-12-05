@@ -16,8 +16,8 @@ export async function GET(request: NextRequest) {
     }
 
     const url = new URL(LIST_CUSTOMERS_URL);
-    url.searchParams.set("uid", uid);
     url.searchParams.set("type", "SMS agent");
+    url.searchParams.set("uid", uid);
     url.searchParams.set("limit", "20");
 
     console.log("Fetching SMS customers from:", url.toString());
