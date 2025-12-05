@@ -18,10 +18,13 @@ export async function GET(request: NextRequest) {
 
     const url = new URL(GET_CONVERSATIONS_URL);
     url.searchParams.set("phone", phone);
+    url.searchParams.set("type", "Whatsapp agent");
     
     if (date) {
       url.searchParams.set("date", date);
     }
+
+    console.log("Fetching conversations from:", url.toString());
 
     const response = await fetch(url.toString(), {
       method: "GET",

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GET_CHAT_SESSIONS_URL =
-  "https://us-central1-talkserve.cloudfunctions.net/getChatSessions";
+  "https://getchatsessions-ieskeqprjq-uc.a.run.app";
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,6 +17,9 @@ export async function GET(request: NextRequest) {
 
     const url = new URL(GET_CHAT_SESSIONS_URL);
     url.searchParams.set("customer", customer);
+    url.searchParams.set("type", "Whatsapp agent");
+
+    console.log("Fetching chat sessions from:", url.toString());
 
     const response = await fetch(url.toString(), {
       method: "GET",
