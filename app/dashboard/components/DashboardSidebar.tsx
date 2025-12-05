@@ -15,7 +15,7 @@ const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: FiHome },
   { name: 'Onboarding', href: '/dashboard/onboarding', icon: FiUserPlus },
   { name: 'Whatsapp', href: '/dashboard/whatsapp/customers', icon: FiUsers },
-  { name: 'SMS', href: '/dashboard/sms/customers', icon: FiMessageSquare },
+  { name: 'SMS', href: '/dashboard/sms/customers?type=SMS agent', icon: FiMessageSquare },
 ];
 
 export default function DashboardSidebar({ onSignOut, userEmail, userName }: SidebarProps) {
@@ -23,10 +23,11 @@ export default function DashboardSidebar({ onSignOut, userEmail, userName }: Sid
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActive = (href: string) => {
-    if (href === '/dashboard') {
+    const hrefPath = href.split('?')[0];
+    if (hrefPath === '/dashboard') {
       return pathname === '/dashboard';
     }
-    return pathname.startsWith(href);
+    return pathname.startsWith(hrefPath);
   };
 
   return (
