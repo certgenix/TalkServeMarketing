@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
 
     const url = new URL(LIST_CUSTOMERS_URL);
     url.searchParams.set("uid", uid);
+    url.searchParams.set("type", "Whatsapp agent");
 
     const response = await fetch(url.toString(), {
       method: "GET",
