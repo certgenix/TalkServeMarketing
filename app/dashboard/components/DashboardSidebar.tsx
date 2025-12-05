@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiHome, FiUsers, FiUserPlus, FiMenu, FiX, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiUsers, FiUserPlus, FiMenu, FiX, FiLogOut, FiMessageSquare } from 'react-icons/fi';
 
 interface SidebarProps {
   onSignOut: () => void;
@@ -15,6 +15,7 @@ const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: FiHome },
   { name: 'Onboarding', href: '/dashboard/onboarding', icon: FiUserPlus },
   { name: 'Whatsapp', href: '/dashboard/whatsapp/customers', icon: FiUsers },
+  { name: 'SMS', href: '/dashboard/sms/customers', icon: FiMessageSquare },
 ];
 
 export default function DashboardSidebar({ onSignOut, userEmail, userName }: SidebarProps) {
