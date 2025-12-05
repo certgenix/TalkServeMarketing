@@ -144,7 +144,7 @@ export default function ContactDetailPage() {
       <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-blue-600/20">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
           <Link
-            href="/dashboard/customers"
+            href="/dashboard/whatsapp/customers"
             className="self-start p-2 -ml-2 hover:bg-white/10 rounded-lg transition-colors"
           >
             <FiArrowLeft className="w-5 h-5" />

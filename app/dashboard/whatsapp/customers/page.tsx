@@ -402,7 +402,7 @@ export default function CustomersPage() {
                       </td>
                       <td className="px-6 py-4 text-right">
                         <Link
-                          href={`/dashboard/customers/${customer.id}/chats?phone=${customer.waId}`}
+                          href={`/dashboard/whatsapp/customers/${customer.id}/chats?phone=${customer.waId}`}
                           className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-all hover:shadow-lg hover:shadow-blue-600/25 group-hover:scale-105"
                         >
                           <FiMessageCircle className="w-4 h-4" />
@@ -419,7 +419,7 @@ export default function CustomersPage() {
               {filteredCustomers.map((customer) => (
                 <Link
                   key={customer.id}
-                  href={`/dashboard/customers/${customer.id}/chats?phone=${customer.waId}`}
+                  href={`/dashboard/whatsapp/customers/${customer.id}/chats?phone=${customer.waId}`}
                   className="flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-slate-700/30 transition-colors active:bg-gray-100 dark:active:bg-slate-700/50"
                 >
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-lg flex-shrink-0">
