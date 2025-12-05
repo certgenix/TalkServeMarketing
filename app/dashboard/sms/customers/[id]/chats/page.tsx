@@ -72,7 +72,7 @@ export default function SMSCustomerChatsPage() {
         
         const data = await response.json();
         if (data.success) {
-          const foundCustomer = data.data.find((c: Customer) => c.id === customerId);
+          const foundCustomer = data.data.find((c: Customer) => c.id.trim() === customerId.trim());
           if (foundCustomer) {
             setCustomer(foundCustomer);
             await fetchChatSessions(foundCustomer.waId);
