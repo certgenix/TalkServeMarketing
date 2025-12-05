@@ -14,7 +14,7 @@ interface SidebarProps {
 const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: FiHome },
   { name: 'Onboarding', href: '/dashboard/onboarding', icon: FiUserPlus },
-  { name: 'Customers', href: '/dashboard/customers', icon: FiUsers },
+  { name: 'Whatsapp', href: '/dashboard/customers', icon: FiUsers },
 ];
 
 export default function DashboardSidebar({ onSignOut, userEmail, userName }: SidebarProps) {
