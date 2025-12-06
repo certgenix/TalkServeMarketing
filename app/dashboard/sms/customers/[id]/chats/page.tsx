@@ -151,35 +151,6 @@ export default function SMSCustomerChatsPage() {
     }
   };
 
-  const getExperienceConfig = (experience: string) => {
-    switch (experience.toLowerCase()) {
-      case 'positive':
-        return {
-          bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
-          textColor: 'text-emerald-700 dark:text-emerald-400',
-          borderColor: 'border-emerald-200 dark:border-emerald-800',
-          icon: FiTrendingUp,
-          label: 'Positive'
-        };
-      case 'negative':
-        return {
-          bgColor: 'bg-red-50 dark:bg-red-900/20',
-          textColor: 'text-red-700 dark:text-red-400',
-          borderColor: 'border-red-200 dark:border-red-800',
-          icon: FiTrendingDown,
-          label: 'Negative'
-        };
-      default:
-        return {
-          bgColor: 'bg-slate-50 dark:bg-slate-800',
-          textColor: 'text-slate-600 dark:text-slate-400',
-          borderColor: 'border-slate-200 dark:border-slate-700',
-          icon: FiMinus,
-          label: 'Neutral'
-        };
-    }
-  };
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const today = new Date();
@@ -204,8 +175,6 @@ export default function SMSCustomerChatsPage() {
   };
 
   const hasActiveFilters = startDate || endDate;
-
-  const experienceConfig = customer ? getExperienceConfig(customer.experience) : null;
 
   const totalMessages = chatSessions.reduce((acc, s) => acc + s.messageCount, 0);
 
@@ -233,12 +202,6 @@ export default function SMSCustomerChatsPage() {
                   <FiPhone className="w-4 h-4" />
                   <span>+{customer?.waId || '...'}</span>
                 </span>
-                {experienceConfig && (
-                  <span className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium ${experienceConfig.bgColor} ${experienceConfig.textColor}`}>
-                    <experienceConfig.icon className="w-3 h-3" />
-                    {experienceConfig.label}
-                  </span>
-                )}
               </div>
             </div>
           </div>
