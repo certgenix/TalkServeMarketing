@@ -123,31 +123,31 @@ export default function SMSCustomerChatsPage() {
   }, [startDate, endDate, chatSessions]);
 
   const getMoodConfig = (mood: string) => {
-    const moodLower = mood.toLowerCase();
-    if (moodLower === 'positive' || moodLower === 'satisfied') {
-      return {
-        bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
-        textColor: 'text-emerald-700 dark:text-emerald-400',
-        borderColor: 'border-emerald-200 dark:border-emerald-800',
-        icon: FiTrendingUp,
-        label: mood
-      };
-    } else if (moodLower === 'negative' || moodLower === 'frustrated' || moodLower === 'angry') {
-      return {
-        bgColor: 'bg-red-50 dark:bg-red-900/20',
-        textColor: 'text-red-700 dark:text-red-400',
-        borderColor: 'border-red-200 dark:border-red-800',
-        icon: FiTrendingDown,
-        label: mood
-      };
-    } else {
-      return {
-        bgColor: 'bg-slate-50 dark:bg-slate-800',
-        textColor: 'text-slate-600 dark:text-slate-400',
-        borderColor: 'border-slate-200 dark:border-slate-700',
-        icon: FiMinus,
-        label: mood || 'Neutral'
-      };
+    switch (mood.toLowerCase()) {
+      case 'positive':
+        return {
+          bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
+          textColor: 'text-emerald-700 dark:text-emerald-400',
+          borderColor: 'border-emerald-200 dark:border-emerald-800',
+          icon: FiTrendingUp,
+          label: 'Positive'
+        };
+      case 'negative':
+        return {
+          bgColor: 'bg-red-50 dark:bg-red-900/20',
+          textColor: 'text-red-700 dark:text-red-400',
+          borderColor: 'border-red-200 dark:border-red-800',
+          icon: FiTrendingDown,
+          label: 'Negative'
+        };
+      default:
+        return {
+          bgColor: 'bg-slate-50 dark:bg-slate-800',
+          textColor: 'text-slate-600 dark:text-slate-400',
+          borderColor: 'border-slate-200 dark:border-slate-700',
+          icon: FiMinus,
+          label: 'Neutral'
+        };
     }
   };
 
