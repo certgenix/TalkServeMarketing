@@ -46,6 +46,11 @@ interface ChatSessionsResponse {
   };
 }
 
+interface ConversationResponse {
+  success: boolean;
+  messages: { id: string }[];
+}
+
 export default function SMSCustomerChatsPage() {
   const { user } = useAuth();
   const params = useParams();
@@ -61,6 +66,7 @@ export default function SMSCustomerChatsPage() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [actualMessageCounts, setActualMessageCounts] = useState<{ [date: string]: number }>({});
 
   useEffect(() => {
     async function fetchCustomerData() {
@@ -95,14 +101,39 @@ export default function SMSCustomerChatsPage() {
         
         const data: ChatSessionsResponse = await response.json();
         if (data.success) {
-          setChatSessions(data.sessions || []);
-          setFilteredSessions(data.sessions || []);
+          const sessions = data.sessions || [];
+          setChatSessions(sessions);
+          setFilteredSessions(sessions);
+          
+          await fetchActualMessageCounts(phone, sessions);
         }
       } catch (err) {
         console.error('Error fetching SMS chat sessions:', err);
       } finally {
         setLoading(false);
       }
+    }
+
+    async function fetchActualMessageCounts(phone: number, sessions: ChatSession[]) {
+      const counts: { [date: string]: number } = {};
+      
+      await Promise.all(
+        sessions.map(async (session) => {
+          try {
+            const response = await fetch(`/api/sms-conversations?phone=${phone}&date=${session.date}`);
+            if (response.ok) {
+              const data: ConversationResponse = await response.json();
+              if (data.success && data.messages) {
+                counts[session.date] = data.messages.length;
+              }
+            }
+          } catch (err) {
+            console.error(`Error fetching messages for date ${session.date}:`, err);
+          }
+        })
+      );
+      
+      setActualMessageCounts(counts);
     }
 
     fetchCustomerData();
@@ -176,7 +207,11 @@ export default function SMSCustomerChatsPage() {
 
   const hasActiveFilters = startDate || endDate;
 
-  const totalMessages = chatSessions.reduce((acc, s) => acc + s.messageCount, 0);
+  const getMessageCount = (session: ChatSession) => {
+    return actualMessageCounts[session.date] ?? session.messageCount;
+  };
+
+  const totalMessages = chatSessions.reduce((acc, s) => acc + getMessageCount(s), 0);
 
   return (
     <div className="space-y-6">
@@ -345,6 +380,7 @@ export default function SMSCustomerChatsPage() {
           {filteredSessions.map((session, index) => {
             const moodConfig = getMoodConfig(session.mood);
             const MoodIcon = moodConfig.icon;
+            const messageCount = getMessageCount(session);
             
             return (
               <div
@@ -372,7 +408,7 @@ export default function SMSCustomerChatsPage() {
                           </div>
                           <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-sm">
                             <FiMessageSquare className="w-3.5 h-3.5" />
-                            <span>{session.messageCount} message{session.messageCount !== 1 ? 's' : ''}</span>
+                            <span>{messageCount} message{messageCount !== 1 ? 's' : ''}</span>
                           </div>
                         </div>
                         
