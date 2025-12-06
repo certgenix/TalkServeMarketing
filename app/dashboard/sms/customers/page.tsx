@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
-import { FiSearch, FiLoader, FiAlertCircle, FiUsers, FiPhone, FiMessageCircle, FiChevronRight, FiFilter, FiUserPlus, FiPhoneCall, FiMessageSquare } from 'react-icons/fi';
+import { FiSearch, FiAlertCircle, FiUsers, FiPhone, FiMessageCircle, FiChevronRight, FiUserPlus, FiPhoneCall, FiMessageSquare } from 'react-icons/fi';
 
 interface Customer {
   id: string;
@@ -22,8 +22,6 @@ interface ApiResponse {
   };
 }
 
-type FilterType = 'all' | 'positive' | 'negative' | 'neutral';
-
 export default function SMSCustomersPage() {
   const { user } = useAuth();
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -31,8 +29,6 @@ export default function SMSCustomersPage() {
   const [fetchingCustomers, setFetchingCustomers] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [experienceFilter, setExperienceFilter] = useState<FilterType>('all');
-  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     async function fetchCustomers() {
@@ -72,44 +68,8 @@ export default function SMSCustomersPage() {
       );
     }
 
-    if (experienceFilter !== 'all') {
-      filtered = filtered.filter(
-        (customer) => customer.experience.toLowerCase() === experienceFilter
-      );
-    }
-
     setFilteredCustomers(filtered);
-  }, [searchQuery, experienceFilter, customers]);
-
-  const getExperienceBadgeColor = (experience: string) => {
-    switch (experience.toLowerCase()) {
-      case 'positive':
-        return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800';
-      case 'negative':
-        return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800';
-      case 'neutral':
-      default:
-        return 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600';
-    }
-  };
-
-  const getExperienceIcon = (experience: string) => {
-    switch (experience.toLowerCase()) {
-      case 'positive':
-        return '😊';
-      case 'negative':
-        return '😞';
-      default:
-        return '😐';
-    }
-  };
-
-  const stats = {
-    total: customers.length,
-    positive: customers.filter(c => c.experience.toLowerCase() === 'positive').length,
-    negative: customers.filter(c => c.experience.toLowerCase() === 'negative').length,
-    neutral: customers.filter(c => c.experience.toLowerCase() === 'neutral').length,
-  };
+  }, [searchQuery, customers]);
 
   if (fetchingCustomers) {
     return (
@@ -259,69 +219,6 @@ export default function SMSCustomersPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          <button
-            onClick={() => setExperienceFilter('all')}
-            className={`p-4 rounded-xl transition-all ${
-              experienceFilter === 'all' 
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
-                : 'bg-white dark:bg-slate-800 hover:shadow-md'
-            }`}
-          >
-            <div className={`text-2xl font-bold ${experienceFilter === 'all' ? 'text-white' : 'text-gray-900 dark:text-white'}`}>
-              {stats.total}
-            </div>
-            <div className={`text-xs ${experienceFilter === 'all' ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'}`}>
-              All Customers
-            </div>
-          </button>
-          <button
-            onClick={() => setExperienceFilter('positive')}
-            className={`p-4 rounded-xl transition-all ${
-              experienceFilter === 'positive' 
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25' 
-                : 'bg-white dark:bg-slate-800 hover:shadow-md'
-            }`}
-          >
-            <div className={`text-2xl font-bold ${experienceFilter === 'positive' ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
-              {stats.positive}
-            </div>
-            <div className={`text-xs ${experienceFilter === 'positive' ? 'text-emerald-100' : 'text-gray-500 dark:text-gray-400'}`}>
-              Positive
-            </div>
-          </button>
-          <button
-            onClick={() => setExperienceFilter('neutral')}
-            className={`p-4 rounded-xl transition-all ${
-              experienceFilter === 'neutral' 
-                ? 'bg-slate-600 text-white shadow-lg shadow-slate-600/25' 
-                : 'bg-white dark:bg-slate-800 hover:shadow-md'
-            }`}
-          >
-            <div className={`text-2xl font-bold ${experienceFilter === 'neutral' ? 'text-white' : 'text-slate-600 dark:text-slate-400'}`}>
-              {stats.neutral}
-            </div>
-            <div className={`text-xs ${experienceFilter === 'neutral' ? 'text-slate-200' : 'text-gray-500 dark:text-gray-400'}`}>
-              Neutral
-            </div>
-          </button>
-          <button
-            onClick={() => setExperienceFilter('negative')}
-            className={`p-4 rounded-xl transition-all ${
-              experienceFilter === 'negative' 
-                ? 'bg-red-600 text-white shadow-lg shadow-red-600/25' 
-                : 'bg-white dark:bg-slate-800 hover:shadow-md'
-            }`}
-          >
-            <div className={`text-2xl font-bold ${experienceFilter === 'negative' ? 'text-white' : 'text-red-600 dark:text-red-400'}`}>
-              {stats.negative}
-            </div>
-            <div className={`text-xs ${experienceFilter === 'negative' ? 'text-red-100' : 'text-gray-500 dark:text-gray-400'}`}>
-              Negative
-            </div>
-          </button>
-        </div>
-
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -349,10 +246,10 @@ export default function SMSCustomersPage() {
               No customers match your current search or filter criteria.
             </p>
             <button 
-              onClick={() => { setSearchQuery(''); setExperienceFilter('all'); }}
+              onClick={() => setSearchQuery('')}
               className="px-6 py-2.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors font-medium"
             >
-              Clear Filters
+              Clear Search
             </button>
           </div>
         ) : (
@@ -366,9 +263,6 @@ export default function SMSCustomersPage() {
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                       Phone Number
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Experience
                     </th>
                     <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                       Actions
@@ -393,12 +287,6 @@ export default function SMSCustomersPage() {
                           <FiPhone className="w-4 h-4" />
                           <span>+{customer.waId}</span>
                         </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full ${getExperienceBadgeColor(customer.experience)}`}>
-                          <span>{getExperienceIcon(customer.experience)}</span>
-                          {customer.experience}
-                        </span>
                       </td>
                       <td className="px-6 py-4 text-right">
                         <Link
@@ -426,12 +314,7 @@ export default function SMSCustomersPage() {
                     {customer.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-gray-900 dark:text-white truncate">{customer.name}</h3>
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full ${getExperienceBadgeColor(customer.experience)}`}>
-                        {getExperienceIcon(customer.experience)}
-                      </span>
-                    </div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white truncate mb-1">{customer.name}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
                       <FiPhone className="w-3 h-3" />
                       +{customer.waId}
