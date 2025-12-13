@@ -4,9 +4,10 @@ import { ReactNode } from "react";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import { DarkModeProvider } from "@/components/DarkModeProvider";
+import { AuthProvider } from "@/contexts/AuthContext";
 import VoiceflowWidget from "@/components/VoiceflowWidget";
-import WhatsAppWidget from "@/components/WhatsAppWidget";
 import { VoiceAgentProvider } from "@/components/VoiceAgentContext";
 
 const inter = Inter({
@@ -41,15 +42,17 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <DarkModeProvider>
-          <VoiceAgentProvider>
-            <Header />
-            <main className="min-h-screen pt-16">
-              {children}
-            </main>
-            <Footer />
-            <WhatsAppWidget />
-            <VoiceflowWidget />
-          </VoiceAgentProvider>
+          <AuthProvider>
+            <VoiceAgentProvider>
+              <Header />
+              <main className="min-h-screen pt-16">
+                {children}
+              </main>
+              <Footer />
+              <CookieConsent />
+              <VoiceflowWidget />
+            </VoiceAgentProvider>
+          </AuthProvider>
         </DarkModeProvider>
       </body>
     </html>

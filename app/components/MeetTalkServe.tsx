@@ -6,12 +6,12 @@ import { HiCheckCircle, HiPhone } from 'react-icons/hi';
 import { useVoiceAgent } from '@/components/VoiceAgentContext';
 
 const features = [
-  'Answers instantly — no hold music or voicemail.',
-  'Books & takes orders — syncs with your calendar, booking app, or POS.',
-  'Handles FAQs — services, hours, prices, menus, directions.',
-  'Confirms & reminds — automated texts and emails cut no-shows.',
-  'Routes priority calls — urgent cases go directly to your team.',
-  'Works 24/7/365 — peak hours, weekends, holidays.',
+  'Answers instantly — no hold music, no voicemail, no missed texts or WhatsApp messages.',
+  'Books & takes orders — syncs with your calendar, booking app, or POS across all channels.',
+  'Handles FAQs — services, hours, prices, menus, directions — by call, SMS, or WhatsApp.',
+  'Confirms & reminds — automated SMS/WhatsApp reminders cut no-shows and missed appointments.',
+  'Routes priority cases — urgent calls or messages go directly to your team.',
+  'Works 24/7/365 — peak hours, weekends, holidays, and after-hours coverage.',
 ];
 
 export default function MeetTalkServe() {
@@ -25,7 +25,7 @@ export default function MeetTalkServe() {
             Meet TalkServe
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-300">
-            Your AI receptionist that never sleeps.
+            Your AI receptionist for Voice, SMS & WhatsApp — available 24/7.
           </p>
         </AnimatedSection>
 

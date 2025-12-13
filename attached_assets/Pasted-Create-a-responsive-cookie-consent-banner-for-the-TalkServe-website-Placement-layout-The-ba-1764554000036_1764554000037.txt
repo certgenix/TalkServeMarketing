@@ -1,0 +1,71 @@
+Create a responsive cookie consent banner for the TalkServe website.
+
+Placement & layout
+
+The banner should appear at the bottom of the page on all devices.
+
+It must be fully responsive and look good on both mobile (small screens) and desktop.
+
+On mobile, the text and buttons can stack vertically.
+
+Use a clean, modern style suitable for a premium SaaS product: light background, subtle shadow, rounded corners, system font.
+
+Banner content
+
+Small title: “Cookies on TalkServe”
+
+Main text:
+“We use cookies to improve your experience and understand basic site usage. You can accept all, continue with only essential cookies, or customize your preferences. For more details, see our Privacy Policy.”
+
+Include a small text link “Privacy Policy” that points to /privacy.
+
+Buttons (visible on the banner)
+
+Button 1 (primary): “Accept All”
+
+Button 2 (secondary): “Essential Only”
+
+Button 3 (ghost/outline): “Customize”
+
+Behavior & localStorage
+
+On Accept All → save cookieConsent = "all" in localStorage, hide the banner.
+
+On Essential Only → save cookieConsent = "essential" in localStorage, hide the banner.
+
+On Customize → open a small panel or modal attached to the banner.
+
+Customize panel content
+
+Short heading: “Choose your cookie settings”
+
+Short description: “You can enable or disable non-essential cookies. Essential cookies are always on so TalkServe works correctly.”
+
+Include 2–3 toggles with labels:
+
+“Analytics cookies (help us understand how TalkServe is used)”
+
+“Performance cookies (help improve reliability and speed)”
+
+“Essential cookies (required for core site features, always on)” — this one should be shown as on/checked and disabled.
+
+Add a note under the toggles:
+“TalkServe does not use cookies for advertising.”
+
+Add a “Save Preferences” button.
+
+Customize panel behavior
+
+When the user clicks Save Preferences, store their choices in localStorage as:
+
+cookieConsent = "custom"
+
+cookiePreferences = { analytics: true/false, performance: true/false, essential: true }
+
+After saving, hide the banner.
+
+Do not show again
+
+On page load, check localStorage for cookieConsent.
+
+If cookieConsent already exists ( "all", "essential", or "custom" ), do not show the banner again.

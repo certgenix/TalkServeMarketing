@@ -16,9 +16,9 @@ export default function ContactPage() {
   return (
     <>
       <HeroSection
-        title="Let's"
-        highlightedText="get in touch"
-        description="Have questions? Want to see a demo? We're here to help."
+        title="Let's talk about your"
+        highlightedText="calls, texts & WhatsApp"
+        description="Have questions? Want a demo? Our team is here to help you explore the best way to use TalkServe for your business."
         imagePath="/images/heroes/Customer_service_communication_3a46d4c0.png"
         imageAlt="Customer service communication"
       >

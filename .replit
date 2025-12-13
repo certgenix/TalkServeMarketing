@@ -92,3 +92,13 @@ externalPort = 8099
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN = "talkserve.firebaseapp.com"
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["npm", "run", "start"]
+build = ["npm", "run", "build"]

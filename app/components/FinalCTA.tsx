@@ -20,11 +20,11 @@ export default function FinalCTA() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-6">
-            Ready to stop missing calls?
+            Ready to stop missing calls, texts, and WhatsApp messages?
           </h2>
           
           <p className="text-xl text-blue-100 mb-10">
-            Join hundreds of businesses that never miss a customer.
+            Join hundreds of businesses that never miss a customer — on any channel.
           </p>
           
           <div className="flex justify-center">

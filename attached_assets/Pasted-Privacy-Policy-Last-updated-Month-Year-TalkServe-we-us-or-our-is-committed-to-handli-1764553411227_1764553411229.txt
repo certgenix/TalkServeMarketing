@@ -1,0 +1,95 @@
+Privacy Policy
+
+Last updated: [Month, Year]
+
+TalkServe (“we,” “us,” or “our”) is committed to handling your information responsibly. This Privacy Policy explains, in simple terms, what information we collect and how we use it when you interact with our website, services, or AI-powered communication tools.
+
+If you have any questions, you can contact us anytime at support@talkserve.ai
+.
+
+1. Information We Collect
+
+We collect only the information needed to provide and improve our services.
+
+Information you provide
+
+Contact details (such as name, email, phone number) when you reach out or sign up.
+
+Business information you choose to share so we can configure your TalkServe agent.
+
+Information generated through use
+
+Call, text, or message logs created when your AI agent interacts with customers.
+
+Technical data such as IP address, browser type, and device information.
+
+Usage metrics that help us understand performance and reliability.
+
+Customer conversation content
+
+Conversations handled by your TalkServe agent (voice, SMS, WhatsApp) may be processed so the system can respond accurately.
+We do not use your customer conversations to train public models.
+
+2. How We Use Information
+
+We use collected information to:
+
+Provide and maintain TalkServe services
+
+Set up and customize your AI agent
+
+Improve accuracy, reliability, and performance
+
+Communicate with you about updates or support
+
+Maintain security and prevent misuse
+
+We do not sell your personal information.
+
+3. How We Share Information
+
+We share information only when necessary to operate our service:
+
+With trusted service providers (e.g., cloud hosting, telecommunications, AI infrastructure)
+
+If required by law or to protect the safety of our users and platform
+
+We do not share information with marketers or unrelated third parties.
+
+4. Data Storage & Retention
+
+Data is stored securely using reputable third-party cloud providers.
+
+We retain information only for as long as needed to provide services or meet legal requirements.
+
+You may contact us if you would like to request deletion of certain information.
+
+5. Security
+
+We take reasonable measures—technical and administrative—to protect information from unauthorized access or misuse.
+No system is perfectly secure, but we continuously work to maintain a safe environment.
+
+6. Your Choices
+
+You can:
+
+Request corrections to your account information
+
+Request deletion of account data where applicable
+
+Opt out of non-essential communications
+
+For any request, email support@talkserve.ai
+.
+
+7. Changes to This Policy
+
+We may update this Privacy Policy from time to time.
+If changes are significant, we will post an updated version on this page.
+
+8. Contact Us
+
+If you have questions or concerns about this Privacy Policy, please contact:
+
+TalkServe
+Email: support@talkserve.ai

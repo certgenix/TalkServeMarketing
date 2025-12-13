@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HiMenu, HiX, HiMoon, HiSun } from 'react-icons/hi';
 import { useTheme } from './DarkModeProvider';
+import { useAuth } from '@/contexts/AuthContext';
+import UserProfile from './auth/UserProfile';
 import LogoIcon from './LogoIcon';
 import clsx from 'clsx';
 
@@ -30,13 +32,18 @@ export default function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { user, loading } = useAuth();
+
+  const isDashboard = pathname?.startsWith('/dashboard');
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 10);
       
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      if (isDashboard) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setVisible(false);
       } else {
         setVisible(true);
@@ -46,7 +53,7 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, isDashboard]);
 
   return (
     <header
@@ -125,19 +132,29 @@ export default function Header() {
               )}
             </button>
 
-            <Link
-              href="/login"
-              className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
-            >
-              Login
-            </Link>
+            {loading ? (
+              <div className="hidden md:block w-8 h-8 animate-pulse bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+            ) : user ? (
+              <div className="hidden md:block">
+                <UserProfile />
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/signin"
+                  className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
+                >
+                  Login
+                </Link>
 
-            <Link
-              href="/register"
-              className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Register
-            </Link>
+                <Link
+                  href="/signup"
+                  className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Register
+                </Link>
+              </>
+            )}
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -194,20 +211,28 @@ export default function Header() {
               )
             ))}
             <div className="px-3 mt-4 space-y-2">
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary text-center"
-              >
-                Login
-              </Link>
-              <Link
-                href="/register"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg text-center"
-              >
-                Register
-              </Link>
+              {loading ? (
+                <div className="w-full h-10 animate-pulse bg-slate-200 dark:bg-slate-700 rounded-lg"></div>
+              ) : user ? (
+                <UserProfile />
+              ) : (
+                <>
+                  <Link
+                    href="/signin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary text-center"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg text-center"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
